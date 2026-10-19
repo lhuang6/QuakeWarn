@@ -2,6 +2,8 @@
 
 #include <cs50.h>
 #include <stdio.h>
+#include "cJSON.h"
+#include <curl/curl.h>
 
 int main(int argc, char *argv[]) {
     printf("Hello, World!");
