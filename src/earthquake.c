@@ -1,3 +1,4 @@
-// For sorting the earthquakes from usgs_api
+// Reading and sorting earthquake data from USGS
 
 #include "earthquakes.h"
+#include "cJSON.h"
