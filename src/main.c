@@ -1,5 +1,9 @@
 // Main file
 
-int main(int argc, char *argv) {
+#include "earthquake.h"
+#include "http.h"
+#include "shelters.h"
 
+int main(int argc, char *argv) {
+    
 }
