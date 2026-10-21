@@ -2,16 +2,18 @@
 C Program that sorts strongest earthquakes from USGS and looks for nearby shelters.
 
 ---
-## How to Run and Edit
+## How to Edit
 First, open up VSCode on the cs50.dev website to open up the CS50 computer. When you first enter CS50, it defaults to opening up a random folder with
 a bunch of numbers. This folder is basically a different GitHub repository that automatically updates, so normally, all of your work can be saved to be
 submitted to Harvard. To get to the actual computer, run:
+
 ```bash
 cd workspaces
 ```
 
 Now that you are in the folder outside, you are free to do whatever you like with CS50's virtual machine. Run "git clone" followed by the git link that you
 can find on the green code dropdown button at the top. Example:
+
 ```bash
 git clone https://github.com/lhuang6/QuakeWarn.git
 ```
@@ -26,6 +28,8 @@ git commit -m "Editing Main File"
 git push
 ```
 
+---
+## How to Download Libcurl
 To download libcurl (a third party library), run
 ```bash
 sudo update
