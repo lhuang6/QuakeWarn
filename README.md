@@ -1,7 +1,6 @@
 # QuakeWarn
 C Program that sorts strongest earthquakes from USGS and looks for nearby shelters.
 
----
 ## How to Edit
 First, open up VSCode on the cs50.dev website to open up the CS50 computer. When you first enter CS50, it defaults to opening up a random folder with
 a bunch of numbers. This folder is basically a different GitHub repository that automatically updates, so normally, all of your work can be saved to be
@@ -28,7 +27,6 @@ git commit -m "Editing Main File"
 git push
 ```
 
----
 ## How to Download Libcurl
 To download libcurl (a third party library), run
 ```bash
