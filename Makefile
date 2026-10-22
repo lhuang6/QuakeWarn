@@ -21,7 +21,7 @@ SRC = $(wildcard src/*.c) third-party/cJSON/cJSON.c
 # All intermediate .o files (switching source code files ending to .o)
 OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC))
 
-# Default condition for 
+# Default condition
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
