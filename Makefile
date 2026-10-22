@@ -1,3 +1,6 @@
+# PROJECT MAKE FILE
+#
+
 CC = clang
 CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON
 
