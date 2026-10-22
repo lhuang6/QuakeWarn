@@ -4,7 +4,12 @@
 # Defining Variables
 # ------------------
 
+# Linux compiler
 CC = clang
+
+# Important flags to include when compiling
+# Adding all and extra warnings
+# Including include
 CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON
 
 BUILD_DIR = build
