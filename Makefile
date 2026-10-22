@@ -12,8 +12,8 @@ CC = clang
 # Including include
 CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON
 
-BUILD_DIR = build
-TARGET = quakewarn
+BUILD_DIR = build # New directory where all the compiled files go
+TARGET = quakewarn # 
 
 SRC = $(wildcard src/*.c) third-party/cJSON/cJSON.c
 OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC))
