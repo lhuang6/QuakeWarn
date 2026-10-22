@@ -13,11 +13,15 @@ CC = clang
 CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON
 
 BUILD_DIR = build # New directory where all the compiled files go
-TARGET = quakewarn # 
+TARGET = quakewarn # Name of the compiled binary code
 
+# All source code
 SRC = $(wildcard src/*.c) third-party/cJSON/cJSON.c
+
+# All intermediate .o files (switching source code files ending to .o)
 OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC))
 
+# Default condition for 
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
