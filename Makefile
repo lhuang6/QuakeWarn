@@ -1,5 +1,8 @@
 # PROJECT MAKE FILE
 #
+# ------------------
+# Defining Variables
+# ------------------
 
 CC = clang
 CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON
