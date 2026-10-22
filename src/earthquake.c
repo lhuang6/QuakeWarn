@@ -1,4 +1,4 @@
 // Reading and sorting earthquake data from USGS
 
-#include "earthquakes.h"
+#include "earthquake.h"
 #include "cJSON.h"
