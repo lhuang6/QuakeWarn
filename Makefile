@@ -24,18 +24,23 @@ OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC))
 # Default condition
 all: $(TARGET)
 
+# Compiling intermediate object files into final binary
 $(TARGET): $(OBJ)
 	$(CC) $(OBJ) -o $(TARGET)
 
+# Creating all object files
+# Making all directories and intermediate directories (src) in build
+# Compiling them into the build folder (-o $@)
 $(BUILD_DIR)/%.o: %.c
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	rm -rf $(BUILD_DIR) $(TARGET)
-
+# Ignoring any files named all or clean
 .PHONY: all clean
 
+# -------------
+# Make Testfile
+# -------------
 TEST_TARGET = test_json
 TEST_SRC = tests/test.c
 TEST_OBJ = build/tests/test.o
@@ -51,3 +56,7 @@ test: $(TEST_TARGET)
 	./$(TEST_TARGET)
 
 .PHONY: test
+
+# Cleaning project by deleting all binaries
+clean:
+	rm -rf $(BUILD_DIR) $(TARGET) $(TEST_TARGET)
