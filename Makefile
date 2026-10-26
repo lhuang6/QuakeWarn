@@ -12,8 +12,14 @@ CC = clang
 # Including include
 CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON
 
-BUILD_DIR = build # New directory where all the compiled files go
-TARGET = quakewarn # Name of the compiled binary code
+# Local libraries to include
+LDLIBS = -lcurl
+
+# New directory where all the compiled files go
+BUILD_DIR = build
+
+# Name of the compiled binary code
+TARGET = quakewarn
 
 # All source code
 SRC = $(wildcard src/*.c) third-party/cJSON/cJSON.c
@@ -26,7 +32,7 @@ all: $(TARGET)
 
 # Compiling intermediate object files into final binary
 $(TARGET): $(OBJ)
-	$(CC) $(OBJ) -o $(TARGET)
+	$(CC) $(OBJ) -o $(TARGET) $(LDLIBS)
 
 # Creating all object files
 # Making all directories and intermediate directories (src) in build
@@ -46,7 +52,7 @@ TEST_SRC = tests/test.c
 TEST_OBJ = build/tests/test.o
 
 $(TEST_TARGET): $(TEST_OBJ) build/third-party/cJSON/cJSON.o
-	$(CC) $^ -o $@
+	$(CC) $^ -o $@ $(LDLIBS)
 
 build/tests/%.o: tests/%.c
 	mkdir -p $(dir $@)
