@@ -138,6 +138,7 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     fclose(jsonDiskFile);
 
     // Cleaning up curl globally and the easy instance
+    //
     curl_easy_cleanup(curl);
     curl_global_cleanup();
 }
