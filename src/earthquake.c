@@ -141,7 +141,3 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_easy_cleanup(curl);
     curl_global_cleanup();
 }
-
-void testJson() {
-    
-}
