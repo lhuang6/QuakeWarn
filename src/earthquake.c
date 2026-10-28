@@ -179,8 +179,21 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
 }
 
 /**
- * Loads the earthquakes data from the earthquake files
+ * Loads the earthquakes data from the earthquake files and prints out all of the data.
+ * This also serves as a check for the data's readability or not.
  *
+ * Parameters:
+ *     time: Time period of the earthquakes, of datatype enum DataTime
+ *          - ALL_HOUR = One hour
+ *          - ALL_DAY = One day
+ *          - ALL_WEEK = Seven days
+ *          - ALL_MONTH = Thirty days
+ *     magnitude: Minimum magnitude included in the data
+ *          - SIGNIFICANT = Significant earthquakes or 7.5+
+ *          - M4_5 = Magnitude 4.5+
+ *          - M2_5 = Magnitude 2.5+
+ *          - M1_0 = Magnitude 1.0+
+ *          - ALL = All earthquakes
 */
 void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
     // JsonData struct that stores the download link and path to JSON file
@@ -256,7 +269,22 @@ void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
     cJSON_Delete(json);
 }
 
-// Polls (or refreshes) the data every increment of time given
+/**
+ * Updates the JSON data every one minute for new earthquakes
+ *
+ * Parameters:
+ *     time: Time period of the earthquakes, of datatype enum DataTime
+ *          - ALL_HOUR = One hour
+ *          - ALL_DAY = One day
+ *          - ALL_WEEK = Seven days
+ *          - ALL_MONTH = Thirty days
+ *     magnitude: Minimum magnitude included in the data
+ *          - SIGNIFICANT = Significant earthquakes or 7.5+
+ *          - M4_5 = Magnitude 4.5+
+ *          - M2_5 = Magnitude 2.5+
+ *          - M1_0 = Magnitude 1.0+
+ *          - ALL = All earthquakes
+*/
 void pollEarthquake(enum dataTime time, enum DataMagnitude magnitude){
 
     // Fix later to stop once program is turned off
@@ -267,9 +295,9 @@ void pollEarthquake(enum dataTime time, enum DataMagnitude magnitude){
         downloadJson(time, magnitude);
 
         printf("Loading earthquake data...\n");
-
         loadEarthquakes();
 
+        // Waits 60 seconds to poll again
         sleep(60);
     }
 }
