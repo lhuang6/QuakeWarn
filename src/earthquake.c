@@ -142,3 +142,54 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_global_cleanup();
 }
 
+void SortingFromMag(){
+    FILE *twodays = fopen("data/all_day.geojson","r");
+    if (twodays == NULL) {
+        printf("Error: Unable to open the file.\n");
+        return;
+    }
+    char line[500000];
+    size_t bytesRead = fread(line, 1, sizeof(line)-1, twodays);
+    line[bytesRead] = '\0';
+    cJSON *json = cJSON_Parse(line);
+    if (json == NULL) {
+        printf("Parse failed\n");
+        return;
+    }
+
+    cJSON *features = cJSON_GetObjectItemCaseSensitive(json, "features");
+    if (json == NULL) {
+        printf("features not found\n");
+        return;
+    }
+    cJSON *feature = cJSON_GetArrayItem(features, 0);
+    if (features == NULL) {
+        printf("features not found\n");
+        return;
+    }
+    cJSON *properties = cJSON_GetObjectItemCaseSensitive(feature, "properties");
+    if (feature == NULL) {
+        printf("feature not found\n");
+        return;
+    }
+    cJSON *magnitude =cJSON_GetObjectItemCaseSensitive(properties, "mag");
+    if (properties == NULL) {
+        printf("properties not found\n");
+        return;
+    }
+    if (magnitude == NULL) {
+        printf("Magnitude not found\n");
+        return;
+    }
+    printf("%f", magnitude -> valuedouble);
+    /*if (cJSON_IsD(mag) && (mag->valuestring != NULL)) {
+        printf("Name: %s\n", mag->valuestring);
+    }
+    cJSON */
+
+}
+
+void test() {
+    printf("Example\n");
+}
+
