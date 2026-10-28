@@ -5,8 +5,66 @@
 #include "earthquake.h"
 #include "cJSON.h"
 
-char* enumToLink(enum DataTime time, enum DataMagnitude) {
-    
+char enumToLink(enum DataTime time, enum DataMagnitude) {
+    // Characters used in the GeoJSON link based on time-period and minimum magnitude
+    char const *timeLink;   // Characters used for the time-period
+    char const *magLink;    // Characters used for the minimum magnitude
+
+    // Defining the characters used for the time-period
+    // Defines for each enum DataTime
+    switch(time) {
+        case ALL_HOUR:
+            timeLink = "hour";
+            break;
+        case ALL_DAY:
+            timeLink = "day";
+            break;
+        case ALL_WEEK:
+            timeLink = "week";
+            break;
+        case ALL_MONTH:
+            timeLink = "month";
+            break;
+        // Defaults to one day
+        default:
+            timeLink = "day";
+    }
+
+    // Defining the characters used for the minimum magnitude
+    // Defines for each enum DataMagnitude
+    switch(magnitude) {
+        case SIGNIFICANT:
+            magLink = "significant";
+            break;
+        case M4_5:
+            magLink = "4.5";
+            break;
+        case M2_5:
+            magLink = "2.5";
+            break;
+        case M1_0:
+            magLink = "1.0";
+            break;
+        case ALL:
+            magLink = "all";
+            break;
+        // Defaults to all magnitude earthquakes
+        default:
+            magLink = "all";
+            break;
+    }
+
+    // Name of the file on the USGS website
+    char jsonFileName[100];
+    snprintf(jsonFileName, sizeof(jsonFileName), "%s_%s.geojson", magLink, timeLink);
+
+    // Where the data is going to be downloaded in
+    char jsonDiskName[100];
+    snprintf(jsonDiskName, sizeof(jsonDiskName), "data/%s", jsonFileName);
+
+    // Full link to the GeoJSON data
+    char jsonLink[100];
+    snprintf(jsonLink, sizeof(jsonLink), "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/%s", jsonFileName);
 }
 
 /**
