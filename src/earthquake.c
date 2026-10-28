@@ -240,11 +240,8 @@ void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
         // features of the different earthquakes such as
         // the properties, place, and magnitude
         cJSON *feature = cJSON_GetArrayItem(features, i);
-
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
-
         cJSON *place = cJSON_GetObjectItem(properties, "place");
-
         cJSON *mag = cJSON_GetObjectItem(properties, "mag");
 
         // Processes all information and spits it out
@@ -255,7 +252,7 @@ void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
         printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
     }
 
-    //Delete the file at the end
+    // Delete the file at the end
     cJSON_Delete(json);
 }
 
