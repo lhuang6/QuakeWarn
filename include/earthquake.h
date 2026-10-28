@@ -37,21 +37,6 @@ typedef struct {
     char jsonLink[200];     // Link to the JSON file to download
 } JsonData;
 
-
-// All the major important parts of the earthquake data to update when polling
-typedef struct
-{
-    char id[64];
-    char place[256];
-
-    double magnitude;
-
-    double latitude;
-    double longitude;
-    double depth;
-
-} Earthquake;
-
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
 void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
