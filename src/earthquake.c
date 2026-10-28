@@ -142,6 +142,11 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_global_cleanup();
 }
 
+typedef struct {
+    double mag;
+    cJSON *data;
+} Magnitude;
+
 void SortingFromMag(){
     FILE *twodays = fopen("data/all_day.geojson","r");
     if (twodays == NULL) {
@@ -163,6 +168,9 @@ void SortingFromMag(){
         printf("features not found\n");
         return;
     }
+    Magnitude earthquakes[500];
+    int count = 0;
+
     for (int i = 0; i < cJSON_GetArraySize(features); i++)
     {
         cJSON *feature = cJSON_GetArrayItem(features, i);
@@ -173,12 +181,41 @@ void SortingFromMag(){
         cJSON *magnitude =
             cJSON_GetObjectItemCaseSensitive(properties, "mag");
 
-        printf("%f\n", magnitude->valuedouble);
+        earthquakes[count].mag =
+            magnitude->valuedouble;
+
+        earthquakes[count].data =
+            feature;
+
+        count++;
     }
-    /*if (cJSON_IsD(mag) && (mag->valuestring != NULL)) {
-        printf("Name: %s\n", mag->valuestring);
+    for (int i = 0; i < count - 1; i++)
+    {
+        for (int j = i + 1; j < count; j++)
+        {
+            if (earthquakes[j].mag <
+                earthquakes[i].mag)
+            {
+                Magnitude temp =
+                    earthquakes[i];
+
+                earthquakes[i] =
+                    earthquakes[j];
+
+                earthquakes[j] =
+                    temp;
+            }
+        }
     }
-    cJSON */
+    for (int i = 0; i < count; i++)
+    {
+        char *text =
+            cJSON_Print(earthquakes[i].data);
+
+        printf("%s\n\n", text);
+
+        free(text);
+    }
 
 }
 
