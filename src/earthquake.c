@@ -163,27 +163,18 @@ void SortingFromMag(){
         printf("features not found\n");
         return;
     }
-    for (int i = 0; i < )
-    cJSON *feature = cJSON_GetArrayItem(features, i);
-    if (features == NULL) {
-        printf("features not found\n");
-        return;
+    for (int i = 0; i < cJSON_GetArraySize(features); i++)
+    {
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+
+        cJSON *properties =
+            cJSON_GetObjectItemCaseSensitive(feature, "properties");
+
+        cJSON *magnitude =
+            cJSON_GetObjectItemCaseSensitive(properties, "mag");
+
+        printf("%f\n", magnitude->valuedouble);
     }
-    cJSON *properties = cJSON_GetObjectItemCaseSensitive(feature, "properties");
-    if (feature == NULL) {
-        printf("feature not found\n");
-        return;
-    }
-    cJSON *magnitude =cJSON_GetObjectItemCaseSensitive(properties, "mag");
-    if (properties == NULL) {
-        printf("properties not found\n");
-        return;
-    }
-    if (magnitude == NULL) {
-        printf("Magnitude not found\n");
-        return;
-    }
-    printf("%f", magnitude -> valuedouble);
     /*if (cJSON_IsD(mag) && (mag->valuestring != NULL)) {
         printf("Name: %s\n", mag->valuestring);
     }
