@@ -41,8 +41,8 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
 void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
 
-void loadEarthquakes();
+void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
-void pullEarthquakes();
+void pullEarthquakes(enum dataTime time, enum DataMagnitude magnitude);
 
 #endif

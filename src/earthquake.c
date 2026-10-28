@@ -77,23 +77,17 @@ JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude) {
             break;
     }
 
-    // Name of the file on the USGS website
-    char jsonFileName[100];
-    snprintf(jsonFileName, sizeof(jsonFileName), "%s_%s.geojson", magLink, timeLink);
-
-    // Where the data is going to be downloaded in
-    char jsonDiskName[100];
-    snprintf(jsonDiskName, sizeof(jsonDiskName), "data/%s", jsonFileName);
-
-    // Full link to the GeoJSON data
-    char jsonLink[200];
-    snprintf(jsonLink, sizeof(jsonLink), "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/%s", jsonFileName);
-
     // Putting all links and paths inside the JsonData struct
     JsonData data;
-    data.jsonFileName = jsonFileName;
-    data.jsonDiskName = jsonDiskName;
-    data.jsonLink = jsonLink;
+
+    // Name of the file on the USGS website
+    snprintf(data.jsonFileName, sizeof(data.jsonFileName), "%s_%s.geojson", magLink, timeLink);
+
+    // Where the data is going to be downloaded in
+    snprintf(data.jsonDiskName, sizeof(data.jsonDiskName), "data/%s", data.jsonFileName);
+
+    // Full link to the GeoJSON data
+    snprintf(data.jsonLink, sizeof(data.jsonLink), "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/%s", data.jsonFileName);
 
     return data;
 }
