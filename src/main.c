@@ -11,5 +11,8 @@ int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
     downloadJson(ALL_DAY, ALL);
+
+    // Polls earthquakes
+    pollEarthquakes();
     return 0;
 }

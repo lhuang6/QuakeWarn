@@ -32,6 +32,24 @@ enum DataMagnitude {
     ALL
 };
 
+// All the major important parts of the earthquake data to update when polling
+// M4_5 = Magnitude 4.5+
+// M2_5 = Magnitude 2.5+
+// M1_0 = Magnitude 1.0+
+// ALL = All earthquakes
+typedef struct
+{
+    char id[64];
+    char place[256];
+
+    double magnitude;
+
+    double latitude;
+    double longitude;
+    double depth;
+
+} Earthquake;
+
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
 void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
