@@ -143,20 +143,22 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_global_cleanup();
 }
 
-typedef struct {    //created this struct to made both the magnitude, the entire cJSON which into an one setting
+typedef struct {    //created this struct to made both the magnitude, the entire cJSON which into an one setting to print everything all at once
     double mag;
     cJSON *data;
-} Magnitude;
+} Magnitude;        //defined the struct as Magnitude
 
 void SortingFromMag(){
-    FILE *twodays = fopen("data/all_day.geojson","r");//
-    if (twodays == NULL) {
+    //To open the FILE(Used to work and sort w files) named all_day.geojson and called it twodays
+    FILE *twodays = fopen("data/all_day.geojson","r");
+    if (twodays == NULL) {  //To see if the geojson filder can open or not, if there is nothing then its null
         printf("Error: Unable to open the file.\n");
         return;
     }
+    //I ha
     char line[500000];
     size_t bytesRead = fread(line, 1, sizeof(line)-1, twodays);
-    printf("%.200s\n", line);
+
     line[bytesRead] = '\0';
     cJSON *json = cJSON_Parse(line);
     if (json == NULL) {
