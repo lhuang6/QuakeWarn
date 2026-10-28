@@ -5,7 +5,7 @@
 #include "earthquake.h"
 #include "cJSON.h"
 
-char enumToLink(enum DataTime time, enum DataMagnitude) {
+char[3][100] enumToLink(enum DataTime time, enum DataMagnitude) {
     // Characters used in the GeoJSON link based on time-period and minimum magnitude
     char const *timeLink;   // Characters used for the time-period
     char const *magLink;    // Characters used for the minimum magnitude
@@ -65,6 +65,10 @@ char enumToLink(enum DataTime time, enum DataMagnitude) {
     // Full link to the GeoJSON data
     char jsonLink[100];
     snprintf(jsonLink, sizeof(jsonLink), "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/%s", jsonFileName);
+
+    jsonNames[3][100] = 
+
+    return
 }
 
 /**
