@@ -149,7 +149,7 @@ typedef struct {
 } Magnitude;
 
 void SortingFromMag(){
-    FILE *twodays = fopen("data/all_day.geojson","r");
+    FILE *twodays = fopen("data/all_day.geojson","r");//
     if (twodays == NULL) {
         printf("Error: Unable to open the file.\n");
         return;
