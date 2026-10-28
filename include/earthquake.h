@@ -32,11 +32,17 @@ enum DataMagnitude {
     ALL
 };
 
+// Important strings for the locations of the JSON files
+// jsonFileName = Name of the JSON file on the disk and web
+// jsonDiskName = Full path to the JSON file on the disk
+// jsonLink = Link to the JSON file to download
+typedef struct {
+    char jsonFileName[100];
+    char jsonDiskName[100];
+    char jsonLink[200];
+} JsonData;
+
 // All the major important parts of the earthquake data to update when polling
-// M4_5 = Magnitude 4.5+
-// M2_5 = Magnitude 2.5+
-// M1_0 = Magnitude 1.0+
-// ALL = All earthquakes
 typedef struct
 {
     char id[64];
@@ -53,5 +59,9 @@ typedef struct
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
 void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
+
+void loadEarthquakes();
+
+void pullEarthquakes();
 
 #endif
