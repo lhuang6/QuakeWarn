@@ -170,7 +170,7 @@ void SortingFromMag(){
     line[bytesRead] = '\0';
     //We are making the variable 'convertedLine' store the Parse(char line)
     cJSON *convertedLine = cJSON_Parse(line);//it is used to convert the line char into readable json sturcture
-    if (everythingLine == NULL) //To see if convertedLine is working or there is nothing(null)
+    if (convertedLine == NULL){ //To see if convertedLine is working or there is nothing(null)
         printf("Parse failed\n");
         return;
     }
@@ -212,7 +212,7 @@ void SortingFromMag(){
     }
     for (int i = 0; i < count; i++)//as the i increases it becomes more in order
     {
-        
+
     // Convert the cJSON earthquake object into a printable string
     char *text = cJSON_Print(earthquakes[i].data);
 
