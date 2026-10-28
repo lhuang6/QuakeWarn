@@ -28,7 +28,7 @@
             - jsonDiskName = Full path to the JSON file on the disk
             - jsonLink = Link to the JSON file to download
  */
-JsonData enumToLink(enum DataTime time, enum DataMagnitude) {
+JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude) {
     // Characters used in the GeoJSON link based on time-period and minimum magnitude
     char const *timeLink;   // Characters used for the time-period
     char const *magLink;    // Characters used for the minimum magnitude
