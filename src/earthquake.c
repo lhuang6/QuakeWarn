@@ -178,7 +178,10 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_global_cleanup();
 }
 
-//Loads the earthquakes data from the earthquake files
+/**
+ * Loads the earthquakes data from the earthquake files
+ *
+*/
 void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
@@ -264,7 +267,7 @@ void pollEarthquake(enum dataTime time, enum DataMagnitude magnitude){
         printf("Downloading new earthquake data...\n");
 
         // Downloads the most recent CSV file of earthquake data
-        downloadJson(ALL_DAY, ALL);
+        downloadJson(time, magnitude);
 
         printf("Loading earthquake data...\n");
 
