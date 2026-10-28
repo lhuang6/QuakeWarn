@@ -281,7 +281,7 @@ void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
 */
-void pollEarthquake(enum DataTime time, enum DataMagnitude magnitude){
+void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
 
     // Fix later to stop once program is turned off
     while (1){
