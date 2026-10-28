@@ -143,3 +143,96 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_global_cleanup();
 }
 
+//Loads the earthquakes data from the earthquake files
+void loadEarthquakes(){
+
+    // Opens the file downloaded from USGS
+    FILE *file = fopen("data/all_day.geojson", "r");
+
+    // Check if the file opening fails
+    if (file == NULL) {
+        printf("Unable to open file.\n");
+        return;
+    }
+
+    // Navigates to the end of the file and
+    // determines the size of it in bytes
+    // and navigates back to the beginning
+    fseek(file, 0, SEEK_END);
+    long size = ftell(file);
+    rewind(file);
+
+    // Allocates memory to fit the size of the file
+    char *buffer = malloc(size + 1);
+
+    // Stores the file contents in memory and appends
+    // the string terminator
+    fread(buffer, 1, size, file);
+    buffer[size] = '\0';
+
+    // Closes file
+    fclose(file);
+
+    // Parses text into JSON file
+    cJSON *json = cJSON_Parse(buffer);
+
+    // Free the memory
+    free(buffer);
+
+    // Checks if JSON parsing passed
+    if (json == NULL) {
+        printf("JSON parse failed.\n");
+        return;
+    }
+
+    // Fetches earthquake features list
+    cJSON *features = cJSON_GetObjectItem(json, "features");
+
+    // Counts how many earthquakes there are
+    int count = cJSON_GetArraySize(features);
+
+    printf("Found %d earthquakes.\n", count);
+
+    // Loops through all the different earthquakes and stores their specific details
+    for (int i = 0; i < count; i++) {
+
+        // Creates many different pointers relating to
+        // features of the different earthquakes such as
+        // the properties, place, and magnitude
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+
+        cJSON *place = cJSON_GetObjectItem(properties, "place");
+
+        cJSON *mag = cJSON_GetObjectItem(properties, "mag");
+
+        // Processes all information and spits it out
+        // --------------- Example -----------------
+        // Magnitude 2.3 at Alaska
+        // Magnitude 1.7 at Nevada
+        // Magnitude 4.1 at Japan
+        printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
+    }
+
+    //Delete the file at the end
+    cJSON_Delete(json);
+}
+
+// Polls (or refreshes) the data every increment of time given
+void pollEarthquake(enum dataTime time, enum DataMagnitude magnitude){
+
+    // Fix later to stop once program is turned off
+    while (1){
+        printf("Downloading new earthquake data...\n");
+
+        // Downloads the most recent CSV file of earthquake data
+        downloadJson(ALL_DAY, ALL);
+
+        printf("Loading earthquake data...\n");
+
+        loadEarthquakes();
+
+        sleep(60);
+    }
+}
