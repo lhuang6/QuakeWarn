@@ -163,7 +163,8 @@ void SortingFromMag(){
         printf("features not found\n");
         return;
     }
-    cJSON *feature = cJSON_GetArrayItem(features, 0);
+    for (int i = 0; i < )
+    cJSON *feature = cJSON_GetArrayItem(features, i);
     if (features == NULL) {
         printf("features not found\n");
         return;
