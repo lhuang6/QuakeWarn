@@ -4,6 +4,8 @@
 #include <curl/curl.h>
 #include "earthquake.h"
 #include "cJSON.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 /**
  * Converts the time-range enum and the minimum magnitude into the JsonData struct that
@@ -189,7 +191,7 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
 */
-void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
+void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
 
@@ -289,7 +291,7 @@ void pollEarthquake(enum DataTime time, enum DataMagnitude magnitude){
         downloadJson(time, magnitude);
 
         printf("Loading earthquake data...\n");
-        loadEarthquakes();
+        loadEarthquakes(time, magnitude);
 
         // Waits 60 seconds to poll again
         sleep(60);

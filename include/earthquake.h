@@ -43,6 +43,6 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
 
 void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
-void pullEarthquakes(enum dataTime time, enum DataMagnitude magnitude);
+void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 #endif
