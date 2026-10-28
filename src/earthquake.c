@@ -174,16 +174,17 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     fclose(jsonDiskFile);
 
     // Cleaning up curl globally and the easy instance
-    //
     curl_easy_cleanup(curl);
     curl_global_cleanup();
 }
 
 //Loads the earthquakes data from the earthquake files
-void loadEarthquakes(){
+void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
+    // JsonData struct that stores the download link and path to JSON file
+    JsonData jsonPaths = enumToLink(time, magnitude);
 
     // Opens the file downloaded from USGS
-    FILE *file = fopen("data/all_day.geojson", "r");
+    FILE *file = fopen(jsonPaths.jsonDiskName, "r");
 
     // Check if the file opening fails
     if (file == NULL) {
