@@ -5,6 +5,10 @@
 #include "earthquake.h"
 #include "cJSON.h"
 
+char* enumToLink(enum DataTime time, enum DataMagnitude) {
+    
+}
+
 /**
  * Used by libcurl to write data onto the disk.
  *
