@@ -209,11 +209,8 @@ void SortingFromMag(){
     }
     for (int i = 0; i < count; i++)
     {
-        char *text =
-            cJSON_Print(earthquakes[i].data);
-
-        printf("%s\n\n", text);
-
+        char *text = cJSON_Print(earthquakes[i].data);
+        printf("%s\n", text);
         free(text);
     }
 
