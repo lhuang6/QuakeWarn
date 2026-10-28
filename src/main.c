@@ -13,5 +13,6 @@ int main(void)
     //downloadJson(ALL_DAY, ALL);
     //test();
     SortingFromMag();
+    pollEarthquakes(ALL_DAY, ALL);
     return 0;
 }
