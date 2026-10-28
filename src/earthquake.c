@@ -143,6 +143,7 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
 }
 
 void SortingFromMag(){
+    printf("Entered SortingFromMag\n");
     FILE *twodays = fopen("data/all_day.geojson","r");
     if (twodays == NULL) {
         printf("Error: Unable to open the file.\n");
