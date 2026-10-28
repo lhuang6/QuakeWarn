@@ -143,7 +143,7 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_global_cleanup();
 }
 
-typedef struct {    //created this struct to create
+typedef struct {    //created this struct to made both the magnitude, the entire cJSON which into an one setting
     double mag;
     cJSON *data;
 } Magnitude;
