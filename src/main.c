@@ -13,6 +13,6 @@ int main(void)
     //downloadJson(ALL_DAY, ALL);
     //test();
     //SortingFromMag();
-    printf("main");
+    //printf("main");
     return 0;
 }
