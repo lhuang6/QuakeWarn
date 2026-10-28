@@ -150,6 +150,7 @@ void SortingFromMag(){
     }
     char line[500000];
     size_t bytesRead = fread(line, 1, sizeof(line)-1, twodays);
+    printf("%.200s\n", line);
     line[bytesRead] = '\0';
     cJSON *json = cJSON_Parse(line);
     if (json == NULL) {
