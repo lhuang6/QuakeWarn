@@ -175,6 +175,36 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_global_cleanup();
 }
 
+/**
+ * Updates the JSON data every one minute for new earthquakes
+ *
+ * Parameters:
+ *     time: Time period of the earthquakes, of datatype enum DataTime
+ *          - ALL_HOUR = One hour
+ *          - ALL_DAY = One day
+ *          - ALL_WEEK = Seven days
+ *          - ALL_MONTH = Thirty days
+ *     magnitude: Minimum magnitude included in the data
+ *          - SIGNIFICANT = Significant earthquakes or 7.5+
+ *          - M4_5 = Magnitude 4.5+
+ *          - M2_5 = Magnitude 2.5+
+ *          - M1_0 = Magnitude 1.0+
+ *          - ALL = All earthquakes
+*/
+void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
+
+    // Fix later to stop once program is turned off
+    while (1){
+        printf("Downloading new earthquake data...\n");
+
+        // Downloads the most recent CSV file of earthquake data
+        downloadJson(time, magnitude);
+
+        // Waits 60 seconds to poll again
+        sleep(60);
+    }
+}
+
 void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude){
     // Turning the DataTime and DataMagnitude enum into file paths and links to use
     JsonData data = enumToLink(time, magnitude);
@@ -257,8 +287,7 @@ void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude){
 }
 
 /**
- * Loads the earthquakes data from the earthquake files and prints out all of the data.
- * This also serves as a check for the data's readability or not.
+ * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
  *
  * Parameters:
  *     time: Time period of the earthquakes, of datatype enum DataTime
@@ -272,6 +301,9 @@ void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude){
  *          - M2_5 = Magnitude 2.5+
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the USGS GeoJSON data
 */
 cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // JsonData struct that stores the download link and path to JSON file
@@ -317,9 +349,15 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     }
 
     return json;
+}
 
-
-    /*
+/**
+ * Prints out all earthquake's magnitude and place.
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data.
+*/
+void printEarthquakes(cJSON *json) {
     // Fetches earthquake features list
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
@@ -345,42 +383,6 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
         // Magnitude 1.7 at Nevada
         // Magnitude 4.1 at Japan
         printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
-    }
-
-    // Delete the file at the end
-    cJSON_Delete(json);*/
-}
-
-/**
- * Updates the JSON data every one minute for new earthquakes
- *
- * Parameters:
- *     time: Time period of the earthquakes, of datatype enum DataTime
- *          - ALL_HOUR = One hour
- *          - ALL_DAY = One day
- *          - ALL_WEEK = Seven days
- *          - ALL_MONTH = Thirty days
- *     magnitude: Minimum magnitude included in the data
- *          - SIGNIFICANT = Significant earthquakes or 7.5+
- *          - M4_5 = Magnitude 4.5+
- *          - M2_5 = Magnitude 2.5+
- *          - M1_0 = Magnitude 1.0+
- *          - ALL = All earthquakes
-*/
-void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
-
-    // Fix later to stop once program is turned off
-    while (1){
-        printf("Downloading new earthquake data...\n");
-
-        // Downloads the most recent CSV file of earthquake data
-        downloadJson(time, magnitude);
-
-        printf("Loading earthquake data...\n");
-        loadEarthquakes(time, magnitude);
-
-        // Waits 60 seconds to poll again
-        sleep(60);
     }
 }
 
