@@ -311,7 +311,7 @@ void sortingMag(cJSON *json){
 
                 // Grabbing the left element, but subtract the index j by 1 because we removed the right element
                 // So the total length of the array is one less
-                cJSON *left = cJSON_DetachItemFromArray(features, j - 1);
+                cJSON *left = cJSON_DetachItemFromArray(features, j);
 
                 // Insert them into the swapped position
                 cJSON_InsertItemInArray(features, i, left);
