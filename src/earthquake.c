@@ -295,7 +295,7 @@ void sortingMag(cJSON *json){
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
         float magnitude = jsonMag->valuedouble;
 
-            // Compare with elements to the left
+        // Compare with elements to the left
         int j = i - 1;
 
         while (j >= 0) {
