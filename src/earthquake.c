@@ -384,7 +384,6 @@ void parseJson() {
     FILE *fp = fopen("data/all_day.geojson", "r");
     if (fp == NULL) {
         printf("Error: Unable to open the file.\n");
-        return 1;
     }
 
     // Variable where all of the read data goes in
@@ -397,10 +396,8 @@ void parseJson() {
 
     cJSON *name = cJSON_GetObjectItemCaseSensitive(json, "mag");
 
-    printf("%s\n", name);
+    printf("%s\n", name->valuestring);
 
     cJSON_Delete(json);
-
-    return 0;
 }
 
