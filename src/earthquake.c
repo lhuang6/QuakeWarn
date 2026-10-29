@@ -283,10 +283,12 @@ void sortingMag(cJSON *json){
     int count = cJSON_GetArraySize(features);
 
     // Performing an Insertion Sort
-    for(int i = 0; i < count; i++) {
+    for(int i = 1; i < count; i++) {
         cJSON *feature = cJSON_GetArrayItem(features, i);
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
-        cJSON *mag = cJSON_GetObjectItem(properties, "mag");
+        cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
+
+        float magnitude = jsonMag->valuedouble;
 
         
     }
