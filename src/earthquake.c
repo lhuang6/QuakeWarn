@@ -379,3 +379,28 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
         sleep(60);
     }
 }
+
+void parseJson() {
+    FILE *fp = fopen("data/all_day.geojson", "r");
+    if (fp == NULL) {
+        printf("Error: Unable to open the file.\n");
+        return 1;
+    }
+
+    // Variable where all of the read data goes in
+    char buffer[10000];
+    // Buffer to put it in, size of each element, amount of elements, and file
+    fread(buffer, 1, sizeof(buffer), fp);
+    fclose(fp);
+
+    cJSON *json = cJSON_Parse(buffer);
+
+    cJSON *name = cJSON_GetObjectItemCaseSensitive(json, "mag");
+
+    printf("%s\n", name);
+
+    cJSON_Delete(json);
+
+    return 0;
+}
+

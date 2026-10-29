@@ -54,5 +54,6 @@ void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
+void parseJson();
 
 #endif
