@@ -276,13 +276,18 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
  * Parameters:
  *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
  */
-void *sortingMag(cJSON *json){
+void sortingMag(cJSON *json){
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
     // Counts how many earthquakes there are
     int count = cJSON_GetArraySize(features);
 
+    // Performing an Insertion Sort
     for(int i = 0; i < count; i++) {
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+        cJSON *mag = cJSON_GetObjectItem(properties, "mag");
+
         
     }
 
