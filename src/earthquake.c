@@ -393,10 +393,13 @@ void parseJson() {
     fclose(fp);
 
     cJSON *json = cJSON_Parse(buffer);
+    cJSON *features = cJSON_GetObjectItem(json, "features");
 
-    cJSON *name = cJSON_GetObjectItemCaseSensitive(json, "mag");
+    cJSON *feature = cJSON_GetArrayItem(features, 1);
+    cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+    cJSON *mag = cJSON_GetObjectItem(properties, "mag");
 
-    printf("%s\n", name->valuestring);
+    printf("%s\n", mag->valuestring);
 
     cJSON_Delete(json);
 }

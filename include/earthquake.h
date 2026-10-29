@@ -38,12 +38,6 @@ typedef struct {
     char jsonLink[200];     // Link to the JSON file to download
 } JsonData;
 
-typedef struct {
-    float *magnitudes;
-    char *place;
-    char
-}
-
 //created this struct to made both the magnitude, the entire cJSON which into an one setting to print everything all at once
 typedef struct {
     double mag;
