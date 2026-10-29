@@ -297,43 +297,12 @@ void sortingMag(cJSON *json){
 
             if (magnitude < lastMagnitude) {
                 cJSON *right = cJSON_DetachItemFromArray(features, i);
-                cJSON *left = cJSON_DetachItemFromArray(features, j);
+                cJSON *left = cJSON_DetachItemFromArray(features, j - 1);
 
                 cJSON_InsertItemInArray(features, i, left);
                 cJSON_InsertItemInArray(features, j, right);
             }
         }
-    }
-
-    //The struct named Magnitude that is going to store 500 mag to sort them from least to most
-    Magnitude earthquakes[500];
-
-    //To make the earthquake which now have the data to organize from least to most
-    for (int i = 0; i < count - 1; i++)
-    {
-        for (int j = i + 1; j < count; j++)
-        {
-            if (earthquakes[j].mag < earthquakes[i].mag)
-            {
-                //this is where sorting happenns whne the 'for loop' looks through the json
-                Magnitude arrange = earthquakes[i];
-                earthquakes[i] = earthquakes[j];
-                earthquakes[j] = arrange;
-            }
-        }
-    }
-    for (int i = 0; i < count; i++)//as the i increases it becomes more in order
-    {
-
-    // Convert the cJSON earthquake object into a printable string
-    char *text = cJSON_Print(earthquakes[i].data);
-
-    // Print the entire earthquake record
-    printf("%s\n", text);
-
-    // Free the memory created by cJSON_Print()
-    free(text);
-
     }
 }
 
