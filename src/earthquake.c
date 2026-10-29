@@ -298,7 +298,9 @@ void sortingMag(cJSON *json){
             if (magnitude < lastMagnitude) {
                 cJSON *right = cJSON_DetachItemFromArray(features, i);
                 cJSON *left = cJSON_DetachItemFromArray(features, j);
-                
+
+                cJSON_InsertItemInArray(features, i, left);
+                cJSON_InsertItemInArray(features, j, right);
             }
         }
     }
