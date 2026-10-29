@@ -44,6 +44,8 @@ typedef struct {
     cJSON *data;
 } Magnitude;        //defined the struct as Magnitude
 
+JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude);
+
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
 void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
