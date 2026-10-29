@@ -39,7 +39,9 @@ typedef struct {
 } JsonData;
 
 typedef struct {
-    char 
+    float *magnitudes;
+    char *place;
+    char
 }
 
 //created this struct to made both the magnitude, the entire cJSON which into an one setting to print everything all at once
