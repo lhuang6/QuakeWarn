@@ -5,6 +5,7 @@
 #define EARTHQUAKE // Defining earthquake code
 
 #include <stdio.h>
+#include "cJSON.h"
 
 /**
  * Time period of earthquake data to download
@@ -37,12 +38,24 @@ typedef struct {
     char jsonLink[200];     // Link to the JSON file to download
 } JsonData;
 
+//created this struct to made both the magnitude, the entire cJSON which into an one setting to print everything all at once
+typedef struct {
+    double mag;
+    cJSON *data;
+} Magnitude;        //defined the struct as Magnitude
+
+JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude);
+
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
 void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
 
-void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
-
 void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
+
+cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
+
+void sortingMag(cJSON *json);
+
+void printEarthquakes(cJSON *json);
 
 #endif
