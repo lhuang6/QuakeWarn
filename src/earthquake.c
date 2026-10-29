@@ -176,7 +176,7 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
 }
 void testjson()
 {
-    printf("Sriram Daddy\n");
+    void rundata();
 }
 
 
