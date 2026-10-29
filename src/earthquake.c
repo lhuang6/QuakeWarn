@@ -297,8 +297,8 @@ void sortingMag(cJSON *json){
 
         // Compare with elements to the left
         int j = i - 1;
-
         while (j >= 0) {
+            // Grabbing the magnitude for each element on the left
             cJSON *lastFeature = cJSON_GetArrayItem(features, j);
             cJSON *lastProperties = cJSON_GetObjectItem(lastFeature, "properties");
             cJSON *lastJsonMag = cJSON_GetObjectItem(lastProperties, "mag");
@@ -309,11 +309,13 @@ void sortingMag(cJSON *json){
                 break;
             }
 
+            // Going through each element towards the left
             j--;
         }
 
         // Move the current element into its sorted position
         if (j != i - 1) {
+            // Detatching the element and inserting it back into the swapped position
             cJSON *item = cJSON_DetachItemFromArray(features, i);
             cJSON_InsertItemInArray(features, j + 1, item);
         }
