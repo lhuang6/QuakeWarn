@@ -299,8 +299,8 @@ void sortingMag(cJSON *json){
         for (int j = 0; j < i; j++) {
             // Grabbing each magnitude to the left
             cJSON *lastFeature = cJSON_GetArrayItem(features, j);
-            cJSON *lastProperties = cJSON_GetObjectItem(feature, "properties");
-            cJSON *lastJsonMag = cJSON_GetObjectItem(properties, "mag");
+            cJSON *lastProperties = cJSON_GetObjectItem(lastFeature, "properties");
+            cJSON *lastJsonMag = cJSON_GetObjectItem(lastProperties, "mag");
             float lastMagnitude = lastJsonMag->valuedouble;
 
             // Swapping if the magnitude on the left (supposed to be sorted) is greater than the right

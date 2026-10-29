@@ -50,14 +50,12 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
 void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
 
-void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude);
+void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
+void sortingMag(cJSON *json);
+
 void printEarthquakes(cJSON *json);
-
-void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
-
-void parseJson();
 
 #endif
