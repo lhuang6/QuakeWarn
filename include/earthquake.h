@@ -5,6 +5,7 @@
 #define EARTHQUAKE // Defining earthquake code
 
 #include <stdio.h>
+#include "cJSON.h"
 
 /**
  * Time period of earthquake data to download
@@ -47,7 +48,7 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
 void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
 
-void SortingFromMag();
+void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude);
 
 void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 

@@ -175,9 +175,12 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_global_cleanup();
 }
 
-void SortingFromMag(){
+void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude){
+    // Turning the DataTime and DataMagnitude enum into file paths and links to use
+    JsonData data = enumToLink(time, magnitude);
+
     //To open the FILE(Used to work and sort w files) named all_day.geojson and called it twodays
-    FILE *twodays = fopen("data/all_day.geojson","r");
+    FILE *twodays = fopen(data.jsonDiskName,"r");
     if (twodays == NULL) {  //To see if the geojson filder can open or not, if there is nothing then its null
         printf("Error: Unable to open the file.\n");
         return;

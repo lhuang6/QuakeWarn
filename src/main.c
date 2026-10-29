@@ -10,9 +10,9 @@
 int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
-    //downloadJson(ALL_DAY, ALL);
+    // downloadJson(ALL_DAY, ALL);
     //test();
-    SortingFromMag();
-    pollEarthquakes(ALL_DAY, ALL);
+    SortingFromMag(ALL_DAY, ALL);
+    //pollEarthquakes(ALL_DAY, ALL);
     return 0;
 }
