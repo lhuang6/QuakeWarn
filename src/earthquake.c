@@ -282,6 +282,10 @@ void *sortingMag(cJSON *json){
     // Counts how many earthquakes there are
     int count = cJSON_GetArraySize(features);
 
+    for(int i = 0; i < count; i++) {
+        
+    }
+
     //The struct named Magnitude that is going to store 500 mag to sort them from least to most
     Magnitude earthquakes[500];
 
