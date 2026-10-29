@@ -316,6 +316,8 @@ void sortingMag(cJSON *json){
                 // Insert them into the swapped position
                 cJSON_InsertItemInArray(features, i, left);
                 cJSON_InsertItemInArray(features, j, right);
+
+                break;
             }
         }
     }
