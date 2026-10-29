@@ -282,23 +282,38 @@ void sortingMag(cJSON *json){
     // Counts how many earthquakes there are
     int count = cJSON_GetArraySize(features);
 
-    // Performing an Insertion Sort
+    // Performing an Insertion Sort:
+    // 1. Start with the second element as the first element is assumed to be sorted.
+    // 2. Compare the second element with the first if the second is smaller then swap them.
+    // 3. Move to the third element, compare it with the first two, and put it in its correct position
+    // 4. Repeat until the entire array is sorted.
     for (int i = 1; i < count; i++) {
+
+        // Grabbing the magnitude for each member on the right
         cJSON *feature = cJSON_GetArrayItem(features, i);
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
         float magnitude = jsonMag->valuedouble;
 
+        // Looping for each element to the left of the looped element to compare
         for (int j = 0; j < i; j++) {
+            // Grabbing each magnitude to the left
             cJSON *lastFeature = cJSON_GetArrayItem(features, j);
             cJSON *lastProperties = cJSON_GetObjectItem(feature, "properties");
             cJSON *lastJsonMag = cJSON_GetObjectItem(properties, "mag");
             float lastMagnitude = lastJsonMag->valuedouble;
 
+            // Swapping if the magnitude on the left (supposed to be sorted) is greater than the right
             if (magnitude < lastMagnitude) {
+
+                // Detatching each element to be swapped
                 cJSON *right = cJSON_DetachItemFromArray(features, i);
+
+                // Grabbing the left element, but subtract the index j by 1 because we removed the right element
+                // So the total length of the array is one less
                 cJSON *left = cJSON_DetachItemFromArray(features, j - 1);
 
+                // Insert them into the swapped position
                 cJSON_InsertItemInArray(features, i, left);
                 cJSON_InsertItemInArray(features, j, right);
             }
@@ -340,29 +355,3 @@ void printEarthquakes(cJSON *json) {
         printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
     }
 }
-
-void parseJson() {
-    cJSON *json = loadEarthquakes(ALL_DAY, ALL);
-
-    cJSON *features = cJSON_GetObjectItem(json, "features");
-
-    // Counts how many earthquakes there are
-    int count = cJSON_GetArraySize(features);
-
-    printf("Found %d earthquakes.\n", count);
-    /*
-    cJSON *feature = cJSON_GetArrayItem(features, i);
-    cJSON *properties = cJSON_GetObjectItem(feature, "properties");
-    cJSON *place = cJSON_GetObjectItem(properties, "place");
-    cJSON *mag = cJSON_GetObjectItem(properties, "mag");
-
-        // Processes all information and spits it out
-        // --------------- Example -----------------
-        // Magnitude 2.3 at Alaska
-        // Magnitude 1.7 at Nevada
-        // Magnitude 4.1 at Japan
-        printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);*/
-
-    cJSON_Delete(json);
-}
-
