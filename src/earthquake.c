@@ -271,7 +271,7 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
 }
 
 /**
- * Sorts the earthquake cJSON object from greatest to least magnitude.
+ * Sorts the earthquake cJSON object from least to greatest magnitude.
  *
  * Parameters:
  *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
