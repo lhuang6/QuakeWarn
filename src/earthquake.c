@@ -270,7 +270,13 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     return json;
 }
 
-cJSON *sortingMag(cJSON *json){
+/**
+ * Sorts the earthquake cJSON object from greatest to least magnitude.
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
+ */
+void *sortingMag(cJSON *json){
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
     // Counts how many earthquakes there are
@@ -278,24 +284,7 @@ cJSON *sortingMag(cJSON *json){
 
     //The struct named Magnitude that is going to store 500 mag to sort them from least to most
     Magnitude earthquakes[500];
-    int count = 0;  //This is to see how many mag were stored but for now its 0
-    //this is used 'cJSON_GetArraySize' to see, how many fetures are in JSON, in numbers/int
-    for (int i = 0; i < cJSON_GetArraySize(features); i++)
-    {
-        //IT finds one feature at an time from 'GetArrayItem'
-        cJSON *feature = cJSON_GetArrayItem(features, i);
-        //To get the ojbect/item from feature named properties
-        cJSON *properties = cJSON_GetObjectItemCaseSensitive(feature, "properties");
-        //To get the ojbect/item from feature named properties
-        cJSON *magnitude = cJSON_GetObjectItemCaseSensitive(properties, "mag");
-        //The count which is 0 for now is starting to get storen by earthquakes
-        //.mag was used because of it being named at struct
-        earthquakes[count].mag = magnitude->valuedouble;
-        //.data was used to store all the features from Json
-        earthquakes[count].data = feature;
 
-        count++;//it adds by one by th eend of the loop the rreapet the process
-    }
     //To make the earthquake which now have the data to organize from least to most
     for (int i = 0; i < count - 1; i++)
     {
@@ -329,7 +318,7 @@ cJSON *sortingMag(cJSON *json){
  * Prints out all earthquake's magnitude and place.
  *
  * Parameters:
- *      json: A pointer to the cJSON object created for the GeoJSON data.
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
 */
 void printEarthquakes(cJSON *json) {
     // Fetches earthquake features list
