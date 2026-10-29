@@ -273,7 +273,7 @@ void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude){
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
 */
-void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
+cJSON loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
 
@@ -316,6 +316,10 @@ void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
         return;
     }
 
+    return json;
+
+
+    /*
     // Fetches earthquake features list
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
@@ -344,7 +348,7 @@ void loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     }
 
     // Delete the file at the end
-    cJSON_Delete(json);
+    cJSON_Delete(json);*/
 }
 
 /**
@@ -381,25 +385,7 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
 }
 
 void parseJson() {
-    FILE *fp = fopen("data/all_day.geojson", "r");
-    if (fp == NULL) {
-        printf("Error: Unable to open the file.\n");
-    }
-
-    // Variable where all of the read data goes in
-    char buffer[10000];
-    // Buffer to put it in, size of each element, amount of elements, and file
-    fread(buffer, 1, sizeof(buffer), fp);
-    fclose(fp);
-
-    cJSON *json = cJSON_Parse(buffer);
-    cJSON *features = cJSON_GetObjectItem(json, "features");
-
-    cJSON *feature = cJSON_GetArrayItem(features, 1);
-    cJSON *properties = cJSON_GetObjectItem(feature, "properties");
-    cJSON *mag = cJSON_GetObjectItem(properties, "mag");
-
-    printf("%s\n", mag->valuestring);
+    cJSON json = loadEarthquakes(ALL_DAY, ALL);
 
     cJSON_Delete(json);
 }
