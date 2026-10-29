@@ -179,6 +179,7 @@ void SortingFromMag(){
     //The struct named Magnitude that is going to store 500 mag to sort them from least to most
     Magnitude earthquakes[500];
     int count = 0;  //This is to see how many mag were stored but for now its 0
+    
     //this is used 'cJSON_GetArraySize' to see, how many fetures are in JSON, in numbers/int
     for (int i = 0; i < cJSON_GetArraySize(features); i++)
     {
@@ -196,6 +197,7 @@ void SortingFromMag(){
 
         count++;//it adds by one by th eend of the loop the rreapet the process
     }
+
     //To make the earthquake which now have the data to organize from least to most
     for (int i = 0; i < count - 1; i++)
     {
