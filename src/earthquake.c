@@ -387,6 +387,25 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
 void parseJson() {
     cJSON json = loadEarthquakes(ALL_DAY, ALL);
 
+    cJSON *features = cJSON_GetObjectItem(json, "features");
+
+    // Counts how many earthquakes there are
+    int count = cJSON_GetArraySize(features);
+
+    printf("Found %d earthquakes.\n", count);
+    /*
+    cJSON *feature = cJSON_GetArrayItem(features, i);
+    cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+    cJSON *place = cJSON_GetObjectItem(properties, "place");
+    cJSON *mag = cJSON_GetObjectItem(properties, "mag");
+
+        // Processes all information and spits it out
+        // --------------- Example -----------------
+        // Magnitude 2.3 at Alaska
+        // Magnitude 1.7 at Nevada
+        // Magnitude 4.1 at Japan
+        printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);*/
+
     cJSON_Delete(json);
 }
 
