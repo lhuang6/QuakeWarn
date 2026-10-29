@@ -296,6 +296,8 @@ void sortingMag(cJSON *json){
             float lastMagnitude = lastJsonMag->valuedouble;
 
             if (magnitude < lastMagnitude) {
+                cJSON *right = cJSON_DetachItemFromArray(features, i);
+                cJSON *left = cJSON_DetachItemFromArray(features, j);
                 
             }
         }
