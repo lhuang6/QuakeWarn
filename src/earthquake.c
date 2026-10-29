@@ -205,87 +205,6 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
     }
 }
 
-void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude){
-    // Turning the DataTime and DataMagnitude enum into file paths and links to use
-    JsonData data = enumToLink(time, magnitude);
-
-    //To open the FILE(Used to work and sort w files) named all_day.geojson and called it twodays
-    FILE *twodays = fopen(data.jsonDiskName,"r");
-    if (twodays == NULL) {  //To see if the geojson filder can open or not, if there is nothing then its null
-        printf("Error: Unable to open the file.\n");
-        return;
-    }
-
-    //I have an array that can hold 500000 char because of how long the geojson file is
-    char line[500000];
-
-    //using size_t(which is the store size), fread reads and stores everything
-    //So 'line' is where it is put, the '1' is the byte for each char,
-    //'sizeof(line)-1' is just the 500000 that is kept remembering if i change the char
-    //'twodays' is just the veriable i called .geojson
-    size_t bytesRead = fread(line, 1, sizeof(line)-1, twodays);
-
-    //so the '-1' i wrote in the above line is to live room for '\0'
-    //because it mandatory to know where it ends
-    line[bytesRead] = '\0';
-    //We are making the variable 'convertedLine' store the Parse(char line)
-    cJSON *convertedLine = cJSON_Parse(line);//it is used to convert the line char into readable json sturcture
-    if (convertedLine == NULL){ //To see if convertedLine is working or there is nothing(null)
-        printf("Parse failed\n");
-        return;
-    }
-    //To open the feature that are was in parse veriable convertedLine, called it features
-    cJSON *features = cJSON_GetObjectItemCaseSensitive(convertedLine, "features");
-    //The struct named Magnitude that is going to store 500 mag to sort them from least to most
-    Magnitude earthquakes[500];
-    int count = 0;  //This is to see how many mag were stored but for now its 0
-    //this is used 'cJSON_GetArraySize' to see, how many fetures are in JSON, in numbers/int
-    for (int i = 0; i < cJSON_GetArraySize(features); i++)
-    {
-        //IT finds one feature at an time from 'GetArrayItem'
-        cJSON *feature = cJSON_GetArrayItem(features, i);
-        //To get the ojbect/item from feature named properties
-        cJSON *properties = cJSON_GetObjectItemCaseSensitive(feature, "properties");
-        //To get the ojbect/item from feature named properties
-        cJSON *magnitude = cJSON_GetObjectItemCaseSensitive(properties, "mag");
-        //The count which is 0 for now is starting to get storen by earthquakes
-        //.mag was used because of it being named at struct
-        earthquakes[count].mag = magnitude->valuedouble;
-        //.data was used to store all the features from Json
-        earthquakes[count].data = feature;
-
-        count++;//it adds by one by th eend of the loop the rreapet the process
-    }
-    //To make the earthquake which now have the data to organize from least to most
-    for (int i = 0; i < count - 1; i++)
-    {
-        for (int j = i + 1; j < count; j++)
-        {
-            if (earthquakes[j].mag < earthquakes[i].mag)
-            {
-                //this is where sorting happenns whne the 'for loop' looks through the json
-                Magnitude arrange = earthquakes[i];
-                earthquakes[i] = earthquakes[j];
-                earthquakes[j] = arrange;
-            }
-        }
-    }
-    for (int i = 0; i < count; i++)//as the i increases it becomes more in order
-    {
-
-    // Convert the cJSON earthquake object into a printable string
-    char *text = cJSON_Print(earthquakes[i].data);
-
-    // Print the entire earthquake record
-    printf("%s\n", text);
-
-    // Free the memory created by cJSON_Print()
-    free(text);
-
-    }
-
-}
-
 /**
  * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
  *
@@ -349,6 +268,61 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     }
 
     return json;
+}
+
+cJSON *sortingMag(cJSON *json){
+    cJSON *features = cJSON_GetObjectItem(json, "features");
+
+    // Counts how many earthquakes there are
+    int count = cJSON_GetArraySize(features);
+
+    //The struct named Magnitude that is going to store 500 mag to sort them from least to most
+    Magnitude earthquakes[500];
+    int count = 0;  //This is to see how many mag were stored but for now its 0
+    //this is used 'cJSON_GetArraySize' to see, how many fetures are in JSON, in numbers/int
+    for (int i = 0; i < cJSON_GetArraySize(features); i++)
+    {
+        //IT finds one feature at an time from 'GetArrayItem'
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+        //To get the ojbect/item from feature named properties
+        cJSON *properties = cJSON_GetObjectItemCaseSensitive(feature, "properties");
+        //To get the ojbect/item from feature named properties
+        cJSON *magnitude = cJSON_GetObjectItemCaseSensitive(properties, "mag");
+        //The count which is 0 for now is starting to get storen by earthquakes
+        //.mag was used because of it being named at struct
+        earthquakes[count].mag = magnitude->valuedouble;
+        //.data was used to store all the features from Json
+        earthquakes[count].data = feature;
+
+        count++;//it adds by one by th eend of the loop the rreapet the process
+    }
+    //To make the earthquake which now have the data to organize from least to most
+    for (int i = 0; i < count - 1; i++)
+    {
+        for (int j = i + 1; j < count; j++)
+        {
+            if (earthquakes[j].mag < earthquakes[i].mag)
+            {
+                //this is where sorting happenns whne the 'for loop' looks through the json
+                Magnitude arrange = earthquakes[i];
+                earthquakes[i] = earthquakes[j];
+                earthquakes[j] = arrange;
+            }
+        }
+    }
+    for (int i = 0; i < count; i++)//as the i increases it becomes more in order
+    {
+
+    // Convert the cJSON earthquake object into a printable string
+    char *text = cJSON_Print(earthquakes[i].data);
+
+    // Print the entire earthquake record
+    printf("%s\n", text);
+
+    // Free the memory created by cJSON_Print()
+    free(text);
+
+    }
 }
 
 /**
