@@ -295,30 +295,27 @@ void sortingMag(cJSON *json){
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
         float magnitude = jsonMag->valuedouble;
 
-        // Looping for each element to the left of the looped element to compare
-        for (int j = 0; j < i; j++) {
-            // Grabbing each magnitude to the left
+            // Compare with elements to the left
+        int j = i - 1;
+
+        while (j >= 0) {
             cJSON *lastFeature = cJSON_GetArrayItem(features, j);
             cJSON *lastProperties = cJSON_GetObjectItem(lastFeature, "properties");
             cJSON *lastJsonMag = cJSON_GetObjectItem(lastProperties, "mag");
-            float lastMagnitude = lastJsonMag->valuedouble;
+            double lastMagnitude = lastJsonMag->valuedouble;
 
-            // Swapping if the magnitude on the left (supposed to be sorted) is greater than the right
-            if (magnitude <= lastMagnitude) {
-
-                // Detatching each element to be swapped
-                cJSON *right = cJSON_DetachItemFromArray(features, i);
-
-                // Grabbing the left element, but subtract the index j by 1 because we removed the right element
-                // So the total length of the array is one less
-                cJSON *left = cJSON_DetachItemFromArray(features, j);
-
-                // Insert them into the swapped position
-                cJSON_InsertItemInArray(features, i, left);
-                cJSON_InsertItemInArray(features, j, right);
-
+            // Stop when the correct position is found
+            if (lastMagnitude <= magnitude) {
                 break;
             }
+
+            j--;
+        }
+
+        // Move the current element into its sorted position
+        if (j != i - 1) {
+            cJSON *item = cJSON_DetachItemFromArray(features, i);
+            cJSON_InsertItemInArray(features, j + 1, item);
         }
     }
 }
