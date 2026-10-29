@@ -304,7 +304,7 @@ void sortingMag(cJSON *json){
             float lastMagnitude = lastJsonMag->valuedouble;
 
             // Swapping if the magnitude on the left (supposed to be sorted) is greater than the right
-            if (magnitude < lastMagnitude) {
+            if (magnitude <= lastMagnitude) {
 
                 // Detatching each element to be swapped
                 cJSON *right = cJSON_DetachItemFromArray(features, i);
