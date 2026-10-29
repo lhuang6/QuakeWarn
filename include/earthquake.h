@@ -50,7 +50,7 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
 
 void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude);
 
-cJSON loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
+cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 

@@ -273,7 +273,7 @@ void SortingFromMag(enum DataTime time, enum DataMagnitude magnitude){
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
 */
-cJSON loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
+cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
 
@@ -283,7 +283,7 @@ cJSON loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // Check if the file opening fails
     if (file == NULL) {
         printf("Unable to open file.\n");
-        return;
+        return NULL;
     }
 
     // Navigates to the end of the file and
@@ -313,7 +313,7 @@ cJSON loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // Checks if JSON parsing passed
     if (json == NULL) {
         printf("JSON parse failed.\n");
-        return;
+        return NULL;
     }
 
     return json;
@@ -385,7 +385,7 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
 }
 
 void parseJson() {
-    cJSON json = loadEarthquakes(ALL_DAY, ALL);
+    cJSON *json = loadEarthquakes(ALL_DAY, ALL);
 
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
