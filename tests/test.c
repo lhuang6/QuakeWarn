@@ -109,10 +109,13 @@ int main(void) {
     }
 
     cJSON_Delete(json_2);
-    cJSON *json_3 = loadJson("tests/data/03_invalid_json.geojson");
+
 
     // ----------THIRD FILE-------------
+    // Testing third file which is missing a column
+    cJSON *json_3 = loadJson("tests/data/03_invalid_json.geojson");
 
+    cJSON_Delete(json_3);
 
     printf("\n================================\n");
     printf("      Startup test complete!\n");
