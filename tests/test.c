@@ -18,6 +18,9 @@ int main(void) {
     printf("      QuakeWarn Startup Test\n");
     printf("================================\n\n");
 
+    int pass = 0;
+    int fail = 0;
+
     // Test whether cJSON can parse JSON.
     const char *json_text =
         "{\"project\":\"QuakeWarn\",\"magnitude\":4.5}";
@@ -28,9 +31,10 @@ int main(void) {
     if (root == NULL)
     {
         printf("[FAIL] cJSON could not parse JSON.\n");
-        return 1;
+        fail++;
     } else {
         printf("[OK] cJSON parsed JSON successfully!\n");
+        pass++;
     }
     /*
     // Checking if the keys correspond to the right values
@@ -60,8 +64,10 @@ int main(void) {
     // If the curl code is ok or not
     if(result == CURLE_OK) {
         printf("[OK] Curl global initialization\n");
+        pass++;
     } else {
         printf("[FAIL] Curl unable to initialize\n");
+        fail++;
     }
 
     // Cleaning up after initializing
@@ -83,6 +89,9 @@ int main(void) {
     // Should be able to read an unsorted file
     if (json_1 != NULL) {
         printf("[OK] Able to read a valid, unsorted dataset\n");
+        pass++;
+    } else {
+        fail++;
     }
 
     // Deleting first file JSON object
@@ -104,8 +113,10 @@ int main(void) {
     // Checking if features is still empty
     if (cJSON_GetArraySize(features) == 0) {
         printf("[OK] Empty array handled correctly\n");
+        pass++;
     } else {
-        printf("[FAIL] Array should be empty.\n");
+        printf("[FAIL] Array should be empty.\n\n");
+        fail++;
     }
 
     cJSON_Delete(json_2);
@@ -115,7 +126,33 @@ int main(void) {
     // Testing third file which is missing a column
     cJSON *json_3 = loadJson("tests/data/03_invalid_json.geojson");
 
+    // If the JSON file has incorrect formatting, the method should return NULL
+    if (json_3 == NULL) {
+        printf("[OK] Able to detect incorrect formatting\n");
+        pass++;
+    } else {
+        printf("[FAIL] Unable to detect incorrect formatting\n");
+        fail++;
+    }
+
     cJSON_Delete(json_3);
+
+
+    // ----------FOURTH FILE-------------
+    // Instead of an array storing magnitude, location, etc., there is just a string
+    cJSON *json_4 = loadJson("tests/data/04_invalid_structure.geojson");
+
+    // If the JSON file has incorrect formatting, the method should return NULL
+    if (json_4 == NULL) {
+        printf("[OK] Able to detect incorrect formatting\n");
+        pass++;
+    } else {
+        printf("[FAIL] Unable to detect incorrect formatting\n");
+        fail++
+    }
+
+    cJSON_Delete(json_4);
+
 
     printf("\n================================\n");
     printf("      Startup test complete!\n");
