@@ -163,12 +163,12 @@ int main(void) {
         fail++;
 
     // Checking whether all null magnitudes are at the end
-    int nullFound = 0;
-    int nullCount = 0;
+    int nullFound = 0;  // Whether or not the one null in the file has been found yet
+    int nullCount = 0;  //
 
     // Looping through all earthquakes
     for (int i = 0; i < cJSON_GetArraySize(features); i++) {
-        
+
         // Grabbing magnitude of each earthquake
         cJSON *feature = cJSON_GetArrayItem(features, i);
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
@@ -176,6 +176,7 @@ int main(void) {
 
 
         if (!cJSON_IsNumber(jsonMag)) {
+
             nullFound = 1;
             nullCount++;
         }
