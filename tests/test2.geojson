@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "mag": 1.8,
+    "place": "49 km E of Pedro Bay, Alaska",
+    "time": 1792977376744,
+    "updated": 1792977497443,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ak_test002",
+    "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ak_test002.geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "automatic",
+    "tsunami": 0,
+    "sig": 50,
+    "net": "ak",
+    "code": "test002",
+    "ids": ",ak_test002,",
+    "sources": ",ak,",
+    "types": ",origin,phase-data,",
+    "nst": 29,
+    "dmin": 0.1,
+    "rms": 0.6,
+    "gap": 156,
+    "magType": "ml",
+    "type": "earthquake",
+    "title": "M 1.8 - 49 km E of Pedro Bay, Alaska"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      -153.222,
+      59.801,
+      124.5
+    ]
+  },
+  "id": "ak_test002"
+}

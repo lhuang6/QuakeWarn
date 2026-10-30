@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "mag": 1.09,
+    "place": "23 km SSW of New Idria, CA",
+    "time": 1792977290530,
+    "updated": 1792977389077,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/nc_test003",
+    "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/nc_test003.geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "automatic",
+    "tsunami": 0,
+    "sig": 18,
+    "net": "nc",
+    "code": "test003",
+    "ids": ",nc_test003,",
+    "sources": ",nc,",
+    "types": ",nearby-cities,origin,phase-data,",
+    "nst": 7,
+    "dmin": 0.0326,
+    "rms": 0.03,
+    "gap": 207,
+    "magType": "md",
+    "type": "earthquake",
+    "title": "M 1.1 - 23 km SSW of New Idria, CA"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      -120.811500549316,
+      36.247501373291,
+      5.96000003814697
+    ]
+  },
+  "id": "nc_test003"
+}

@@ -1,0 +1,39 @@
+{
+  "type": "Feature",
+  "properties": {
+    "mag": 3.1,
+    "place": "Test location with invalid coordinates",
+    "time": 1792976900000,
+    "updated": 1792977000000,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us_error002",
+    "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us_error002.geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "automatic",
+    "tsunami": 0,
+    "sig": 50,
+    "net": "us",
+    "code": "error002",
+    "ids": ",us_error002,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 25,
+    "dmin": 0.1,
+    "rms": 0.4,
+    "gap": 140,
+    "magType": "ml",
+    "type": "earthquake",
+    "title": "M 3.1 - Test location with invalid coordinates"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      "-121.5",
+      "37.2"
+    ]
+  },
+  "id": "us_error002"
+}

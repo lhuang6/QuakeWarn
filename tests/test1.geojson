@@ -1,0 +1,40 @@
+{
+  "type": "Feature",
+  "properties": {
+    "mag": 2.02,
+    "place": "15 km NE of Pāhala, Hawaii",
+    "time": 1792977436730,
+    "updated": 1792977647270,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/hv_test001",
+    "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/hv_test001.geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "automatic",
+    "tsunami": 0,
+    "sig": 63,
+    "net": "hv",
+    "code": "test001",
+    "ids": ",hv_test001,",
+    "sources": ",hv,",
+    "types": ",origin,phase-data,",
+    "nst": 52,
+    "dmin": 0.03709,
+    "rms": 0.16,
+    "gap": 109,
+    "magType": "ml",
+    "type": "earthquake",
+    "title": "M 2.0 - 15 km NE of Pāhala, Hawaii"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      -155.373840332031,
+      19.2978324890137,
+      29.2600002288818
+    ]
+  },
+  "id": "hv_test001"
+}

@@ -1,0 +1,39 @@
+{
+  "type": "Feature",
+  "properties": {
+    "place": "Test location with missing magnitude",
+    "time": 1792977000000,
+    "updated": 1792977100000,
+    "tz": null,
+    "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us_error001",
+    "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us_error001.geojson",
+    "felt": null,
+    "cdi": null,
+    "mmi": null,
+    "alert": null,
+    "status": "automatic",
+    "tsunami": 0,
+    "sig": 50,
+    "net": "us",
+    "code": "error001",
+    "ids": ",us_error001,",
+    "sources": ",us,",
+    "types": ",origin,phase-data,",
+    "nst": 25,
+    "dmin": 0.1,
+    "rms": 0.4,
+    "gap": 140,
+    "magType": "ml",
+    "type": "earthquake",
+    "title": "M 2.5 - Test location with missing magnitude"
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      -121.0,
+      37.0,
+      8.0
+    ]
+  },
+  "id": "us_error001"
+}
