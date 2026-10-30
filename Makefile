@@ -49,7 +49,7 @@ $(BUILD_DIR)/%.o: %.c
 # -------------
 TEST_TARGET = test_json
 TEST_SRC = $(filter-out src/main.c, $(wildcard src/*.c)) tests/test.c third-party/cJSON/cJSON.c
-TEST_OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC))
+TEST_OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(TEST_SRC))
 
 $(TEST_TARGET): $(TEST_OBJ)
 	$(CC) $^ -o $@ $(LDLIBS)
@@ -59,7 +59,7 @@ build/tests/%.o: tests/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 test: $(TEST_TARGET)
-	echo $(TEST_SRC)
+	./$(TEST_TARGET)
 
 .PHONY: test
 
