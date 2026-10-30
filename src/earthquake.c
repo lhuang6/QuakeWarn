@@ -332,6 +332,7 @@ void sortingMag(cJSON *json){
             // Subtracting the index by one because the null earthquake swapped places
             // So the other earthquakes moved left
             i--;
+            count--;
             continue;
         }
 
