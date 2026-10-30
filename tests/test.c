@@ -168,12 +168,13 @@ int main(void) {
 
     // Looping through all earthquakes
     for (int i = 0; i < cJSON_GetArraySize(features); i++) {
+        
         // Grabbing magnitude of each earthquake
         cJSON *feature = cJSON_GetArrayItem(features, i);
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
 
-        
+
         if (!cJSON_IsNumber(jsonMag)) {
             nullFound = 1;
             nullCount++;
