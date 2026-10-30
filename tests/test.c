@@ -62,6 +62,11 @@ int main(void) {
 
     printf("\n----TESTING ALL GEOJSON FILES----\n");
 
+    cJSON *json = loadJson("tests/data/01_valid_unsorted.geojson");
+
+
+
+
 
 
     printf("\n================================\n");

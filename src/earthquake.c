@@ -280,6 +280,7 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
 
+    // Runs the path to the JSON file into the loading JSON method
     return loadJson(jsonPaths.jsonDiskName);
 }
 
