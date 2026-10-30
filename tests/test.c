@@ -155,7 +155,7 @@ int main(void) {
 
 
     // ----------FIFTH FILE-------------
-    // The earthquake has a magnitude of null
+    // One earthquake has a magnitude of null
     cJSON *json_5 = loadJson("tests/data/05_invalid_fields.geojson");
 
     if (json_5 == NULL) {
@@ -163,8 +163,7 @@ int main(void) {
         fail++;
 
     // Checking whether all null magnitudes are at the end
-    int nullFound = 0;  // Whether or not the one null in the file has been found yet
-    int nullCount = 0;  //
+    bool nullFound = false; // Whether or not the only null value has been found yet
 
     // Looping through all earthquakes
     for (int i = 0; i < cJSON_GetArraySize(features); i++) {
@@ -174,15 +173,13 @@ int main(void) {
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
 
-
-        if (!cJSON_IsNumber(jsonMag)) {
-
-            nullFound = 1;
-            nullCount++;
+        if (nullFound) {
+            printf("[FAIL] Null value not at end of the data")
         }
-        else if (nullFound) {
-            printf("\033[31mERROR: Valid magnitude found after null at index %d!\033[0m\n", i);
-            return;
+
+        // Setting the boolean to true if it found the null value
+        if (!cJSON_IsNumber(jsonMag)) {
+            nullFound = true;
         }
     }
 
