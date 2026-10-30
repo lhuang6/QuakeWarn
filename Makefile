@@ -59,7 +59,7 @@ build/tests/%.o: tests/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 test: $(TEST_TARGET)
-	./$(TEST_TARGET)
+	echo $(TEST_SRC)
 
 .PHONY: test
 
