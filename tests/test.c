@@ -3,6 +3,7 @@
 #include <cs50.h>
 #include <stdio.h>
 #include "cJSON.h"
+#include "earthquake.h"
 //#include "civetweb.h"
 #include <curl/curl.h>
 
@@ -64,10 +65,7 @@ int main(void) {
 
     cJSON *json = loadJson("tests/data/01_valid_unsorted.geojson");
 
-
-
-
-
+    cJSON_Delete(json);
 
     printf("\n================================\n");
     printf("      Startup test complete!\n");
