@@ -1,0 +1,7 @@
+{
+  "type": "Feature",
+  "metadata": {
+    "count": 1
+  },
+  "features": "this should be an array"
+}
