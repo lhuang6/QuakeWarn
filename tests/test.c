@@ -164,6 +164,7 @@ int main(void) {
 
     // Checking whether all null magnitudes are at the end
     bool nullFound = false; // Whether or not the only null value has been found yet
+    int nullCount = 0;      // How many nulls have been found
 
     // Looping through all earthquakes
     for (int i = 0; i < cJSON_GetArraySize(features); i++) {
@@ -173,8 +174,10 @@ int main(void) {
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
 
+        // Checks if the null has been found in the loop yet
+        // Since the loop should stop at the end of the loop, nullFound can only be true after the loop ends
         if (nullFound) {
-            printf("[FAIL] Null value not at end of the data")
+            printf("[FAIL] Null value not at end of the data\n");
         }
 
         // Setting the boolean to true if it found the null value
