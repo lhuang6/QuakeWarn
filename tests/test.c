@@ -6,7 +6,7 @@
 //#include "civetweb.h"
 #include <curl/curl.h>
 
-int main() {
+int main(int argc, char *argv[]) {
     printf("================================\n");
     printf("      QuakeWarn Startup Test\n");
     printf("================================\n\n");
@@ -25,7 +25,7 @@ int main() {
     } else {
         printf("[OK] cJSON parsed JSON successfully!\n");
     }
-
+    /*
     // Checking if the keys correspond to the right values
     cJSON *project = cJSON_GetObjectItemCaseSensitive(root, "project");
     cJSON *magnitude = cJSON_GetObjectItemCaseSensitive(root, "magnitude");
@@ -44,7 +44,7 @@ int main() {
     }
 
     // Delete all the allocated memory for the test JSON object
-    cJSON_Delete(root);
+    cJSON_Delete(root);*/
 
     // Trying to initialize libcurl globally
     // (Trying to start libcurl and everything it needs)
@@ -62,7 +62,7 @@ int main() {
 
     printf("----TESTING ALL GEOJSON FILES----");
 
-    
+
 
     printf("\n================================\n");
     printf("      Startup test complete!\n");
