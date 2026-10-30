@@ -144,11 +144,11 @@ int main(void) {
 
     // If the JSON file has incorrect formatting, the method should return NULL
     if (json_4 == NULL) {
-        printf("[OK] Able to detect incorrect formatting\n");
+        printf("[OK] Able to detect incorrect structure\n");
         pass++;
     } else {
-        printf("[FAIL] Unable to detect incorrect formatting\n");
-        fail++
+        printf("[FAIL] Unable to detect incorrect structure\n");
+        fail++;
     }
 
     cJSON_Delete(json_4);
