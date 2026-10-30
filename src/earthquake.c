@@ -324,7 +324,7 @@ void sortingMag(cJSON *json){
             printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
 
             // Removing this earthquake from the data
-            cJSON *null = cJSON_DetachItemFromArray(features, i);
+            cJSON *null = cJSON_DetachItemFromArray(features, i - 1);
 
             // Adding it to the end of the JSON file
             // cJSON_AddItemToArray(features, null);
