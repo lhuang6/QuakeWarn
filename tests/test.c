@@ -11,11 +11,6 @@ int main() {
     printf("      QuakeWarn Startup Test\n");
     printf("================================\n\n");
 
-    printf("[OK] main.c is running!\n");
-    printf("[OK] earthquake.h included!\n");
-    printf("[OK] http.h included!\n");
-    printf("[OK] shelters.h included!\n");
-
     // Test whether cJSON can parse JSON.
     const char *json_text =
         "{\"project\":\"QuakeWarn\",\"magnitude\":4.5}";
@@ -64,6 +59,10 @@ int main() {
 
     // Cleaning up after initializing
     curl_global_cleanup();
+
+    printf("----TESTING ALL GEOJSON FILES----");
+
+    
 
     printf("\n================================\n");
     printf("      Startup test complete!\n");
