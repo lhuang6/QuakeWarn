@@ -319,14 +319,22 @@ void sortingMag(cJSON *json){
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
 
+        // Checking if any magnitudes are null
         if (!cJSON_IsNumber(jsonMag)) {
             printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
-            
+
+            // Removing this earthquake from the data
+            cJSON *null = cJSON_DetachItemFromArray(features, i);
+
+            // Adding it to the end of the JSON file
+            cJSON_InsertItemInArray(features, count - 1, null);
+
+            // Subtracting the index by one because 
+            i--;
+            continue;
         }
 
         float magnitude = jsonMag->valuedouble;
-
-
 
         // Compare with elements to the left
         int j = i - 1;
