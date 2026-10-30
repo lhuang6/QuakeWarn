@@ -8,6 +8,12 @@
 #include <curl/curl.h>
 
 int main(void) {
+
+    /*
+    -----------------
+    TESTING LIBRARIES
+    -----------------
+    */
     printf("================================\n");
     printf("      QuakeWarn Startup Test\n");
     printf("================================\n\n");
@@ -61,24 +67,52 @@ int main(void) {
     // Cleaning up after initializing
     curl_global_cleanup();
 
+
+    /*
+    ---------------
+    TESTING GEOJSON
+    ---------------
+    */
     printf("\n----TESTING ALL GEOJSON FILES----\n");
 
+
+    // ----------FIRST FILE-------------
     // Testing the first file (Unsorted)
     cJSON *json_1 = loadJson("tests/data/01_valid_unsorted.geojson");
 
     // Should be able to read an unsorted file
     if (json_1 != NULL) {
-        printf("[OK] Able to read tests/data/01_valid_unsorted.geojson\n");
+        printf("[OK] Able to read a valid, unsorted dataset\n");
     }
 
     // Deleting first file JSON object
     cJSON_Delete(json_1);
 
+
+    // ----------SECOND FILE-------------
     // Testing second file of array length 0
     cJSON *json_2 = loadJson("tests/data/02_valid_empty.geojson");
     sortingMag(json_2);
 
+    // Grabbing features (each earthquake)
+    // Should have nothing in it
+    cJSON *features = cJSON_GetObjectItem(json_2, "features");
+
+    // Running sorting method
+    sortingMag(json_2);
+
+    // Checking if features is still empty
+    if (cJSON_GetArraySize(features) == 0) {
+        printf("[OK] Empty array handled correctly\n");
+    } else {
+        printf("[FAIL] Array should be empty.\n");
+    }
+
     cJSON_Delete(json_2);
+    cJSON *json_3 = loadJson("tests/data/03_invalid_json.geojson");
+
+    // ----------THIRD FILE-------------
+
 
     printf("\n================================\n");
     printf("      Startup test complete!\n");
