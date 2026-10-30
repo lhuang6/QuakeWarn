@@ -13,6 +13,6 @@ int main(void)
     cJSON *json = loadEarthquakes(ALL_DAY, ALL);
     sortingMag(json);
     printEarthquakes(json);
-
+    
     return 0;
 }
