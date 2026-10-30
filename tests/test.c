@@ -161,10 +161,11 @@ int main(void) {
     if (json_5 == NULL) {
         printf("[FAIL] Null magnitudes should still be readable\n");
         fail++;
+    }
 
     // Checking whether all null magnitudes are at the end
     bool nullFound = false; // Whether or not the only null value has been found yet
-    int nullCount = 0;      // How many nulls have been found
+    bool nullFailed = false;
 
     // Looping through all earthquakes
     for (int i = 0; i < cJSON_GetArraySize(features); i++) {
@@ -177,7 +178,9 @@ int main(void) {
         // Checks if the null has been found in the loop yet
         // Since the loop should stop at the end of the loop, nullFound can only be true after the loop ends
         if (nullFound) {
-            printf("[FAIL] Null value not at end of the data\n");
+            printf("[FAIL] Null magnitude earthquake not at end of data\n");
+            nullFailed = true;
+            fail++;
         }
 
         // Setting the boolean to true if it found the null value
@@ -186,10 +189,28 @@ int main(void) {
         }
     }
 
+    // If the null earthquake has even been found
+    if (!nullFound) {
+        printf("[FAIL] Null magnitude earthquake not found in data\n");
+        fail++;
+    }
+
+    // PASS: If the null was found (nullFound) and found at the end (nullFailed)
+    if (nullFound && !nullFailed) {
+        printf("[OK] Null magnitude earthquake found at the end of data\n");
+        pass++;
+    }
+
     cJSON_Delete(json_5);
 
-
-    printf("\n================================\n");
+    /*
+    --------------
+    SUMMARY REPORT
+    --------------
+    */
+    printf("\n\n================================\n");
     printf("      Startup test complete!\n");
-    printf("================================\n");
+    printf("================================\n\n");
+
+    printf("PASS: %d        FAIL: %d\n", pass, fail);
 }
