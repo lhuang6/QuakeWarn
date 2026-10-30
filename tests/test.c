@@ -63,15 +63,22 @@ int main(void) {
 
     printf("\n----TESTING ALL GEOJSON FILES----\n");
 
+    // Testing the first file (Unsorted)
     cJSON *json = loadJson("tests/data/01_valid_unsorted.geojson");
 
+    // Should be able to read an unsorted file
     if (json != NULL) {
         printf("[OK] Able to read tests/data/01_valid_unsorted.geojson\n");
     }
 
+    // Deleting first file JSON object
+    cJSON_Delete(json);
+
+    // Testing second file of array length 0
+    cJSON *json = loadJson("tests/data/02_valid_empty.geojson");
     
 
-    cJSON_Delete(json);
+
 
     printf("\n================================\n");
     printf("      Startup test complete!\n");
