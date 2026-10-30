@@ -329,11 +329,13 @@ void sortingMag(cJSON *json){
             // Adding it to the end of the JSON file
             cJSON_InsertItemInArray(features, count - 1, null);
 
-            // Subtracting the index by one because 
+            // Subtracting the index by one because the null earthquake swapped places
+            // So the other earthquakes moved left
             i--;
             continue;
         }
 
+        // Setting the variable to the actual decimal for the magnitude that the cJSON pointer points to
         float magnitude = jsonMag->valuedouble;
 
         // Compare with elements to the left
