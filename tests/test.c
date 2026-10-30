@@ -105,13 +105,13 @@ int main(void) {
 
     // Grabbing features (each earthquake)
     // Should have nothing in it
-    cJSON *features = cJSON_GetObjectItem(json_2, "features");
+    cJSON *features_2 = cJSON_GetObjectItem(json_2, "features");
 
     // Running sorting method
     sortingMag(json_2);
 
     // Checking if features is still empty
-    if (cJSON_GetArraySize(features) == 0) {
+    if (cJSON_GetArraySize(features_2) == 0) {
         printf("[OK] Empty array handled correctly\n");
         pass++;
     } else {
@@ -167,11 +167,13 @@ int main(void) {
     bool nullFound = false; // Whether or not the only null value has been found yet
     bool nullFailed = false;
 
+    cJSON *features_5 = cJSON_GetObjectItem(json_5, "features");
+
     // Looping through all earthquakes
-    for (int i = 0; i < cJSON_GetArraySize(features); i++) {
+    for (int i = 0; i < cJSON_GetArraySize(features_5); i++) {
 
         // Grabbing magnitude of each earthquake
-        cJSON *feature = cJSON_GetArrayItem(features, i);
+        cJSON *feature = cJSON_GetArrayItem(features_5, i);
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
 
@@ -208,9 +210,9 @@ int main(void) {
     SUMMARY REPORT
     --------------
     */
-    printf("\n\n================================\n");
+    printf("\n================================\n");
     printf("      Startup test complete!\n");
-    printf("================================\n\n");
+    printf("================================\n");
 
     printf("PASS: %d        FAIL: %d\n", pass, fail);
 }
