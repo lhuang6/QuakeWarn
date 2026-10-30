@@ -320,6 +320,7 @@ void sortingMag(cJSON *json){
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
 
         if (!cJSON_IsNumber(jsonMag)) {
+            printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
             
         }
 
