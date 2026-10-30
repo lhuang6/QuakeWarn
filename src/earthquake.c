@@ -324,15 +324,15 @@ void sortingMag(cJSON *json){
             printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
 
             // Removing this earthquake from the data
-            cJSON *null = cJSON_DetachItemFromArray(features, 0);
+            //cJSON *null = cJSON_DetachItemFromArray(features, 0);
 
             // Adding it to the end of the JSON file
             // cJSON_AddItemToArray(features, null);
 
             // Subtracting the index by one because the null earthquake swapped places
             // So the other earthquakes moved left
-            i--;
-            count--;
+            //i--;
+            //count--;
             continue;
         }
 
