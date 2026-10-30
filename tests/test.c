@@ -6,7 +6,7 @@
 //#include "civetweb.h"
 #include <curl/curl.h>
 
-int main(int argc, char *argv[]) {
+int main(void) {
     printf("================================\n");
     printf("      QuakeWarn Startup Test\n");
     printf("================================\n\n");
@@ -60,7 +60,9 @@ int main(int argc, char *argv[]) {
     // Cleaning up after initializing
     curl_global_cleanup();
 
-    printf("----TESTING ALL GEOJSON FILES----");
+    printf("\n----TESTING ALL GEOJSON FILES----\n");
+
+    FILE *fp = fopen("test/data/01_valid_unsorted", )
 
 
 
