@@ -62,8 +62,6 @@ int main(void) {
 
     printf("\n----TESTING ALL GEOJSON FILES----\n");
 
-    FILE *fp = fopen("test/data/01_valid_unsorted", )
-
 
 
     printf("\n================================\n");

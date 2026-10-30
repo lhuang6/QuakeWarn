@@ -206,28 +206,15 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
 }
 
 /**
- * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
+ * Loads any earthquake GeoJSON file.
  *
  * Parameters:
- *     time: Time period of the earthquakes, of datatype enum DataTime
- *          - ALL_HOUR = One hour
- *          - ALL_DAY = One day
- *          - ALL_WEEK = Seven days
- *          - ALL_MONTH = Thirty days
- *     magnitude: Minimum magnitude included in the data
- *          - SIGNIFICANT = Significant earthquakes or 7.5+
- *          - M4_5 = Magnitude 4.5+
- *          - M2_5 = Magnitude 2.5+
- *          - M1_0 = Magnitude 1.0+
- *          - ALL = All earthquakes
+ *     filePath: A pointer to the path of the file on the disk
  *
  * Returns:
  *     json: A pointer to the cJSON object for the USGS GeoJSON data
 */
-cJSON *loadEarthquakes(char *filePath) {
-    // JsonData struct that stores the download link and path to JSON file
-    JsonData jsonPaths = enumToLink(time, magnitude);
-
+cJSON *loadJson(char *filePath) {
     // Opens the file downloaded from USGS
     FILE *file = fopen(filePath, "r");
 
@@ -270,7 +257,31 @@ cJSON *loadEarthquakes(char *filePath) {
     return json;
 }
 
-cJSON *
+/**
+ * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
+ *
+ * Parameters:
+ *     time: Time period of the earthquakes, of datatype enum DataTime
+ *          - ALL_HOUR = One hour
+ *          - ALL_DAY = One day
+ *          - ALL_WEEK = Seven days
+ *          - ALL_MONTH = Thirty days
+ *     magnitude: Minimum magnitude included in the data
+ *          - SIGNIFICANT = Significant earthquakes or 7.5+
+ *          - M4_5 = Magnitude 4.5+
+ *          - M2_5 = Magnitude 2.5+
+ *          - M1_0 = Magnitude 1.0+
+ *          - ALL = All earthquakes
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the USGS GeoJSON data
+*/
+cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
+    // JsonData struct that stores the download link and path to JSON file
+    JsonData jsonPaths = enumToLink(time, magnitude);
+
+    return loadJson(jsonPaths.jsonDiskName);
+}
 
 /**
  * Sorts the earthquake cJSON object from least to greatest magnitude.
