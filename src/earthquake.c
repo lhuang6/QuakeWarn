@@ -254,6 +254,13 @@ cJSON *loadJson(char *filePath) {
         return NULL;
     }
 
+    if (cJSON_IsArray(json)) {
+        printf("The JSON value is an array!\n");
+        printf("Array size: %d\n", cJSON_GetArraySize(json));
+    } else {
+        printf("The JSON value is NOT an array.\n");
+    }
+
     return json;
 }
 
