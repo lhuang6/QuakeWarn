@@ -48,7 +48,7 @@ $(BUILD_DIR)/%.o: %.c
 # Make Testfile
 # -------------
 TEST_TARGET = test_json
-TEST_SRC = tests/test.c
+TEST_SRC = $(wildcard src/*.c) tests/test.c
 TEST_OBJ = build/tests/test.o
 
 $(TEST_TARGET): $(TEST_OBJ) build/third-party/cJSON/cJSON.o
