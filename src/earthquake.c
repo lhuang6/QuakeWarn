@@ -327,7 +327,7 @@ void sortingMag(cJSON *json){
             cJSON *null = cJSON_DetachItemFromArray(features, i);
 
             // Adding it to the end of the JSON file
-            cJSON_AddItemToArray(features, null);
+            // cJSON_AddItemToArray(features, null);
 
             // Subtracting the index by one because the null earthquake swapped places
             // So the other earthquakes moved left
