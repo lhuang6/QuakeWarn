@@ -156,8 +156,12 @@ int main(void) {
     // ----------FIFTH FILE-------------
     // The earthquake has a magnitude of null
     cJSON *json_5 = loadJson("tests/data/05_invalid_fields.geojson");
-    sortingMag(json_5);
-    printEarthquakes(json_5);
+
+    if (json_5 == NULL) {
+        printf("[FAIL] Null magnitudes should still be readable\n");
+        fail++;
+
+    
 
     cJSON_Delete(json_5);
 

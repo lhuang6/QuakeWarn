@@ -264,22 +264,38 @@ cJSON *loadJson(char *filePath) {
         return NULL;
     }
 
-    // Checking if any magnitudes are null
+    // ----------------------------
+    // CHECKING FOR NULL MAGNITUDES
+    // ----------------------------
+    // Total amount of earthquakes
+    int count = cJSON_GetArraySize(features);
+
+    // Looping through each earthquake
+    for (int i = 1; i < count; i++) {
+
+        // Grabbing the magnitude for each earthquake
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+        cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
+
+        // Checking if magnitude is a number or not
         if (!cJSON_IsNumber(jsonMag)) {
+            // Printing a warning statement
             printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
 
             // Removing this earthquake from the data
-            //cJSON *null = cJSON_DetachItemFromArray(features, 0);
+            cJSON *null = cJSON_DetachItemFromArray(features, 0);
 
             // Adding it to the end of the JSON file
-            // cJSON_AddItemToArray(features, null);
+            cJSON_AddItemToArray(features, null);
 
             // Subtracting the index by one because the null earthquake swapped places
             // So the other earthquakes moved left
-            //i--;
-            //count--;
+            i--;
+            count--;
             continue;
         }
+    }
 
     return json;
 }
