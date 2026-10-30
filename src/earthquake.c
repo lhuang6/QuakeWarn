@@ -313,11 +313,19 @@ void sortingMag(cJSON *json){
     // 4. Repeat until the entire array is sorted.
     for (int i = 1; i < count; i++) {
 
+
         // Grabbing the magnitude for each member on the right
         cJSON *feature = cJSON_GetArrayItem(features, i);
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
+
+        if (!cJSON_IsNumber(jsonMag)) {
+            
+        }
+
         float magnitude = jsonMag->valuedouble;
+
+
 
         // Compare with elements to the left
         int j = i - 1;
