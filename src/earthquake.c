@@ -264,6 +264,23 @@ cJSON *loadJson(char *filePath) {
         return NULL;
     }
 
+    // Checking if any magnitudes are null
+        if (!cJSON_IsNumber(jsonMag)) {
+            printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
+
+            // Removing this earthquake from the data
+            //cJSON *null = cJSON_DetachItemFromArray(features, 0);
+
+            // Adding it to the end of the JSON file
+            // cJSON_AddItemToArray(features, null);
+
+            // Subtracting the index by one because the null earthquake swapped places
+            // So the other earthquakes moved left
+            //i--;
+            //count--;
+            continue;
+        }
+
     return json;
 }
 
@@ -318,25 +335,6 @@ void sortingMag(cJSON *json){
         cJSON *feature = cJSON_GetArrayItem(features, i);
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
-
-        // Checking if any magnitudes are null
-        if (!cJSON_IsNumber(jsonMag)) {
-            printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
-
-            // Removing this earthquake from the data
-            //cJSON *null = cJSON_DetachItemFromArray(features, 0);
-
-            // Adding it to the end of the JSON file
-            // cJSON_AddItemToArray(features, null);
-
-            // Subtracting the index by one because the null earthquake swapped places
-            // So the other earthquakes moved left
-            //i--;
-            //count--;
-            continue;
-        }
-
-        // Setting the variable to the actual decimal for the magnitude that the cJSON pointer points to
         float magnitude = jsonMag->valuedouble;
 
         // Compare with elements to the left
