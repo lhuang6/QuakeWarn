@@ -162,20 +162,27 @@ int main(void) {
         printf("[FAIL] Null magnitudes should still be readable\n");
         fail++;
 
-    int count = cJSON_GetArraySize(features);
+    // Checking whether all null magnitudes are at the end
+    int nullFound = 0;
+    int nullCount = 0;
 
-    // Looping through each earthquake
-    for (int i = 1; i < count; i++) {
-
-        // Grabbing the magnitude for each earthquake
+    // Looping through all earthquakes
+    for (int i = 0; i < cJSON_GetArraySize(features); i++) {
+        // Grabbing magnitude of each earthquake
         cJSON *feature = cJSON_GetArrayItem(features, i);
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
         cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
 
-        // Checking if magnitude is a number or not
+        
         if (!cJSON_IsNumber(jsonMag)) {
-            
-
+            nullFound = 1;
+            nullCount++;
+        }
+        else if (nullFound) {
+            printf("\033[31mERROR: Valid magnitude found after null at index %d!\033[0m\n", i);
+            return;
+        }
+    }
 
     cJSON_Delete(json_5);
 
