@@ -224,12 +224,12 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
  * Returns:
  *     json: A pointer to the cJSON object for the USGS GeoJSON data
 */
-cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
+cJSON *loadEarthquakes(char *filePath) {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
 
     // Opens the file downloaded from USGS
-    FILE *file = fopen(jsonPaths.jsonDiskName, "r");
+    FILE *file = fopen(filePath, "r");
 
     // Check if the file opening fails
     if (file == NULL) {
@@ -269,6 +269,8 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
 
     return json;
 }
+
+cJSON *
 
 /**
  * Sorts the earthquake cJSON object from least to greatest magnitude.
