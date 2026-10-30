@@ -271,7 +271,7 @@ cJSON *loadJson(char *filePath) {
     int count = cJSON_GetArraySize(features);
 
     // Looping through each earthquake
-    for (int i = 1; i < count; i++) {
+    for (int i = 0; i < count; i++) {
 
         // Grabbing the magnitude for each earthquake
         cJSON *feature = cJSON_GetArrayItem(features, i);
@@ -287,7 +287,7 @@ cJSON *loadJson(char *filePath) {
             cJSON *null = cJSON_DetachItemFromArray(features, 0);
 
             // Adding it to the end of the JSON file
-            cJSON_AddItemToArray(features, null);
+            // cJSON_AddItemToArray(features, null);
 
             // Subtracting the index by one because the null earthquake swapped places
             // So the other earthquakes moved left
