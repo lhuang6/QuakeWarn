@@ -254,11 +254,14 @@ cJSON *loadJson(char *filePath) {
         return NULL;
     }
 
-    if (cJSON_IsArray(json)) {
-        printf("The JSON value is an array!\n");
-        printf("Array size: %d\n", cJSON_GetArraySize(json));
-    } else {
-        printf("The JSON value is NOT an array.\n");
+    // Checks if the "features" contains an array
+    // Should have an array of earthquakes
+    cJSON *features = cJSON_GetObjectItem(json, "features");
+
+    // Returning NULL if it does not
+    if (cJSON_IsArray(features)) {
+        printf("Features does not contain an array!\n");
+        return NULL:
     }
 
     return json;
