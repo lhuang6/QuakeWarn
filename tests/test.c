@@ -65,6 +65,12 @@ int main(void) {
 
     cJSON *json = loadJson("tests/data/01_valid_unsorted.geojson");
 
+    if (json != NULL) {
+        printf("[OK] Able to read tests/data/01_valid_unsorted.geojson\n");
+    }
+
+    
+
     cJSON_Delete(json);
 
     printf("\n================================\n");
