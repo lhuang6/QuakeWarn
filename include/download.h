@@ -1,8 +1,8 @@
-// Header for the earthquake.c source code
+// Header for the download.c source code
 
-// Checking if earthquake code has been defined yet
-#ifndef EARTHQUAKE
-#define EARTHQUAKE // Defining earthquake code
+// Checking if download code has been defined yet
+#ifndef DOWNLOAD
+#define DOWNLOAD // Defining download code
 
 #include <stdio.h>
 #include "cJSON.h"
@@ -42,6 +42,10 @@ JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude);
 
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
-void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
+void downloadJson()
 
-void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
+void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
+
+void poll(enum DataTime time, enum DataMagnitude magnitude);
+
+#endif

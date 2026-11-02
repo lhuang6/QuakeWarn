@@ -1,7 +1,8 @@
+// Code to download GeoJSON Files
+#include "download.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <curl/curl.h>
-
 
 /**
  * Converts the time-range enum and the minimum magnitude into the JsonData struct that
@@ -123,7 +124,7 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata) {
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
  */
-void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
+void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
 
@@ -186,7 +187,7 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
 */
-void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
+void poll(enum DataTime time, enum DataMagnitude magnitude){
 
     // Fix later to stop once program is turned off
     while (1){
