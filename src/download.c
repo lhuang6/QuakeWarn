@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <curl/curl.h>
+
+
 /**
  * Converts the time-range enum and the minimum magnitude into the JsonData struct that
  * stores the links and the paths to a JSON file.
