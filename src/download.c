@@ -117,7 +117,7 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata) {
             - jsonDiskName = Full path to the JSON file on the disk
             - jsonLink = Link to the JSON file to download
  */
-void downloadJson(enum JsonData jsonPaths) {
+void downloadJson(JsonData jsonPaths) {
     // Creating or replacing file
     // Able to replace the file for updating it to a more recent time
     FILE *jsonDiskFile = fopen(jsonPaths.jsonDiskName, "w");
