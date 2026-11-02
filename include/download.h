@@ -40,6 +40,8 @@ void downloadJson(JsonData jsonPaths);
 
 void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
+void downloadShelters();
+
 void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 #endif
