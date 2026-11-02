@@ -11,6 +11,6 @@
 int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
-    downloadEarthquakes(ALL_DAY, ALL);
+    downloadShelters();
     return 0;
 }

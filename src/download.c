@@ -220,7 +220,7 @@ void downloadShelters() {
     "&resultRecordCount=&returnExtentOnly=false&sqlFormat=none&datumTransformation=&parameterValues=&rangeValues=&quantizationParameters=&uniqueIds="
     "&returnUniqueIdsOnly=false&featureEncoding=esriDefault&f=geojson";
 
-    snprintf(jsonPaths.jsonLink, sizeof(jsonPaths.jsonLink) "%s", link);
+    snprintf(jsonPaths.jsonLink, sizeof(jsonPaths.jsonLink), "%s", link);
 
     downloadJson(jsonPaths);
 }
@@ -241,7 +241,7 @@ void downloadShelters() {
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
 */
-void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
+void poll(enum DataTime time, enum DataMagnitude magnitude){
 
     // Fix later to stop once program is turned off
     while (1){
@@ -249,6 +249,7 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
 
         // Downloads the most recent CSV file of earthquake data
         downloadEarthquakes(time, magnitude);
+        downloadShelters();
 
         // Waits 60 seconds to poll again
         sleep(60);
