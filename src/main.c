@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include "cJSON.h"
-//#include "download.h"
+#include "download.h"
 #include "earthquake.h"
 #include "http.h"
 #include "shelters.h"
