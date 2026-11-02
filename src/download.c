@@ -184,7 +184,9 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
 }
 
 void downloadShelters() {
-    
+    JsonData jsonPaths;
+
+    jsonPaths.
 }
 
 /**
