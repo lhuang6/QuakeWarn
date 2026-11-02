@@ -107,31 +107,16 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata) {
     return written;
 }
 
-void downloadJson(char *jsonFileName, char *jsonDiskName, char *jsonLink) {
-    
-}
-
 /**
- * Method for downloading and updating the json file on the disk. Run it again to update it to the
- * most recent time.
+ * Method for downloading any GeoJSON data onto the disk.
  *
  * Parameters:
- *      time: Time period of the earthquakes, of datatype enum DataTime
- *          - ALL_HOUR = One hour
- *          - ALL_DAY = One day
- *          - ALL_WEEK = Seven days
- *          - ALL_MONTH = Thirty days
- *      magnitude: Minimum magnitude included in the data
- *          - SIGNIFICANT = Significant earthquakes or 7.5+
- *          - M4_5 = Magnitude 4.5+
- *          - M2_5 = Magnitude 2.5+
- *          - M1_0 = Magnitude 1.0+
- *          - ALL = All earthquakes
+ *      jsonPaths: JsonData struct
+ *          - jsonFileName = Name of the JSON file on the disk and web
+            - jsonDiskName = Full path to the JSON file on the disk
+            - jsonLink = Link to the JSON file to download
  */
-void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
-    // JsonData struct that stores the download link and path to JSON file
-    JsonData jsonPaths = enumToLink(time, magnitude);
-
+void downloadJson(enum JsonData jsonPaths) {
     // Creating or replacing file
     // Able to replace the file for updating it to a more recent time
     FILE *jsonDiskFile = fopen(jsonPaths.jsonDiskName, "w");
@@ -176,7 +161,34 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
 }
 
 /**
- * Updates the JSON data every one minute for new earthquakes
+ * Method for downloading the earthquake GeoJSON data onto the disk.
+ *
+ * Parameters:
+ *      time: Time period of the earthquakes, of datatype enum DataTime
+ *          - ALL_HOUR = One hour
+ *          - ALL_DAY = One day
+ *          - ALL_WEEK = Seven days
+ *          - ALL_MONTH = Thirty days
+ *      magnitude: Minimum magnitude included in the data
+ *          - SIGNIFICANT = Significant earthquakes or 7.5+
+ *          - M4_5 = Magnitude 4.5+
+ *          - M2_5 = Magnitude 2.5+
+ *          - M1_0 = Magnitude 1.0+
+ *          - ALL = All earthquakes
+ */
+void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
+    // JsonData struct that stores the download link and path to JSON file
+    JsonData jsonPaths = enumToLink(time, magnitude);
+
+    downloadJson(jsonPaths);
+}
+
+void downloadShelters() {
+    
+}
+
+/**
+ * Updates all shelter and earthquake GeoJSON data every 60 seconds.
  *
  * Parameters:
  *     time: Time period of the earthquakes, of datatype enum DataTime
