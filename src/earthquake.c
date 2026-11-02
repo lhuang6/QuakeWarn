@@ -174,6 +174,12 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     curl_easy_cleanup(curl);
     curl_global_cleanup();
 }
+void testjson()
+{
+    printf("Sriram Daddy\n");
+}
+
+
 
 /**
  * Updates the JSON data every one minute for new earthquakes
