@@ -113,22 +113,12 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata) {
  * most recent time.
  *
  * Parameters:
- *      time: Time period of the earthquakes, of datatype enum DataTime
- *          - ALL_HOUR = One hour
- *          - ALL_DAY = One day
- *          - ALL_WEEK = Seven days
- *          - ALL_MONTH = Thirty days
- *      magnitude: Minimum magnitude included in the data
- *          - SIGNIFICANT = Significant earthquakes or 7.5+
- *          - M4_5 = Magnitude 4.5+
- *          - M2_5 = Magnitude 2.5+
- *          - M1_0 = Magnitude 1.0+
- *          - ALL = All earthquakes
+ *      jsonPaths: JsonData struct
+ *          - jsonFileName = Name of the JSON file on the disk and web
+            - jsonDiskName = Full path to the JSON file on the disk
+            - jsonLink = Link to the JSON file to download
  */
-void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
-    // JsonData struct that stores the download link and path to JSON file
-    JsonData jsonPaths = enumToLink(time, magnitude);
-
+void downloadJson(JsonData jsonPaths) {
     // Creating or replacing file
     // Able to replace the file for updating it to a more recent time
     FILE *jsonDiskFile = fopen(jsonPaths.jsonDiskName, "w");
@@ -170,6 +160,29 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude) {
     // Cleaning up curl globally and the easy instance
     curl_easy_cleanup(curl);
     curl_global_cleanup();
+}
+
+/**
+ * Method for downloading the earthquake GeoJSON data onto the disk.
+ *
+ * Parameters:
+ *      time: Time period of the earthquakes, of datatype enum DataTime
+ *          - ALL_HOUR = One hour
+ *          - ALL_DAY = One day
+ *          - ALL_WEEK = Seven days
+ *          - ALL_MONTH = Thirty days
+ *      magnitude: Minimum magnitude included in the data
+ *          - SIGNIFICANT = Significant earthquakes or 7.5+
+ *          - M4_5 = Magnitude 4.5+
+ *          - M2_5 = Magnitude 2.5+
+ *          - M1_0 = Magnitude 1.0+
+ *          - ALL = All earthquakes
+ */
+void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
+    // JsonData struct that stores the download link and path to JSON file
+    JsonData jsonPaths = enumToLink(time, magnitude);
+
+    downloadJson(jsonPaths);
 }
 
 /**

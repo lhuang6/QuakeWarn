@@ -36,7 +36,9 @@ JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude);
 
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
-void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
+void downloadJson(JsonData jsonPaths);
+
+void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 

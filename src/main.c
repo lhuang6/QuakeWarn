@@ -11,6 +11,6 @@
 int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
-    downloadJson(ALL_DAY, ALL);
+    downloadEarthquakes(ALL_DAY, ALL);
     return 0;
 }
