@@ -49,4 +49,4 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 void poll(enum DataTime time, enum DataMagnitude magnitude);
 
-#endif*/
+#endif
