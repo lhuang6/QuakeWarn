@@ -191,7 +191,14 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
  *      - address_1: Street of the shelter
  *      - city: City of the shelter
  *      - zip: Zip code to the shelter
- *      - org_main_phone: Organization's main phone number
+ *      - org_organization_name: Name of the shelter's organization
+ *      - org_address: Address to the organization
+ *      - org_city: City to the organization
+ *      - org_state: State to the organization
+ *      - org_hours_of_operation: Organization's hours of operation
+ *      - shelter_status_code: Status of the shelter
+ *      - shelter_open_date: When the shelter opened
+ *      - shelter_closed_date: When the shelter closed
  */
 void downloadShelters() {
     // JsonData struct that stores the download link and path to JSON file
@@ -204,7 +211,7 @@ void downloadShelters() {
     jsonPaths.jsonLink =
     "https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/MapServer/5/query?where=1%3D1&text=&objectIds=&time=&timeRelation=esriTimeRelationOverlaps"
     "&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&"
-    "outFields=shelter_name%2C+address_1%2C+city%2C+state%2C+zip%2C+org_organization_name%2C+org_main_phone%2C+org_email%2C+org_hotline_phone"
+    "outFields=shelter_name%2C+address_1%2C+city%2C+state%2C+zip%2C+org_organization_name%2C"
     "%2C+org_address%2C+org_city%2C+org_state%2C+org_zip%2C+org_hours_of_operation%2C+shelter_status_code%2C+shelter_open_date%2C+shelter_closed_date"
     "&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&havingClause=&returnIdsOnly=false&returnCountOnly=false"
     "&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset="
