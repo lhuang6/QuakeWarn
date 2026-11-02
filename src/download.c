@@ -205,11 +205,11 @@ void downloadShelters() {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths;
 
-    jsonPaths.jsonFileName = "shelters.geojson";
-    jsonPaths.jsonDiskName = "data/shelters.geojson";
+    snprintf(jsonPaths.jsonFileName, sizeof(jsonPaths.jsonFileName), "%s", "shelters.geojson");
+    snprintf(jsonPaths.jsonDiskName, sizeof(jsonPaths.jsonDiskName), "%s", "data/shelters.geojson");
 
     // Huge link that queries all the FEMA shelter data needed
-    jsonPaths.jsonLink =
+    char *link =
     "https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/MapServer/5/query?where=1%3D1&text=&objectIds=&time=&timeRelation=esriTimeRelationOverlaps"
     "&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&"
     "outFields=shelter_name%2C+address_1%2C+city%2C+state%2C+zip%2C+org_organization_name%2C"
@@ -218,6 +218,8 @@ void downloadShelters() {
     "&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset="
     "&resultRecordCount=&returnExtentOnly=false&sqlFormat=none&datumTransformation=&parameterValues=&rangeValues=&quantizationParameters=&uniqueIds="
     "&returnUniqueIdsOnly=false&featureEncoding=esriDefault&f=geojson";
+
+    snprintf(jsonPaths.jsonLink, sizeof(jsonPaths.jsonLink), "%s", link);
 
     downloadJson(jsonPaths);
 }

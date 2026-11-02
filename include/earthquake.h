@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include "cJSON.h"
+#include "download.h"
 
 cJSON *loadJson(char *filePath);
 
