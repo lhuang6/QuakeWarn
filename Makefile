@@ -13,7 +13,7 @@ CC = clang
 CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON
 
 # Local libraries to include
-LDLIBS = -lcurl
+LDLIBS = -lcurl -lm
 
 # New directory where all the compiled files go
 BUILD_DIR = build
