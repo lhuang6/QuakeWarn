@@ -33,9 +33,9 @@ enum DataMagnitude {
  * Important strings for the locations of the JSON files
  */
 typedef struct {
-    char jsonFileName[100]; // Name of the JSON file on the disk and web
-    char jsonDiskName[100]; // Full path to the JSON file on the disk
-    char jsonLink[1100];     // Link to the JSON file to download
+    const char *jsonFileName; // Name of the JSON file on the disk and web
+    const char *jsonDiskName; // Full path to the JSON file on the disk
+    const char *jsonLink;     // Link to the JSON file to download
 } JsonData;
 
 JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude);
