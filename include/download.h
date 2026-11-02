@@ -42,6 +42,6 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 void downloadShelters();
 
-void poll(enum DataTime time, enum DataMagnitude magnitude);
+void pollData(enum DataTime time, enum DataMagnitude magnitude);
 
 #endif
