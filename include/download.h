@@ -42,7 +42,7 @@ JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude);
 
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 
-void downloadJson()
+void downloadJson(enum JsonData jsonPaths);
 
 void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 

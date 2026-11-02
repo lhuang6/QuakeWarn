@@ -107,6 +107,10 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata) {
     return written;
 }
 
+void downloadJson(char *jsonFileName, char *jsonDiskName, char *jsonLink) {
+    
+}
+
 /**
  * Method for downloading and updating the json file on the disk. Run it again to update it to the
  * most recent time.
