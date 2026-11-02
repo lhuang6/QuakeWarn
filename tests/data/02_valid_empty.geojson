@@ -1,0 +1,12 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1793275200000,
+    "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
+    "title": "Test empty FeatureCollection",
+    "status": 200,
+    "api": "2.3.0",
+    "count": 0
+  },
+  "features": []
+}

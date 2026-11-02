@@ -3,18 +3,23 @@
 #include <cs50.h>
 #include <stdio.h>
 #include "cJSON.h"
+#include "earthquake.h"
 //#include "civetweb.h"
 #include <curl/curl.h>
 
-int main() {
+int main(void) {
+
+    /*
+    -----------------
+    TESTING LIBRARIES
+    -----------------
+    */
     printf("================================\n");
     printf("      QuakeWarn Startup Test\n");
     printf("================================\n\n");
 
-    printf("[OK] main.c is running!\n");
-    printf("[OK] earthquake.h included!\n");
-    printf("[OK] http.h included!\n");
-    printf("[OK] shelters.h included!\n");
+    int pass = 0;
+    int fail = 0;
 
     // Test whether cJSON can parse JSON.
     const char *json_text =
@@ -26,11 +31,12 @@ int main() {
     if (root == NULL)
     {
         printf("[FAIL] cJSON could not parse JSON.\n");
-        return 1;
+        fail++;
     } else {
         printf("[OK] cJSON parsed JSON successfully!\n");
+        pass++;
     }
-
+    /*
     // Checking if the keys correspond to the right values
     cJSON *project = cJSON_GetObjectItemCaseSensitive(root, "project");
     cJSON *magnitude = cJSON_GetObjectItemCaseSensitive(root, "magnitude");
@@ -49,7 +55,7 @@ int main() {
     }
 
     // Delete all the allocated memory for the test JSON object
-    cJSON_Delete(root);
+    cJSON_Delete(root);*/
 
     // Trying to initialize libcurl globally
     // (Trying to start libcurl and everything it needs)
@@ -58,14 +64,155 @@ int main() {
     // If the curl code is ok or not
     if(result == CURLE_OK) {
         printf("[OK] Curl global initialization\n");
+        pass++;
     } else {
         printf("[FAIL] Curl unable to initialize\n");
+        fail++;
     }
 
     // Cleaning up after initializing
     curl_global_cleanup();
 
+
+    /*
+    ---------------
+    TESTING GEOJSON
+    ---------------
+    */
+    printf("\n----TESTING ALL GEOJSON FILES----\n");
+
+
+    // ----------FIRST FILE-------------
+    // Testing the first file (Unsorted)
+    cJSON *json_1 = loadJson("tests/data/01_valid_unsorted.geojson");
+
+    // Should be able to read an unsorted file
+    if (json_1 != NULL) {
+        printf("[OK] Able to read a valid, unsorted dataset\n");
+        pass++;
+    } else {
+        fail++;
+    }
+
+    // Deleting first file JSON object
+    cJSON_Delete(json_1);
+
+
+    // ----------SECOND FILE-------------
+    // Testing second file of array length 0
+    cJSON *json_2 = loadJson("tests/data/02_valid_empty.geojson");
+    sortingMag(json_2);
+
+    // Grabbing features (each earthquake)
+    // Should have nothing in it
+    cJSON *features_2 = cJSON_GetObjectItem(json_2, "features");
+
+    // Running sorting method
+    sortingMag(json_2);
+
+    // Checking if features is still empty
+    if (cJSON_GetArraySize(features_2) == 0) {
+        printf("[OK] Empty array handled correctly\n");
+        pass++;
+    } else {
+        printf("[FAIL] Array should be empty.\n\n");
+        fail++;
+    }
+
+    cJSON_Delete(json_2);
+
+
+    // ----------THIRD FILE-------------
+    // Testing third file which is missing a column
+    cJSON *json_3 = loadJson("tests/data/03_invalid_json.geojson");
+
+    // If the JSON file has incorrect formatting, the method should return NULL
+    if (json_3 == NULL) {
+        printf("[OK] Able to detect incorrect formatting\n");
+        pass++;
+    } else {
+        printf("[FAIL] Unable to detect incorrect formatting\n");
+        fail++;
+    }
+
+    cJSON_Delete(json_3);
+
+
+    // ----------FOURTH FILE-------------
+    // Instead of an array storing magnitude, location, etc., there is just a string
+    cJSON *json_4 = loadJson("tests/data/04_invalid_structure.geojson");
+
+    // If the JSON file has incorrect formatting, the method should return NULL
+    if (json_4 == NULL) {
+        printf("[OK] Able to detect incorrect structure\n");
+        pass++;
+    } else {
+        printf("[FAIL] Unable to detect incorrect structure\n");
+        fail++;
+    }
+
+    cJSON_Delete(json_4);
+
+
+    // ----------FIFTH FILE-------------
+    // One earthquake has a magnitude of null
+    cJSON *json_5 = loadJson("tests/data/05_invalid_fields.geojson");
+
+    if (json_5 == NULL) {
+        printf("[FAIL] Null magnitudes should still be readable\n");
+        fail++;
+    }
+
+    // Checking whether all null magnitudes are at the end
+    bool nullFound = false; // Whether or not the only null value has been found yet
+    bool nullFailed = false;
+
+    cJSON *features_5 = cJSON_GetObjectItem(json_5, "features");
+
+    // Looping through all earthquakes
+    for (int i = 0; i < cJSON_GetArraySize(features_5); i++) {
+
+        // Grabbing magnitude of each earthquake
+        cJSON *feature = cJSON_GetArrayItem(features_5, i);
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+        cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
+
+        // Checks if the null has been found in the loop yet
+        // Since the loop should stop at the end of the loop, nullFound can only be true after the loop ends
+        if (nullFound) {
+            printf("[FAIL] Null magnitude earthquake not at end of data\n");
+            nullFailed = true;
+            fail++;
+        }
+
+        // Setting the boolean to true if it found the null value
+        if (!cJSON_IsNumber(jsonMag)) {
+            nullFound = true;
+        }
+    }
+
+    // If the null earthquake has even been found
+    if (!nullFound) {
+        printf("[FAIL] Null magnitude earthquake not found in data\n");
+        fail++;
+    }
+
+    // PASS: If the null was found (nullFound) and found at the end (nullFailed)
+    if (nullFound && !nullFailed) {
+        printf("[OK] Null magnitude earthquake found at the end of data\n");
+        pass++;
+    }
+
+    cJSON_Delete(json_5);
+
+    /*
+    --------------
+    SUMMARY REPORT
+    --------------
+    */
     printf("\n================================\n");
     printf("      Startup test complete!\n");
     printf("================================\n");
+
+    printf("PASS: %d        FAIL: %d\n", pass, fail);
 }

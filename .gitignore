@@ -3,7 +3,6 @@
 
 # Ignore all new downloaded files made for testing
 data/
-*.geojson
 
 # Ignore any compiled binaries
 build/
