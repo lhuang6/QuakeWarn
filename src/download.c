@@ -241,7 +241,7 @@ void downloadShelters() {
  *          - M1_0 = Magnitude 1.0+
  *          - ALL = All earthquakes
 */
-void poll(enum DataTime time, enum DataMagnitude magnitude){
+void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
 
     // Fix later to stop once program is turned off
     while (1){
