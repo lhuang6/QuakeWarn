@@ -212,30 +212,17 @@ void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude){
 }
 
 /**
- * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
+ * Loads any earthquake GeoJSON file.
  *
  * Parameters:
- *     time: Time period of the earthquakes, of datatype enum DataTime
- *          - ALL_HOUR = One hour
- *          - ALL_DAY = One day
- *          - ALL_WEEK = Seven days
- *          - ALL_MONTH = Thirty days
- *     magnitude: Minimum magnitude included in the data
- *          - SIGNIFICANT = Significant earthquakes or 7.5+
- *          - M4_5 = Magnitude 4.5+
- *          - M2_5 = Magnitude 2.5+
- *          - M1_0 = Magnitude 1.0+
- *          - ALL = All earthquakes
+ *     filePath: A pointer to the path of the file on the disk
  *
  * Returns:
  *     json: A pointer to the cJSON object for the USGS GeoJSON data
 */
-cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
-    // JsonData struct that stores the download link and path to JSON file
-    JsonData jsonPaths = enumToLink(time, magnitude);
-
+cJSON *loadJson(char *filePath) {
     // Opens the file downloaded from USGS
-    FILE *file = fopen(jsonPaths.jsonDiskName, "r");
+    FILE *file = fopen(filePath, "r");
 
     // Check if the file opening fails
     if (file == NULL) {
@@ -273,7 +260,77 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
         return NULL;
     }
 
+    // Checks if the "features" contains an array
+    // Should have an array of earthquakes
+    cJSON *features = cJSON_GetObjectItem(json, "features");
+
+    // Returning NULL if it is not an array
+    if (!cJSON_IsArray(features)) {
+        printf("\"features\" does not contain an array!\n");
+        return NULL;
+    }
+
+    // ----------------------------
+    // CHECKING FOR NULL MAGNITUDES
+    // ----------------------------
+    // Total amount of earthquakes
+    int count = cJSON_GetArraySize(features);
+
+    // Looping through each earthquake
+    for (int i = 0; i < count; i++) {
+
+        // Grabbing the magnitude for each earthquake
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+        cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
+
+        // Checking if magnitude is a number or not
+        if (!cJSON_IsNumber(jsonMag)) {
+            // Printing a warning statement
+            printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
+
+            // Removing this earthquake from the data
+            cJSON *null = cJSON_DetachItemFromArray(features, 0);
+
+            // Adding it to the end of the JSON file
+            cJSON_AddItemToArray(features, null);
+
+            // Subtracting the index by one because the null earthquake swapped places
+            // So the other earthquakes moved left
+            i--;
+            count--;
+            continue;
+        }
+    }
+
     return json;
+}
+
+/**
+ * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
+ *
+ * Parameters:
+ *     time: Time period of the earthquakes, of datatype enum DataTime
+ *          - ALL_HOUR = One hour
+ *          - ALL_DAY = One day
+ *          - ALL_WEEK = Seven days
+ *          - ALL_MONTH = Thirty days
+ *     magnitude: Minimum magnitude included in the data
+ *          - SIGNIFICANT = Significant earthquakes or 7.5+
+ *          - M4_5 = Magnitude 4.5+
+ *          - M2_5 = Magnitude 2.5+
+ *          - M1_0 = Magnitude 1.0+
+ *          - ALL = All earthquakes
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the USGS GeoJSON data
+*/
+cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
+    // JsonData struct that stores the download link and path to JSON file
+    JsonData jsonPaths = enumToLink(time, magnitude);
+
+    // Runs the path to the JSON file into the loading JSON method
+    return loadJson(jsonPaths.jsonDiskName);
 }
 
 /**
@@ -294,6 +351,7 @@ void sortingMag(cJSON *json){
     // 3. Move to the third element, compare it with the first two, and put it in its correct position
     // 4. Repeat until the entire array is sorted.
     for (int i = 1; i < count; i++) {
+
 
         // Grabbing the magnitude for each member on the right
         cJSON *feature = cJSON_GetArrayItem(features, i);

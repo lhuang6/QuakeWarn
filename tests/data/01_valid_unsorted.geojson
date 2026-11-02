@@ -1,0 +1,129 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1793275200000,
+    "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
+    "title": "USGS All Earthquakes, Past Day",
+    "status": 200,
+    "api": "2.3.0",
+    "count": 4
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.1,
+        "place": "12 km NW of Example A",
+        "time": 1793275200000,
+        "updated": 1793275201000,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/test001",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/test001.geojson",
+        "status": "reviewed",
+        "type": "earthquake",
+        "net": "us",
+        "code": "test001",
+        "ids": ",test001,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "tsunami": 0,
+        "sig": 21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.4,
+          37.8,
+          8.2
+        ]
+      },
+      "id": "test001"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.8,
+        "place": "18 km E of Example B",
+        "time": 1793275200000,
+        "updated": 1793275201000,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/test002",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/test002.geojson",
+        "status": "reviewed",
+        "type": "earthquake",
+        "net": "us",
+        "code": "test002",
+        "ids": ",test002,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "tsunami": 0,
+        "sig": 48
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.1,
+          34.2,
+          12.0
+        ]
+      },
+      "id": "test002"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 1.3,
+        "place": "5 km S of Example C",
+        "time": 1793275200000,
+        "updated": 1793275201000,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/test003",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/test003.geojson",
+        "status": "reviewed",
+        "type": "earthquake",
+        "net": "us",
+        "code": "test003",
+        "ids": ",test003,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "tsunami": 0,
+        "sig": 13
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.2,
+          35.1,
+          3.4
+        ]
+      },
+      "id": "test003"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.6,
+        "place": "9 km NE of Example D",
+        "time": 1793275200000,
+        "updated": 1793275201000,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/test004",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/test004.geojson",
+        "status": "reviewed",
+        "type": "earthquake",
+        "net": "us",
+        "code": "test004",
+        "ids": ",test004,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "tsunami": 0,
+        "sig": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.0,
+          36.2,
+          6.1
+        ]
+      },
+      "id": "test004"
+    }
+  ]
+}

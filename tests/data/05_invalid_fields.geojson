@@ -1,0 +1,100 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1793275200000,
+    "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
+    "title": "USGS All Earthquakes, Past Day",
+    "status": 200,
+    "api": "2.3.0",
+    "count": 4
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": null,
+        "place": "Magnitude is null",
+        "time": 1793275200000,
+        "updated": 1793275201000,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/test101",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/test101.geojson",
+        "status": "reviewed",
+        "type": "earthquake",
+        "net": "us",
+        "code": "test101",
+        "ids": ",test101,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "tsunami": 0,
+        "sig": 0
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.0,
+          38.0,
+          5.0
+        ]
+      },
+      "id": "test101"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.2,
+        "place": "Magnitude is a string",
+        "time": 1793275200000,
+        "updated": 1793275201000,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/test102",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/test102.geojson",
+        "status": "reviewed",
+        "type": "earthquake",
+        "net": "us",
+        "code": "test102",
+        "ids": ",test102,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "tsunami": 0,
+        "sig": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.0,
+          37.0,
+          4.0
+        ]
+      },
+      "id": "test102"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 5.5,
+        "place": "Invalid coordinates",
+        "time": 1793275200000,
+        "updated": 1793275201000,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/test104",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/test104.geojson",
+        "status": "reviewed",
+        "type": "earthquake",
+        "net": "us",
+        "code": "test104",
+        "ids": ",test104,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "tsunami": 0,
+        "sig": 55
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          "not-a-number",
+          999,
+          -1
+        ]
+      },
+      "id": "test104"
+    }
+  ]
+}

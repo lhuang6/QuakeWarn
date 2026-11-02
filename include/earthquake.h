@@ -52,6 +52,8 @@ void downloadJson(enum DataTime time, enum DataMagnitude magnitude);
 
 void pollEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
+cJSON *loadJson(char *filePath);
+
 cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 void sortingMag(cJSON *json);
