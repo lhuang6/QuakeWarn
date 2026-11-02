@@ -183,21 +183,33 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     downloadJson(jsonPaths);
 }
 
+/**
+ * Method for downloading the shelter GeoJSON from FEMA onto the disk.
+ *
+ * This uses the super long http link from FEMA's query. The data included in the query is:
+ *      - shelter_name: Name of the shelter
+ *      - address_1: Street of the shelter
+ *      - city: City of the shelter
+ *      - zip: Zip code to the shelter
+ *      - org_main_phone: Organization's main phone number
+ */
 void downloadShelters() {
+    // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths;
 
     jsonPaths.jsonFileName = "shelters.geojson";
     jsonPaths.jsonDiskName = "data/shelters.geojson";
-    jsonPaths.jsonLink = """
-    https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/MapServer/5/query?where=1%3D1&text=&objectIds=&time=&timeRelation=esriTimeRelationOverlaps \
-    &geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=& \
-    outFields=shelter_name%2C+address_1%2C+city%2C+state%2C+zip%2C+org_organization_name%2C+org_main_phone%2C+org_email%2C+org_hotline_phone \
-    %2C+org_address%2C+org_city%2C+org_state%2C+org_zip%2C+org_hours_of_operation%2C+shelter_status_code%2C+shelter_open_date%2C+shelter_closed_date \
-    &returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&havingClause=&returnIdsOnly=false&returnCountOnly=false \
-    &orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset= \
-    &resultRecordCount=&returnExtentOnly=false&sqlFormat=none&datumTransformation=&parameterValues=&rangeValues=&quantizationParameters=&uniqueIds= \
-    &returnUniqueIdsOnly=false&featureEncoding=esriDefault&f=geojson
-    """;
+
+    // Huge link that queries all the FEMA shelter data needed
+    jsonPaths.jsonLink =
+    "https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/MapServer/5/query?where=1%3D1&text=&objectIds=&time=&timeRelation=esriTimeRelationOverlaps"
+    "&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&"
+    "outFields=shelter_name%2C+address_1%2C+city%2C+state%2C+zip%2C+org_organization_name%2C+org_main_phone%2C+org_email%2C+org_hotline_phone"
+    "%2C+org_address%2C+org_city%2C+org_state%2C+org_zip%2C+org_hours_of_operation%2C+shelter_status_code%2C+shelter_open_date%2C+shelter_closed_date"
+    "&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&havingClause=&returnIdsOnly=false&returnCountOnly=false"
+    "&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset="
+    "&resultRecordCount=&returnExtentOnly=false&sqlFormat=none&datumTransformation=&parameterValues=&rangeValues=&quantizationParameters=&uniqueIds="
+    "&returnUniqueIdsOnly=false&featureEncoding=esriDefault&f=geojson";
 
     downloadJson(jsonPaths);
 }
@@ -225,7 +237,8 @@ void poll(enum DataTime time, enum DataMagnitude magnitude){
         printf("Downloading new earthquake data...\n");
 
         // Downloads the most recent CSV file of earthquake data
-        downloadJson(time, magnitude);
+        downloadEarthquakes(time, magnitude);
+        downloadShelters();
 
         // Waits 60 seconds to poll again
         sleep(60);
