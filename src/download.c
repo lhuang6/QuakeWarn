@@ -141,12 +141,15 @@ void downloadJson(JsonData jsonPaths) {
     CURL *curl = curl_easy_init();
 
     // Setting options for download
-    curl_easy_setopt(curl, CURLOPT_URL, jsonPaths.jsonLink);              // Setting the URL to the JSON
+    curl_easy_setopt(curl, CURLOPT_URL, jsonPaths.jsonLink);    // Setting the URL to the JSON
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeJson);   // Function for writing data onto the disk
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, jsonDiskFile);    // Specifying where to write the data
+    printf("Options\n");
 
     // Downloading the data from USGS
     result = curl_easy_perform(curl);
+
+    printf("CURL done\n");
 
     if (result == CURLE_OK) {
         printf("[OK] Downloaded data from:\n%s\n", jsonPaths.jsonLink);
