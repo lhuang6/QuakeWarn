@@ -82,7 +82,7 @@ cJSON *loadJson(char *filePath) {
 bool checkEarthquakes(cJSON *json) {
 
     // Checking if earthquake data has an object named "features"
-    // This stores all each earthquake
+    // This stores all earthquakes
     if (!cJSON_HasObjectItem(json, "features")) {
 
         // Error message
@@ -141,6 +141,31 @@ bool checkEarthquakes(cJSON *json) {
 
     // Passed all tests
     return true;
+}
+
+/**
+ * Checks the shelter GeoJSON for any errors with the formatting or data.
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object for the FEMA GeoJSON Data.
+ *
+ * Returns:
+ *      bool: A boolean on whether the GeoJSON file has any errors or not
+ */
+bool checkShelters(cJSON *json) {
+
+    // Checking if earthquake data has an object named "features"
+    // This stores all shelters
+    if (!cJSON_HasObjectItem(json, "features")) {
+
+        // Error message
+        fprintf(stderr, "Earthquake JSON Syntax Error: No object named \"features\"");
+
+        // Returning false because the data did not pass a test
+        return false;
+    }
+
+    
 }
 
 /**
