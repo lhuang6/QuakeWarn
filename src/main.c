@@ -14,5 +14,9 @@ int main(void)
     allShelters shelters = loadShelters();
 
     printShelters(shelters.openShelters, 1);
+
+    cJSON *json = loadEarthquakes(ALL_DAY, ALL);
+
+    printEarthquakes(json, 0.1);
     return 0;
 }
