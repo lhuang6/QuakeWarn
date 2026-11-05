@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include "cJSON.h"
+#include <stdbool.h>
 
 /**
  * Contains pointers to two pointers to cJSON objects containing all open shelters and closed shelters

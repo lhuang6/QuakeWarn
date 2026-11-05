@@ -1,10 +1,12 @@
 // Calculating distance between shelters and earthquakes
 
 #include "shelters.h"
+#include "download.h"
 #include "cJSON.h"
 #include <curl/curl.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /**
  * Checks the shelter GeoJSON for any errors with the formatting or data.
