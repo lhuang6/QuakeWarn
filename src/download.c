@@ -206,6 +206,38 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
  *      - shelter_closed_date: When the shelter closed
  */
 void downloadShelters() {
+
+    // Downloading shelter data queries 0-4 from FEMA
+    // 0 - Open Shelters
+    // 1 - Closed Shelters
+    // 2 - Full Shelters
+    // 3 - Alert Shelters
+    for (int i = 0; i < 3; i++) {
+        JsonData jsonPaths;
+
+        snprintf(jsonPaths.jsonFileName, sizeof(jsonPaths.jsonFileName),
+                "shelters_%d.geojson", i);
+
+        snprintf(jsonPaths.jsonDiskName, sizeof(jsonPaths.jsonDiskName),
+                "data/shelters_%d.geojson", i);
+
+        char link[2000];
+
+        snprintf(link, sizeof(link),
+            "https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/MapServer/%d/query?where=1%%3D1&text=&objectIds=&time=&timeRelation=esriTimeRelationOverlaps"
+            "&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=&units=esriSRUnit_Foot&relationParam=&"
+            "outFields=shelter_name%%2C+address_1%%2C+city%%2C+state%%2C+zip%%2C+org_organization_name"
+            "%%2C+org_address%%2C+org_city%%2C+org_state%%2C+org_zip%%2C+org_hours_of_operation%%2C+shelter_status_code%%2C+shelter_open_date%%2C+shelter_closed_date"
+            "&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&havingClause=&returnIdsOnly=false&returnCountOnly=false"
+            "&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&historicMoment=&returnDistinctValues=false&resultOffset="
+            "&resultRecordCount=&returnExtentOnly=false&sqlFormat=none&datumTransformation=&parameterValues=&rangeValues=&quantizationParameters=&uniqueIds="
+            "&returnUniqueIdsOnly=false&featureEncoding=esriDefault&f=geojson",
+            i);
+
+        snprintf(jsonPaths.jsonLink, sizeof(jsonPaths.jsonLink), "%s", link);
+
+        downloadJson(jsonPaths);
+    }
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths;
 
