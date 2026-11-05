@@ -342,8 +342,23 @@ void printShelters(cJSON *json) {
 
         // Each shelter
         cJSON *feature = cJSON_GetArrayItem(features, i);
-        cJSON *coords = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
 
+        // Array for the latitude and longitude
+        // cJSON *coords = cJSON_GetArrayItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
+
+        // Rest of the shelter information
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+
+        // Name, status (closed or open), and information for the full address
+        cJSON *name = cJSON_GetObjectItem(properties, "shelter_name")->valuestring;
+        cJSON *status = cJSON_GetObjectItem(properties, "shelter_status_code")->valuestring;
+        cJSON *address_1 = cJSON_GetObjectItem(properties, "address_1")->valuestring;
+        cJSON *city = cJSON_GetObjectItem(properties, "city")->valuestring;
+        cJSON *state = cJSON_GetObjectItem(properties, "state")->valuestring;
+        cJSON *zip = cJSON_GetObjectItem(properties, "zip")->valueint;
+
+        // Printing the status, name and the full address to the shelter
+        printf("[%s] %s at %s, %s, %s, %d\n", status, name, address_1, city, state, zip);
     }
 }
 
