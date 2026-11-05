@@ -13,8 +13,7 @@ int main(void)
     // (TEMPORARY) Downloading all earthquakes in the past day
     cJSON *json = loadShelters();
 
-    sortingMag(json);
-    printEarthquakes(json);
+    printShelters(json, 0.005);
 
     cJSON_Delete(json);
     return 0;

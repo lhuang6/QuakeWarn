@@ -409,4 +409,3 @@ double HaversineFormula(double Userlat, double Userlon, double Shelterlat, doubl
     // To convert distance into KM
     return radius * c;
 }
-

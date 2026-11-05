@@ -13,8 +13,16 @@ bool checkEarthquakes(cJSON *json);
 
 cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
+cJSON *loadShelters();
+
+bool checkShelters(cJSON *json)
+
 void sortingMag(cJSON *json);
 
-void printEarthquakes(cJSON *json);
+void printEarthquakes(cJSON *json, double percent);
+
+void printShelters(cJSON *json, double percent);
+
+double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
 
 #endif
