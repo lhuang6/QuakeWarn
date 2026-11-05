@@ -19,7 +19,7 @@ typedef struct {
 
 bool checkShelters(cJSON *json);
 
-cJSON *loadShelters();
+allShelters loadShelters();
 
 void printShelters(cJSON *json, double percent);
 
