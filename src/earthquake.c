@@ -309,13 +309,13 @@ void printEarthquakes(cJSON *json, double percent) {
 
         // Counts how many earthquakes there are
         int count = cJSON_GetArraySize(features);
-        int stop = 
+        int stop = count * percent;
 
         printf("Found %d earthquakes.\n", count);
-        printf("Printing %d earthquakes.\n", stop);
+        printf("Printing %d earthquakes...\n\n", stop);
 
         // Loops through all the different earthquakes and stores their specific details
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < stop; i++) {
 
             // Creates many different pointers relating to
             // features of the different earthquakes such as
@@ -340,37 +340,49 @@ void printEarthquakes(cJSON *json, double percent) {
  *
  * Parameters:
  *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
+ *      percent: double from 0 - 1 that states the percentage of the data to print out
 */
-void printShelters(cJSON *json) {
-    // Fetches earthquake features list
-    cJSON *features = cJSON_GetObjectItem(json, "features");
+void printShelters(cJSON *json, double percent) {
 
-    // Counts how many earthquakes there are
-    int count = cJSON_GetArraySize(features);
+    // Checks if the percentage to print is valid
+    if (percent <= 0 || percent > 1) {
+        fprintf(stderr, "Percent must be between 0-100%%\n");
 
-    printf("Found %d shelters.\n", count);
+    // Continue if the percentage is valid
+    } else {
+        // Fetches earthquake features list
+        cJSON *features = cJSON_GetObjectItem(json, "features");
 
-    for (int i = 0; i < count; i++) {
+        // Counts how many earthquakes there are
+        int count = cJSON_GetArraySize(features);
+        int stop = count * percent;
 
-        // Each shelter
-        cJSON *feature = cJSON_GetArrayItem(features, i);
+        printf("Found %d shelters.\n", count);
+        printf("Printing %d shelters...\n\n", stop);
 
-        // Array for the latitude and longitude
-        // cJSON *coords = cJSON_GetArrayItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
+        // Loops through all the different earthquakes and stores their specific details
+        for (int i = 0; i < count; i++) {
 
-        // Rest of the shelter information
-        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+            // Each shelter
+            cJSON *feature = cJSON_GetArrayItem(features, i);
 
-        // Name, status (closed or open), and information for the full address
-        cJSON *name = cJSON_GetObjectItem(properties, "shelter_name")->valuestring;
-        cJSON *status = cJSON_GetObjectItem(properties, "shelter_status_code")->valuestring;
-        cJSON *address_1 = cJSON_GetObjectItem(properties, "address_1")->valuestring;
-        cJSON *city = cJSON_GetObjectItem(properties, "city")->valuestring;
-        cJSON *state = cJSON_GetObjectItem(properties, "state")->valuestring;
-        cJSON *zip = cJSON_GetObjectItem(properties, "zip")->valueint;
+            // Array for the latitude and longitude
+            // cJSON *coords = cJSON_GetArrayItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
 
-        // Printing the status, name and the full address to the shelter
-        printf("[%s] %s at %s, %s, %s, %d\n", status, name, address_1, city, state, zip);
+            // Rest of the shelter information
+            cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+
+            // Name, status (closed or open), and information for the full address
+            cJSON *name = cJSON_GetObjectItem(properties, "shelter_name")->valuestring;
+            cJSON *status = cJSON_GetObjectItem(properties, "shelter_status_code")->valuestring;
+            cJSON *address_1 = cJSON_GetObjectItem(properties, "address_1")->valuestring;
+            cJSON *city = cJSON_GetObjectItem(properties, "city")->valuestring;
+            cJSON *state = cJSON_GetObjectItem(properties, "state")->valuestring;
+            cJSON *zip = cJSON_GetObjectItem(properties, "zip")->valueint;
+
+            // Printing the status, name and the full address to the shelter
+            printf("[%s] %s at %s, %s, %s, %d\n", status, name, address_1, city, state, zip);
+        }
     }
 }
 
