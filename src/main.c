@@ -11,8 +11,10 @@
 int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
-    allShelters shelters = loadShelters();
+    cJSON *json = loadEarthquakes(ALL_DAY, ALL);
 
-    printShelters(shelters.openShelters, 1);
+    PrintDistance(json);
+
+    cJSON_delete(json);
     return 0;
 }
