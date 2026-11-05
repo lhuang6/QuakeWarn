@@ -14,7 +14,7 @@ int main(void)
     cJSON *json = loadShelters();
     SplitShelters shelters = splitSheltersStatus(json);
 
-    printShelters(shelters.openShelters, 1);
+    printShelters(shelters.closedShelters, 1);
 
     cJSON_Delete(json);
     return 0;
