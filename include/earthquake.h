@@ -9,6 +9,8 @@
 
 cJSON *loadJson(char *filePath);
 
+bool checkEarthquakes(cJSON *json);
+
 cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 void sortingMag(cJSON *json);

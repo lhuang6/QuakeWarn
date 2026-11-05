@@ -165,11 +165,23 @@ bool checkEarthquakes(cJSON *json) {
 cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
-    loadJson(jsonPaths.jsonDiskName);
 
-    checkEarthquakes(js)
+    // Parsing the JSON file into a cJSON object to use
+    cJSON *json = loadJson(jsonPaths.jsonDiskName);
 
-    return
+    // Check for any syntax errors
+    bool pass = checkEarthquakes(json);
+
+    // Returning the cJSON object if passed
+    if (pass) {
+        return json;
+    } else {
+        // Deleting the memory taken up by the cJSON object because the data is invalid
+        cJSON_Delete(json);
+
+        // Passing nothing
+        return NULL;
+    }
 }
 
 /**
