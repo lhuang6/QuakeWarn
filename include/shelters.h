@@ -6,4 +6,10 @@
 #include <stdio.h>
 #include "cJSON.h"
 
+bool checkShelters(cJSON *json);
+
+cJSON *loadShelters();
+
+void printShelters(cJSON *json, double percent)
+
 #endif

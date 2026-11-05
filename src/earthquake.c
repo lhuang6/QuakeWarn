@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <curl/curl.h>
 #include "download.h"
 #include "earthquake.h"
@@ -10,66 +9,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
-
-/**
- * Loads any earthquake GeoJSON file.
- *
- * Parameters:
- *     filePath: A pointer to the path of the file on the disk
- *
- * Returns:
- *     json: A pointer to the cJSON object for the USGS GeoJSON data
-*/
-cJSON *loadJson(char *filePath) {
-    // Opens the file downloaded from USGS
-    FILE *file = fopen(filePath, "r");
-
-    // Check if the file opening fails
-    if (file == NULL) {
-        printf("Unable to open file.\n");
-        return NULL;
-    }
-
-    // Navigates to the end of the file and
-    // determines the size of it in bytes
-    // and navigates back to the beginning
-    fseek(file, 0, SEEK_END);
-    long size = ftell(file);
-    rewind(file);
-
-    // Allocates memory to fit the size of the file
-    char *buffer = malloc(size + 1);
-
-    // Stores the file contents in memory and appends
-    // the string terminator
-    fread(buffer, 1, size, file);
-    buffer[size] = '\0';
-
-    // Closes file
-    fclose(file);
-
-    // Parses text into JSON file
-    cJSON *json = cJSON_Parse(buffer);
-
-    // Free the memory
-    free(buffer);
-
-    // Checks if JSON parsing passed
-    if (json == NULL) {
-        // cJSON's pointer for an error message
-        const char *error_ptr = cJSON_GetErrorPtr();
-
-        // Printing out an error message if one exists
-        if (error_ptr != NULL) {
-            fprintf(stderr, "JSON Syntax Error before: %s\n", error_ptr);
-        } else {
-            fprintf(stderr, "JSON Syntax Error: Failed to parse JSON string.\n");
-        }
-    }
-
-    // Returning the cJSON object for users or other methods to use
-    return json;
-}
 
 /**
  * Checks the earthquake GeoJSON for any errors with the formatting or data.
@@ -145,32 +84,6 @@ bool checkEarthquakes(cJSON *json) {
 }
 
 /**
- * Checks the shelter GeoJSON for any errors with the formatting or data.
- *
- * Parameters:
- *      json: A pointer to the cJSON object for the FEMA GeoJSON Data.
- *
- * Returns:
- *      bool: A boolean on whether the GeoJSON file has any errors or not
- */
-bool checkShelters(cJSON *json) {
-
-    // Checking if earthquake data has an object named "features"
-    // This stores all shelters
-    if (!cJSON_HasObjectItem(json, "features")) {
-
-        // Error message
-        fprintf(stderr, "Earthquake JSON Syntax Error: No object named \"features\"");
-
-        // Returning false because the data did not pass a test
-        return false;
-    }
-
-    // To-Do
-    return true;
-}
-
-/**
  * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
  *
  * Parameters:
@@ -198,32 +111,6 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
 
     // Check for any syntax errors
     bool pass = checkEarthquakes(json);
-
-    // Returning the cJSON object if passed
-    if (pass) {
-        return json;
-    } else {
-        // Deleting the memory taken up by the cJSON object because the data is invalid
-        cJSON_Delete(json);
-
-        // Passing nothing
-        return NULL;
-    }
-}
-
-/**
- * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
- *
- * Returns:
- *     json: A pointer to the cJSON object for the USGS GeoJSON data
-*/
-cJSON *loadShelters() {
-
-    // Parsing the JSON file into a cJSON object to use
-    cJSON *json = loadJson("data/shelters.geojson");
-
-    // Check for any syntax errors
-    bool pass = checkShelters(json);
 
     // Returning the cJSON object if passed
     if (pass) {
@@ -335,82 +222,4 @@ void printEarthquakes(cJSON *json, double percent) {
             printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
         }
     }
-}
-
-/**
- * Prints out all shelters
- *
- * Parameters:
- *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
- *      percent: double from 0 - 1 that states the percentage of the data to print out
-*/
-void printShelters(cJSON *json, double percent) {
-
-    // Checks if the percentage to print is valid
-    if (percent <= 0 || percent > 1) {
-        fprintf(stderr, "Percent must be between 0-100%%\n");
-
-    // Continue if the percentage is valid
-    } else {
-        // Fetches earthquake features list
-        cJSON *features = cJSON_GetObjectItem(json, "features");
-
-        // Counts how many earthquakes there are
-        int count = cJSON_GetArraySize(features);
-        int stop = count * percent;
-
-        printf("Found %d shelters.\n", count);
-        printf("Printing %d shelters...\n\n", stop);
-
-        // Loops through all the different earthquakes and stores their specific details
-        for (int i = 0; i < stop; i++) {
-
-            // Each shelter
-            cJSON *feature = cJSON_GetArrayItem(features, i);
-
-            // Array for the latitude and longitude
-            // cJSON *coords = cJSON_GetArrayItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
-
-            // Rest of the shelter information
-            cJSON *properties = cJSON_GetObjectItem(feature, "properties");
-
-            // Name, status (closed or open), and information for the full address
-            char *name = cJSON_GetObjectItem(properties, "shelter_name")->valuestring;
-            char *status = cJSON_GetObjectItem(properties, "shelter_status_code")->valuestring;
-            char *address_1 = cJSON_GetObjectItem(properties, "address_1")->valuestring;
-            char *city = cJSON_GetObjectItem(properties, "city")->valuestring;
-            char *state = cJSON_GetObjectItem(properties, "state")->valuestring;
-            char *zip = cJSON_GetObjectItem(properties, "zip")->valuestring;
-
-            // Printing the status, name and the full address to the shelter
-            printf("[%s] %s\n", status, name);
-            printf("    %s, %s, %s %s\n", address_1, city, state, zip);
-        }
-    }
-}
-
-cJSON
-
-double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon){
-    double radius = 6378.0;
-
-    // To convert the degree to radians for trignomatry
-    //M_PI is the Pi to
-    Userlat = Userlat * M_PI/180;
-    Userlon = Userlon * M_PI/180;
-    Shelterlat = Shelterlat * M_PI/180;
-    Shelterlon = Shelterlon * M_PI/180;
-
-    // To convert the degree to radians for trignomatry
-    double dlat = Shelterlat - Userlat;
-    double dlon = Shelterlon - Userlon;
-
-    // One of the steps to find the a temporary value that measures how separated the two locations are on the Earth's sphere.
-    double a = sin(dlat / 2) * sin(dlat / 2) + cos(Userlat) * cos(Shelterlat) * sin(dlon / 2) * sin(dlon / 2);
-
-    // To find the Angular distance between the two locations
-    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-
-    // To convert distance into KM
-    return radius * c;
 }

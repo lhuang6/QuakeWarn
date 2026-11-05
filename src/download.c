@@ -229,6 +229,66 @@ void downloadShelters() {
 }
 
 /**
+ * Loads any earthquake GeoJSON file.
+ *
+ * Parameters:
+ *     filePath: A pointer to the path of the file on the disk
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the USGS GeoJSON data
+*/
+cJSON *loadJson(char *filePath) {
+    // Opens the file downloaded from USGS
+    FILE *file = fopen(filePath, "r");
+
+    // Check if the file opening fails
+    if (file == NULL) {
+        printf("Unable to open file.\n");
+        return NULL;
+    }
+
+    // Navigates to the end of the file and
+    // determines the size of it in bytes
+    // and navigates back to the beginning
+    fseek(file, 0, SEEK_END);
+    long size = ftell(file);
+    rewind(file);
+
+    // Allocates memory to fit the size of the file
+    char *buffer = malloc(size + 1);
+
+    // Stores the file contents in memory and appends
+    // the string terminator
+    fread(buffer, 1, size, file);
+    buffer[size] = '\0';
+
+    // Closes file
+    fclose(file);
+
+    // Parses text into JSON file
+    cJSON *json = cJSON_Parse(buffer);
+
+    // Free the memory
+    free(buffer);
+
+    // Checks if JSON parsing passed
+    if (json == NULL) {
+        // cJSON's pointer for an error message
+        const char *error_ptr = cJSON_GetErrorPtr();
+
+        // Printing out an error message if one exists
+        if (error_ptr != NULL) {
+            fprintf(stderr, "JSON Syntax Error before: %s\n", error_ptr);
+        } else {
+            fprintf(stderr, "JSON Syntax Error: Failed to parse JSON string.\n");
+        }
+    }
+
+    // Returning the cJSON object for users or other methods to use
+    return json;
+}
+
+/**
  * Updates the JSON data every one minute for new earthquakes
  *
  * Parameters:

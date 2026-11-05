@@ -42,6 +42,8 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 void downloadShelters();
 
+cJSON *loadJson(char *filePath);
+
 void pollData(enum DataTime time, enum DataMagnitude magnitude);
 
 #endif
