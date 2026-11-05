@@ -154,10 +154,10 @@ SplitShelters splitSheltersStatus(cJSON *json) {
 
         // Duplicating the shelter and adding it to the respective cJSON arrays
         if (strcmp(status->valuestring, "OPEN") == 0) { // Open Shelters
-            cJSON_AddItemToArray(shelters.openShelters, cJSON_Duplicate(feature, 1));
+            cJSON_AddItemToArray(openFeatures, cJSON_Duplicate(feature, 1));
         }
         else if (strcmp(status->valuestring, "CLOSED") == 0) { // Closed Shelters
-            cJSON_AddItemToArray(shelters.closedShelters, cJSON_Duplicate(feature, 1));
+            cJSON_AddItemToArray(closedFeatures, cJSON_Duplicate(feature, 1));
         }
     }
 
