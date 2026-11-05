@@ -18,22 +18,22 @@
  * Returns:
  *      double: Distance between the two points in kilometers
  */
-double HaversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
+double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon){
     double radius = 6378.0;
 
     // To convert the degree to radians for trignomatry
     //M_PI is the Pi to
-    lat_1 = lat_1 * M_PI/180;
-    lon_1 = lon_1 * M_PI/180;
-    lat_2 = lat_2 * M_PI/180;
-    lon_2 = lon_2 * M_PI/180;
+    Userlat = Userlat * M_PI/180;
+    Userlon = Userlon * M_PI/180;
+    Shelterlat = Shelterlat * M_PI/180;
+    Shelterlon = Shelterlon * M_PI/180;
 
     // To convert the degree to radians for trignomatry
-    double dlat = lat_2 - lat_1;
-    double dlon = lon_2 - lon_1;
+    double dlat = Shelterlat - Userlat;
+    double dlon = Shelterlon - Userlon;
 
     // One of the steps to find the a temporary value that measures how separated the two locations are on the Earth's sphere.
-    double a = sin(dlat / 2) * sin(dlat / 2) + cos(lat_1) * cos(lat_2) * sin(dlon / 2) * sin(dlon / 2);
+    double a = sin(dlat / 2) * sin(dlat / 2) + cos(Userlat) * cos(Shelterlat) * sin(dlon / 2) * sin(dlon / 2);
 
     // To find the Angular distance between the two locations
     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
