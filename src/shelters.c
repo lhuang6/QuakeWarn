@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 /**
  * Checks the shelter GeoJSON for any errors with the formatting or data.
