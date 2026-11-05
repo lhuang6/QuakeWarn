@@ -223,7 +223,7 @@ cJSON *loadShelters() {
     cJSON *json = loadJson("data/shelters.geojson");
 
     // Check for any syntax errors
-    bool pass = checkEarthquakes(json);
+    bool pass = checkShelters(json);
 
     // Returning the cJSON object if passed
     if (pass) {
@@ -380,10 +380,10 @@ void printShelters(cJSON *json, double percent) {
             char *address_1 = cJSON_GetObjectItem(properties, "address_1")->valuestring;
             char *city = cJSON_GetObjectItem(properties, "city")->valuestring;
             char *state = cJSON_GetObjectItem(properties, "state")->valuestring;
-            int zip = cJSON_GetObjectItem(properties, "zip")->valueint;
+            char *zip = cJSON_GetObjectItem(properties, "zip")->valuestring;
 
             // Printing the status, name and the full address to the shelter
-            printf("[%s] %s at %s, %s, %s, %d\n", status, name, address_1, city, state, zip);
+            printf("[%s] %s at %s, %s, %s %s\n", status, name, address_1, city, state, zip);
         }
     }
 }
