@@ -55,9 +55,18 @@ cJSON *loadJson(char *filePath) {
 
     // Checks if JSON parsing passed
     if (json == NULL) {
-        printf("JSON parse failed.\n");
-        return NULL;
+        // cJSON's pointer for an error message
+        const char *error_ptr = cJSON_GetErrorPtr();
+
+        // Printing out an error message if one exists
+        if (error_ptr != NULL) {
+            fprintf(stderr, "JSON Syntax Error before: %s\n", error_ptr);
+        } else {
+            fprintf(stderr, "JSON Syntax Error: Failed to parse JSON string.\n");
+        }
     }
+
+    // Returning the cJSON object for users or other methods to use
     return json;
 }
 
@@ -74,7 +83,7 @@ bool checkEarthquakes(cJSON *json) {
     bool pass = true;
 
     if (!cJSON_HasObjectItem(json, "features")) {
-        
+
         pass = false;
     }
 
