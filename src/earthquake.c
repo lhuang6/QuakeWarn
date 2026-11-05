@@ -81,9 +81,14 @@ cJSON *loadJson(char *filePath) {
  */
 bool checkEarthquakes(cJSON *json) {
 
+    // Checking if earthquake data has an object named "features"
+    // This stores all each earthquake
     if (!cJSON_HasObjectItem(json, "features")) {
-        fprintf(stderr, "")
 
+        // Error message
+        fprintf(stderr, "Earthquake JSON Syntax Error: No object named \"features\"");
+
+        // Returning false because the data did not pass a test
         return false;
     }
 
@@ -93,7 +98,8 @@ bool checkEarthquakes(cJSON *json) {
 
     // Returning NULL if it is not an array
     if (!cJSON_IsArray(features)) {
-        printf("Earthquake JSON Syntax Error: \"features\" does not contain an array!\n");
+        // Error message
+        fprintf(stderr, "Earthquake JSON Syntax Error: \"features\" does not contain an array!\n");
 
         // Returning false because the data did not pass a test
         return false;
@@ -115,7 +121,8 @@ bool checkEarthquakes(cJSON *json) {
 
         // Checking if magnitude is a number or not
         if (!cJSON_IsNumber(jsonMag)) {
-            // Printing a warning statement
+
+            // Printing a warning statement if the magnitude is not a number
             printf("\033[35mWARNING: Earthquake at index %d has a null magnitude!\033[0m\n", i);
 
             // Removing this earthquake from the data
@@ -162,7 +169,6 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
 
     checkEarthquakes(js)
 
-    // Runs the path to the JSON file into the loading JSON method
     return
 }
 
