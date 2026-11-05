@@ -64,7 +64,11 @@ cJSON *loadJson(char *filePath) {
 /**
  * Checks the earthquake GeoJSON for any errors with the formatting or data.
  *
- * 
+ * Parameters:
+ *      json: A pointer to the cJSON object for the USGS GeoJSON data
+ *
+ * Returns:
+ *      bool: A boolean on whether the GeoJSON file has any errors or not
  */
 bool checkEarthquakes(cJSON *json) {
     // Checks if the "features" contains an array
@@ -109,6 +113,8 @@ bool checkEarthquakes(cJSON *json) {
             continue;
         }
     }
+
+    return true;
 }
 
 /**
