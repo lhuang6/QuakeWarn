@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <curl/curl.h>
 #include "download.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include "cJSON.h"
 
 /**
  * Converts the time-range enum and the minimum magnitude into the JsonData struct that

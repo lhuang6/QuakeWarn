@@ -12,9 +12,9 @@ int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
     cJSON *json = loadShelters();
-    SplitShelters shelters = 
+    SplitShelters shelters = splitSheltersStatus(json);
 
-    printShelters(json, 0.005);
+    printShelters(shelters.openShelters, 1);
 
     cJSON_Delete(json);
     return 0;

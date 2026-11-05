@@ -1,6 +1,9 @@
 #ifndef DOWNLOAD
 #define DOWNLOAD
 
+#include "cJSON.h"
+#include <stdlib.h>
+
 /**
  * Time period of earthquake data to download
  */

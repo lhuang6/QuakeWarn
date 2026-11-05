@@ -116,7 +116,7 @@ void printShelters(cJSON *json, double percent) {
  * Parameters:
  *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
 */
-SplitShelters sortSheltersStatus(cJSON *json) {
+SplitShelters splitSheltersStatus(cJSON *json) {
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
     // How many shelters there are

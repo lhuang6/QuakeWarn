@@ -20,6 +20,6 @@ cJSON *loadShelters();
 
 void printShelters(cJSON *json, double percent);
 
-SplitShelters sortSheltersStatus(cJSON *json);
+SplitShelters splitSheltersStatus(cJSON *json);
 
 #endif
