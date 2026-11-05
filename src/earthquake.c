@@ -293,33 +293,45 @@ void sortingMag(cJSON *json){
  *
  * Parameters:
  *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
+ *      percent: double from 0 - 1 that states the percentage of the data to print out
 */
-void printEarthquakes(cJSON *json) {
-    // Fetches earthquake features list
-    cJSON *features = cJSON_GetObjectItem(json, "features");
+void printEarthquakes(cJSON *json, double percent) {
 
-    // Counts how many earthquakes there are
-    int count = cJSON_GetArraySize(features);
+    // Checks if the percentage to print is valid
+    if (percent <= 0 || percent > 1) {
+        fprintf(stderr, "Percent must be between 0-100%%\n");
 
-    printf("Found %d earthquakes.\n", count);
+    // Continue if the percentage is valid
+    } else {
 
-    // Loops through all the different earthquakes and stores their specific details
-    for (int i = 0; i < count; i++) {
+        // Fetches earthquake features list
+        cJSON *features = cJSON_GetObjectItem(json, "features");
 
-        // Creates many different pointers relating to
-        // features of the different earthquakes such as
-        // the properties, place, and magnitude
-        cJSON *feature = cJSON_GetArrayItem(features, i);
-        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
-        cJSON *place = cJSON_GetObjectItem(properties, "place");
-        cJSON *mag = cJSON_GetObjectItem(properties, "mag");
+        // Counts how many earthquakes there are
+        int count = cJSON_GetArraySize(features);
+        int stop = 
 
-        // Processes all information and spits it out
-        // --------------- Example -----------------
-        // Magnitude 2.3 at Alaska
-        // Magnitude 1.7 at Nevada
-        // Magnitude 4.1 at Japan
-        printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
+        printf("Found %d earthquakes.\n", count);
+        printf("Printing %d earthquakes.\n", stop);
+
+        // Loops through all the different earthquakes and stores their specific details
+        for (int i = 0; i < count; i++) {
+
+            // Creates many different pointers relating to
+            // features of the different earthquakes such as
+            // the properties, place, and magnitude
+            cJSON *feature = cJSON_GetArrayItem(features, i);
+            cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+            cJSON *place = cJSON_GetObjectItem(properties, "place");
+            cJSON *mag = cJSON_GetObjectItem(properties, "mag");
+
+            // Processes all information and spits it out
+            // --------------- Example -----------------
+            // Magnitude 2.3 at Alaska
+            // Magnitude 1.7 at Nevada
+            // Magnitude 4.1 at Japan
+            printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
+        }
     }
 }
 
