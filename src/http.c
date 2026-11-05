@@ -48,6 +48,7 @@ void PrintDistance(cJSON *json) {
     do {
         Userlat = 0;
         Userlon = 0;
+        
         printf("Enter latitude(between -90 to 90): ");
         scanf("%lf", &Userlat);
 
@@ -62,7 +63,7 @@ void PrintDistance(cJSON *json) {
             return;
         }
     }while (Userlat < -90 || Userlat > 90 || Userlon < -180 || Userlon > 180);
-    
+
         cJSON *features = cJSON_GetObjectItem(json, "features");
 
         for (int i = 0; i < cJSON_GetArraySize(features); i++){
