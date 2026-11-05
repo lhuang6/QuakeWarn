@@ -383,7 +383,8 @@ void printShelters(cJSON *json, double percent) {
             char *zip = cJSON_GetObjectItem(properties, "zip")->valuestring;
 
             // Printing the status, name and the full address to the shelter
-            printf("[%s] %s at %s, %s, %s %s\n", status, name, address_1, city, state, zip);
+            printf("[%s] %s\n", status, name);
+            printf("    %s, %s, %s %s\n", address_1, city, state, zip);
         }
     }
 }
