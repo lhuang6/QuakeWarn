@@ -62,7 +62,7 @@ cJSON *loadShelters() {
  * Prints out shelter names and their addresses.
  *
  * Parameters:
- *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
  *      percent: double from 0 - 1 that states the percentage of the data to print out
 */
 void printShelters(cJSON *json, double percent) {
@@ -110,17 +110,43 @@ void printShelters(cJSON *json, double percent) {
     }
 }
 
-void sortSheltersStatus(cJSON *json) {
+/**
+ * Splits open and closed shelters and stores it into one struct. The struct contains two cJSON pointers.
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
+*/
+SplitShelters sortSheltersStatus(cJSON *json) {
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
     // How many shelters there are
     int count = cJSON_GetArraySize(features);
+
+    // Making a new SplitShelters struct object
+    // Consists of pointers to open and closed shelter cJSON objects
+    SplitShelters shelters;
+
+    // Instantiating new cJSON object for closed and open shelters
+    shelters.openShelters = cJSON_CreateArray();
+    shelters.closedShelters = cJSON_CreateArray();
 
     // Loops through all the different earthquakes and stores their specific details
     for(int i = 0; i < count; i++) {
         // Each shelter
         cJSON *feature = cJSON_GetArrayItem(features, i);
 
-        cJSON *coords = cJSON_GetArrayItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
+        // Status (open or closed) of the shelter
+        cJSON *status = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "properties"), "shelter_status_code");
+
+        // Duplicating the shelter and adding it to the respective cJSON arrays
+        if (strcmp(status->valuestring, "OPEN") == 0) { // Open Shelters
+            cJSON_AddItemToArray(shelters.openShelters, cJSON_Duplicate(feature, 1));
+        }
+        else if (strcmp(status->valuestring, "CLOSED") == 0) { // Closed Shelters
+            cJSON_AddItemToArray(shelters.closedShelters, cJSON_Duplicate(feature, 1));
+        }
     }
+
+    // Returning the split shelters object
+    return shelters;
 }
