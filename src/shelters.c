@@ -49,13 +49,15 @@ allShelters loadShelters() {
     // Looping through each query type
     for (int i = 0; i < 4; i++) {
 
-        // File 
+        // Opening files shelters_0 to shelters_1.geojson
         char filename[100];
         snprintf(filename, sizeof(filename),
                  "data/shelters_%d.geojson", i);
 
+        // Loading the shelter data on JSON
         cJSON *json = loadJson(filename);
 
+        // Checking if the shelter data passed the 
         if (!checkShelters(json)) {
             cJSON_Delete(json);
 
