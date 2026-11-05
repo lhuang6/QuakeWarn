@@ -165,7 +165,7 @@ bool checkShelters(cJSON *json) {
         return false;
     }
 
-    
+    // To-Do
 }
 
 /**
@@ -321,7 +321,30 @@ void printEarthquakes(cJSON *json) {
         // Magnitude 4.1 at Japan
         printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
     }
+}
 
+/**
+ * Prints out all shelters
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
+*/
+void printShelters(cJSON *json) {
+    // Fetches earthquake features list
+    cJSON *features = cJSON_GetObjectItem(json, "features");
+
+    // Counts how many earthquakes there are
+    int count = cJSON_GetArraySize(features);
+
+    printf("Found %d shelters.\n", count);
+
+    for (int i = 0; i < count; i++) {
+
+        // Each shelter
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+
+        
+    }
 }
 
 double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon){
