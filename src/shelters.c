@@ -121,6 +121,6 @@ void sortSheltersStatus(cJSON *json) {
         // Each shelter
         cJSON *feature = cJSON_GetArrayItem(features, i);
 
-        
+        cJSON *coords = cJSON_GetArrayItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
     }
 }
