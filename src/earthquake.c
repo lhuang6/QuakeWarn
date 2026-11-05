@@ -74,6 +74,7 @@ bool checkEarthquakes(cJSON *json) {
     bool pass = true;
 
     if (!cJSON_HasObjectItem(json, "features")) {
+        
         pass = false;
     }
 
