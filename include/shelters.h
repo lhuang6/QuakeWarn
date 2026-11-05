@@ -8,13 +8,13 @@
 #include <stdbool.h>
 
 /**
- * 
+ * Pointers for all cJSON shelter data based on their status
  */
 typedef struct {
-    cJSON *openShelters;
-    cJSON *closedShelters;
-    cJSON *fullShelters;
-    cJSON *alertShelters;
+    cJSON *openShelters;    // All open shelters
+    cJSON *closedShelters;  // Closed shelters
+    cJSON *fullShelters;    // Shelters at full capacity
+    cJSON *alertShelters;   // Ones that are alert
 } allShelters;
 
 bool checkShelters(cJSON *json);
