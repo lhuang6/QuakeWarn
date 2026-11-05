@@ -174,7 +174,32 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
 
     // Returning the cJSON object if passed
     if (pass) {
+        return json;
+    } else {
+        // Deleting the memory taken up by the cJSON object because the data is invalid
+        cJSON_Delete(json);
 
+        // Passing nothing
+        return NULL;
+    }
+}
+
+/**
+ * Loads the earthquakes data from the disk and returns a pointer to the cJSON object.
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the USGS GeoJSON data
+*/
+cJSON *loadShelters() {
+
+    // Parsing the JSON file into a cJSON object to use
+    cJSON *json = loadJson("data/shelters.geojson");
+
+    // Check for any syntax errors
+    bool pass = checkEarthquakes(json);
+
+    // Returning the cJSON object if passed
+    if (pass) {
         return json;
     } else {
         // Deleting the memory taken up by the cJSON object because the data is invalid
