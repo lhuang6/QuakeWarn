@@ -348,32 +348,26 @@ void printShelters(cJSON *json) {
 }
 
 double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon){
-    printf("Enter latitude: ");
-    scanf("%lf", &Userlat);
-
-    printf("Enter longitude: ");
-    scanf("%lf", &Userlon);
-
     double radius = 6378.0;
-    ///
-    /// To convert the degree to radians for trignomatry
-    ///
+
+    // To convert the degree to radians for trignomatry
     //M_PI is the Pi to
     Userlat = Userlat * M_PI/180;
     Userlon = Userlon * M_PI/180;
     Shelterlat = Shelterlat * M_PI/180;
     Shelterlon = Shelterlon * M_PI/180;
-    ///
-    ///To convert the degree to radians for trignomatry
-    ///
+
+    // To convert the degree to radians for trignomatry
     double dlat = Shelterlat - Userlat;
     double dlon = Shelterlon - Userlon;
 
-    //One of the steps to find the a temporary value that measures how separated the two locations are on the Earth's sphere.
+    // One of the steps to find the a temporary value that measures how separated the two locations are on the Earth's sphere.
     double a = sin(dlat / 2) * sin(dlat / 2) + cos(Userlat) * cos(Shelterlat) * sin(dlon / 2) * sin(dlon / 2);
-    //To find the Angular distance between the two locations
+
+    // To find the Angular distance between the two locations
     double c = 2 * atan2(sqrt(a), sqrt(1 - a));
-    //To convert distance into KM
+
+    // To convert distance into KM
     return radius * c;
 }
 
