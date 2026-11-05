@@ -61,7 +61,7 @@ cJSON *loadJson(char *filePath) {
     return json;
 }
 
-void checkEarthquakes(cJSON *json) {
+cJSON* checkEarthquakes(cJSON *json) {
     // Checks if the "features" contains an array
     // Should have an array of earthquakes
     cJSON *features = cJSON_GetObjectItem(json, "features");
