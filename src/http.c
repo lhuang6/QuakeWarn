@@ -51,7 +51,15 @@ void PrintDistance(cJSON *json) {
 
     printf("Enter longitude: ");
     scanf("%lf", &Userlon);
-
+    if (Userlat < -90 || Userlat > 90){
+        printf("Invalid latitude.\n");
+        return;
+    }
+    if (Userlon < -180 || Userlon > 180){
+        printf("Invalid longitude.\n");
+        return;
+    }
+    
     cJSON *features = cJSON_GetObjectItem(json, "features");
     for (int i = 0; i < cJSON_GetArraySize(features); i++){
         cJSON *feature = cJSON_GetArrayItem(features, i);
