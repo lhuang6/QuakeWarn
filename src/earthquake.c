@@ -227,10 +227,10 @@ double HaversineFormula(double Userlat, double Userlon, double Shelterlat, doubl
 
     printf("Enter longitude: ");
     scanf("%lf", &Userlon);
-    
+
     double radius = 6378.0;
     ///
-    ///To convert the degree to radians for trignomatry
+    /// To convert the degree to radians for trignomatry
     ///
     //M_PI is the Pi to
     Userlat = Userlat * M_PI/180;
