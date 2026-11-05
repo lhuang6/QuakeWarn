@@ -9,6 +9,7 @@
 #include "cJSON.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 /**
  * Loads any earthquake GeoJSON file.
@@ -166,6 +167,7 @@ bool checkShelters(cJSON *json) {
     }
 
     // To-Do
+    return true;
 }
 
 /**

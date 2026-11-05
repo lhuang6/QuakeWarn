@@ -5,6 +5,7 @@
 #define EARTHQUAKE // Defining earthquake code
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "cJSON.h"
 
 cJSON *loadJson(char *filePath);
@@ -15,7 +16,7 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 cJSON *loadShelters();
 
-bool checkShelters(cJSON *json)
+bool checkShelters(cJSON *json);
 
 void sortingMag(cJSON *json);
 
