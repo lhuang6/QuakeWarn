@@ -62,7 +62,9 @@ void PrintDistance(cJSON *json) {
             return;
         }
     }while (Userlat < -90 || Userlat > 90 || Userlon < -180 || Userlon > 180);
+    
         cJSON *features = cJSON_GetObjectItem(json, "features");
+
         for (int i = 0; i < cJSON_GetArraySize(features); i++){
             cJSON *feature = cJSON_GetArrayItem(features, i);
 
