@@ -43,21 +43,23 @@ bool checkShelters(cJSON *json) {
 */
 cJSON *loadShelters() {
 
-    // Parsing the JSON file into a cJSON object to use
-    cJSON *json = loadJson("data/shelters.geojson");
+    for(int i = 0; i < 4; i++) {
+        // Parsing the JSON file into a cJSON object to use
+        cJSON *json = loadJson("data/shelters.geojson");
 
-    // Check for any syntax errors
-    bool pass = checkShelters(json);
+        // Check for any syntax errors
+        bool pass = checkShelters(json);
 
-    // Returning the cJSON object if passed
-    if (pass) {
-        return json;
-    } else {
-        // Deleting the memory taken up by the cJSON object because the data is invalid
-        cJSON_Delete(json);
+        // Returning the cJSON object if passed
+        if (pass) {
+            return json;
+        } else {
+            // Deleting the memory taken up by the cJSON object because the data is invalid
+            cJSON_Delete(json);
 
-        // Passing nothing
-        return NULL;
+            // Passing nothing
+            return NULL;
+        }
     }
 }
 
