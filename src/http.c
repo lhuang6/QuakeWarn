@@ -52,6 +52,7 @@ void PrintDistance(cJSON *json) {
     printf("Enter longitude: ");
     scanf("%lf", &Userlon);
 
+    cJSON *features = cJSON_GetObjectItem(json, "features");
     for (int i = 0; i < cJSON_GetArraySize(features); i++){
         cJSON *feature = cJSON_GetArrayItem(features, i);
 
