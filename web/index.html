@@ -8,25 +8,39 @@
 
     <h1>Earthquake Shelter Locator</h1>
 
-    <div class="section">
+    <div class="card">
         <h2>Earthquake Information</h2>
 
-        <p><strong>Magnitude:</strong> 5.2</p>
-        <p><strong>Location:</strong> Alaska</p>
-        <p><strong>Time:</strong> 2:34 PM</p>
+        <p id="magnitude">Magnitude: --</p>
+        <p id="location">Location: --</p>
+        <p id="latitude">Latitude: --</p>
+        <p id="longitude">Longitude: --</p>
+        <p id="time">Time: --</p>
     </div>
 
-    <div class="section">
+    <div class="card">
         <h2>Nearby Shelters</h2>
 
-        <ul>
-            <li>Red Cross Shelter A - 2.1 km</li>
-            <li>Red Cross Shelter B - 5.4 km</li>
-            <li>Red Cross Shelter C - 8.0 km</li>
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Shelter Name</th>
+                    <th>Distance (mi)</th>
+                </tr>
+            </thead>
+
+            <tbody id="shelterTable">
+                <tr>
+                    <td>Waiting for data...</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <button>Refresh Data</button>
+    <button id="refreshButton">
+        Refresh Data
+    </button>
 
 </body>
 </html>
