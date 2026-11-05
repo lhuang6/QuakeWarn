@@ -79,7 +79,7 @@ void PrintDistance(cJSON *json) {
             cJSON *mag = cJSON_GetObjectItemCaseSensitive (properties, "mag");
 
             double magnitude = mag->valuedouble;
-
+            //If the impact is more then 500 then you have to be consured
             double impact = magnitude*1000 / (distance+1);
 
             printf("Earthquake %d Distance: %.2f km\n The impact : %.2f\n", i + 1, distance, impact);
