@@ -130,8 +130,8 @@ SplitShelters splitSheltersStatus(cJSON *json) {
     SplitShelters shelters;
 
     // Instantiating new cJSON object for closed and open shelters
-    shelters.openShelters = cJSON_CreateArray();
-    shelters.closedShelters = cJSON_CreateArray();
+    shelters.openShelters = cJSON_CreateObject();
+    shelters.closedShelters = cJSON_CreateObject();
 
     // Add FeatureCollection type
     cJSON_AddStringToObject(shelters.openShelters, "type", "FeatureCollection");
@@ -140,7 +140,7 @@ SplitShelters splitSheltersStatus(cJSON *json) {
     // Create their features arrays
     cJSON *openFeatures = cJSON_CreateArray();
     cJSON *closedFeatures = cJSON_CreateArray();
-    
+
     cJSON_AddItemToObject(shelters.openShelters, "features", openFeatures);
     cJSON_AddItemToObject(shelters.closedShelters, "features", closedFeatures);
 
