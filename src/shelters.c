@@ -42,13 +42,15 @@ bool checkShelters(cJSON *json) {
  *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
 */
 allShelters loadShelters() {
-    
+
+    // Setting all shelters to null
     allShelters shelters = {0};
 
+    // Looping through each query type
     for (int i = 0; i < 4; i++) {
 
+        // File 
         char filename[100];
-
         snprintf(filename, sizeof(filename),
                  "data/shelters_%d.geojson", i);
 
