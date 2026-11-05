@@ -130,9 +130,9 @@ void downloadJson(JsonData jsonPaths) {
 
     // Printing out the status of libcurl
     if (result == CURLE_OK) {
-        printf("[OK] Curl global initialization\n");
+        printf("\n[OK] Curl global initialization\n");
     } else {
-        printf("[FAIL] Curl unable to initialize\n");
+        printf("\n[FAIL] Curl unable to initialize\n");
     }
 
     // "Easy initializing" of curl
@@ -144,12 +144,9 @@ void downloadJson(JsonData jsonPaths) {
     curl_easy_setopt(curl, CURLOPT_URL, jsonPaths.jsonLink);    // Setting the URL to the JSON
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeJson);   // Function for writing data onto the disk
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, jsonDiskFile);    // Specifying where to write the data
-    printf("Options\n");
 
     // Downloading the data from USGS
     result = curl_easy_perform(curl);
-
-    printf("CURL done\n");
 
     if (result == CURLE_OK) {
         printf("[OK] Downloaded data from:\n%s\n", jsonPaths.jsonLink);
@@ -212,7 +209,7 @@ void downloadShelters() {
     // 1 - Closed Shelters
     // 2 - Full Shelters
     // 3 - Alert Shelters
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i <= 3; i++) {
 
         // Struct containing paths to all the files
         JsonData jsonPaths;

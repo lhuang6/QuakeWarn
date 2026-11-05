@@ -7,6 +7,16 @@
 #include "cJSON.h"
 #include <stdbool.h>
 
+/**
+ * 
+ */
+typedef struct {
+    cJSON *openShelters;
+    cJSON *closedShelters;
+    cJSON *fullShelters;
+    cJSON *alertShelters;
+} allShelters;
+
 bool checkShelters(cJSON *json);
 
 cJSON *loadShelters();
