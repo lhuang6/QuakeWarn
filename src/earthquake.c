@@ -389,6 +389,8 @@ void printShelters(cJSON *json, double percent) {
     }
 }
 
+cJSON
+
 double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon){
     double radius = 6378.0;
 
