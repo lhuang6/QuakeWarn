@@ -70,8 +70,10 @@ void PrintDistance(cJSON *json) {
 
         double magnitude = mag->valuedouble;
 
-        double impact = magnitude / (distance+1);
+        double impact = magnitude*1000 / (distance+1);
 
         printf("Earthquake %d Distance: %.2f km\n The impact : %.2f\n", i + 1, distance, impact);
+
+        magnitude = 0.00;
 }
 }
