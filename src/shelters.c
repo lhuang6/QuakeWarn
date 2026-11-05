@@ -41,26 +41,47 @@ bool checkShelters(cJSON *json) {
  * Returns:
  *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
 */
-cJSON *loadShelters() {
+allShelters loadShelters() {
+    
+    allShelters shelters = {0};
 
-    for(int i = 0; i < 4; i++) {
-        // Parsing the JSON file into a cJSON object to use
-        cJSON *json = loadJson("data/shelters.geojson");
+    for (int i = 0; i < 4; i++) {
 
-        // Check for any syntax errors
-        bool pass = checkShelters(json);
+        char filename[100];
 
-        // Returning the cJSON object if passed
-        if (pass) {
-            return json;
-        } else {
-            // Deleting the memory taken up by the cJSON object because the data is invalid
+        snprintf(filename, sizeof(filename),
+                 "data/shelters_%d.geojson", i);
+
+        cJSON *json = loadJson(filename);
+
+        if (!checkShelters(json)) {
             cJSON_Delete(json);
 
-            // Passing nothing
-            return NULL;
+            cJSON_Delete(shelters.openShelters);
+            cJSON_Delete(shelters.closedShelters);
+            cJSON_Delete(shelters.fullShelters);
+            cJSON_Delete(shelters.alertShelters);
+
+            return (allShelters){0};
+        }
+
+        switch (i) {
+            case 0:
+                shelters.openShelters = json;
+                break;
+            case 1:
+                shelters.closedShelters = json;
+                break;
+            case 2:
+                shelters.fullShelters = json;
+                break;
+            case 3:
+                shelters.alertShelters = json;
+                break;
         }
     }
+
+    return shelters;
 }
 
 /**
