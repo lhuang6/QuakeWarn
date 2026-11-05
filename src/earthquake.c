@@ -342,7 +342,7 @@ void printShelters(cJSON *json) {
 
         // Each shelter
         cJSON *feature = cJSON_GetArrayItem(features, i);
-        cJSON_GetObjectItem(feature, "properties");
+        cJSON *coords = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
 
     }
 }
