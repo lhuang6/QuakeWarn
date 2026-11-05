@@ -41,3 +41,36 @@ double HaversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
     // To convert distance into KM
     return radius * c;
 }
+
+void PrintDistance(cJSON *json) {
+    double Userlat;
+    double Userlon;
+
+    printf("Enter latitude: ");
+    scanf("%lf", &Userlat);
+
+    printf("Enter longitude: ");
+    scanf("%lf", &Userlon);
+
+    for (int i = 0; i < cJSON_GetArraySize(features); i++){
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+
+        cJSON *geometry = cJSON_GetObjectItemCaseSensitive(feature, "geometry");
+
+        cJSON *coordinates = cJSON_GetObjectItemCaseSensitive(geometry, "coordinates");
+
+        double Shelterlon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
+        double Shelterlat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
+
+        double distance = HaversineFormula(Userlat, Userlon, Shelterlat, Shelterlon);
+
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+        cJSON *mag = cJSON_GetObjectItemCaseSensitive (properties, "mag");
+
+        double magnitude = mag->valuedouble;
+
+        double impact = magnitude / (distance+1);
+
+        printf("Earthquake %d Distance: %.2f km\n The impact : %.2f\n", i + 1, distance, impact);
+}
+}
