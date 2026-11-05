@@ -14,7 +14,6 @@ int main(void)
     cJSON *json = loadEarthquakes(ALL_DAY, ALL);
 
     PrintDistance(json);
-
-    cJSON_delete(json);
+    
     return 0;
 }
