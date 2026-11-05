@@ -71,6 +71,8 @@ cJSON *loadJson(char *filePath) {
  *      bool: A boolean on whether the GeoJSON file has any errors or not
  */
 bool checkEarthquakes(cJSON *json) {
+    
+
     // Checks if the "features" contains an array
     // Should have an array of earthquakes
     cJSON *features = cJSON_GetObjectItem(json, "features");
@@ -78,6 +80,8 @@ bool checkEarthquakes(cJSON *json) {
     // Returning NULL if it is not an array
     if (!cJSON_IsArray(features)) {
         printf("\"features\" does not contain an array!\n");
+
+        // Returning false because the data did not pass a test
         return false;
     }
 
@@ -114,6 +118,7 @@ bool checkEarthquakes(cJSON *json) {
         }
     }
 
+    // Passed all tests
     return true;
 }
 
