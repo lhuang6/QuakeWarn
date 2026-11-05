@@ -58,7 +58,10 @@ cJSON *loadJson(char *filePath) {
         printf("JSON parse failed.\n");
         return NULL;
     }
+    return json;
+}
 
+void checkEarthquakes(cJSON *json) {
     // Checks if the "features" contains an array
     // Should have an array of earthquakes
     cJSON *features = cJSON_GetObjectItem(json, "features");
@@ -101,8 +104,6 @@ cJSON *loadJson(char *filePath) {
             continue;
         }
     }
-
-    return json;
 }
 
 /**
