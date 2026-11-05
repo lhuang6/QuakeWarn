@@ -45,43 +45,45 @@ double HaversineFormula(double Userlat, double Userlon, double Shelterlat, doubl
 void PrintDistance(cJSON *json) {
     double Userlat;
     double Userlon;
+    do {
+        Userlat = 0;
+        Userlon = 0;
+        printf("Enter latitude(between -90 to 90): ");
+        scanf("%lf", &Userlat);
 
-    printf("Enter latitude: ");
-    scanf("%lf", &Userlat);
+        printf("Enter longitude(between -180 to 180): ");
+        scanf("%lf", &Userlon);
+        if (Userlat < -90 || Userlat > 90){
+            printf("Invalid latitude.\n");
+            return;
+        }
+        if (Userlon < -180 || Userlon > 180){
+            printf("Invalid longitude.\n");
+            return;
+        }
+    }while (Userlat < -90 || Userlat > 90 || Userlon < -180 || Userlon > 180);
+        cJSON *features = cJSON_GetObjectItem(json, "features");
+        for (int i = 0; i < cJSON_GetArraySize(features); i++){
+            cJSON *feature = cJSON_GetArrayItem(features, i);
 
-    printf("Enter longitude: ");
-    scanf("%lf", &Userlon);
-    if (Userlat < -90 || Userlat > 90){
-        printf("Invalid latitude.\n");
-        return;
+            cJSON *geometry = cJSON_GetObjectItemCaseSensitive(feature, "geometry");
+
+            cJSON *coordinates = cJSON_GetObjectItemCaseSensitive(geometry, "coordinates");
+
+            double Shelterlon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
+            double Shelterlat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
+
+            double distance = HaversineFormula(Userlat, Userlon, Shelterlat, Shelterlon);
+
+            cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+            cJSON *mag = cJSON_GetObjectItemCaseSensitive (properties, "mag");
+
+            double magnitude = mag->valuedouble;
+
+            double impact = magnitude*1000 / (distance+1);
+
+            printf("Earthquake %d Distance: %.2f km\n The impact : %.2f\n", i + 1, distance, impact);
+
+            magnitude = 0.00;
     }
-    if (Userlon < -180 || Userlon > 180){
-        printf("Invalid longitude.\n");
-        return;
-    }
-    
-    cJSON *features = cJSON_GetObjectItem(json, "features");
-    for (int i = 0; i < cJSON_GetArraySize(features); i++){
-        cJSON *feature = cJSON_GetArrayItem(features, i);
-
-        cJSON *geometry = cJSON_GetObjectItemCaseSensitive(feature, "geometry");
-
-        cJSON *coordinates = cJSON_GetObjectItemCaseSensitive(geometry, "coordinates");
-
-        double Shelterlon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
-        double Shelterlat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
-
-        double distance = HaversineFormula(Userlat, Userlon, Shelterlat, Shelterlon);
-
-        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
-        cJSON *mag = cJSON_GetObjectItemCaseSensitive (properties, "mag");
-
-        double magnitude = mag->valuedouble;
-
-        double impact = magnitude*1000 / (distance+1);
-
-        printf("Earthquake %d Distance: %.2f km\n The impact : %.2f\n", i + 1, distance, impact);
-
-        magnitude = 0.00;
-}
 }
