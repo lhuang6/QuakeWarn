@@ -57,18 +57,23 @@ allShelters loadShelters() {
         // Loading the shelter data on JSON
         cJSON *json = loadJson(filename);
 
-        // Checking if the shelter data passed the 
+        // Checking if the shelter data passed the checks
         if (!checkShelters(json)) {
+
+            // Deleting the memory of the json file
             cJSON_Delete(json);
 
+            // Deleting the cJSON objects
             cJSON_Delete(shelters.openShelters);
             cJSON_Delete(shelters.closedShelters);
             cJSON_Delete(shelters.fullShelters);
             cJSON_Delete(shelters.alertShelters);
 
+            // Returning all null if not passed
             return (allShelters){0};
         }
 
+        // Setting the json objects to the right place in the struct
         switch (i) {
             case 0:
                 shelters.openShelters = json;
@@ -85,6 +90,7 @@ allShelters loadShelters() {
         }
     }
 
+    // Returning the shelters object
     return shelters;
 }
 

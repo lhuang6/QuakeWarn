@@ -11,6 +11,8 @@
 int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
-    downloadShelters();
+    allShelters shelters = loadShelters();
+
+    printShelters(shelters.openShelters, 1);
     return 0;
 }
