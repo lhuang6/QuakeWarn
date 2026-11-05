@@ -174,6 +174,7 @@ cJSON *loadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
 
     // Returning the cJSON object if passed
     if (pass) {
+
         return json;
     } else {
         // Deleting the memory taken up by the cJSON object because the data is invalid
