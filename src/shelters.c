@@ -133,6 +133,17 @@ SplitShelters splitSheltersStatus(cJSON *json) {
     shelters.openShelters = cJSON_CreateArray();
     shelters.closedShelters = cJSON_CreateArray();
 
+    // Add FeatureCollection type
+    cJSON_AddStringToObject(shelters.openShelters, "type", "FeatureCollection");
+    cJSON_AddStringToObject(shelters.closedShelters, "type", "FeatureCollection");
+
+    // Create their features arrays
+    cJSON *openFeatures = cJSON_CreateArray();
+    cJSON *closedFeatures = cJSON_CreateArray();
+    
+    cJSON_AddItemToObject(shelters.openShelters, "features", openFeatures);
+    cJSON_AddItemToObject(shelters.closedShelters, "features", closedFeatures);
+
     // Loops through all the different earthquakes and stores their specific details
     for(int i = 0; i < count; i++) {
         // Each shelter
