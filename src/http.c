@@ -92,11 +92,11 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
         // Array for the latitude and longitude
         cJSON *coords = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
 
-        // Latitude and 
+        // Latitude and Longitude from the array
         double shelterLon = cJSON_GetArrayItem(coords, 0);
         double shelterLat = cJSON_GetArrayItem(coords, 1);
 
-
+        double 
     }
 }
 
