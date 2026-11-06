@@ -50,7 +50,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
  * Returns:
  *      double: Distance between the two points in kilometers
  */
-double HaversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
+double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
     double radius = 6378.0;
 
     // To convert the degree to radians for trignomatry
@@ -74,4 +74,11 @@ double HaversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
     return radius * c;
 }
 
+cJSON *sortByImpact(cJSON *json, double lat, double lon) {
+
+}
+
+cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
+    
+}
 

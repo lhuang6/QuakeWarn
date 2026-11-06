@@ -10,6 +10,6 @@
 
 void ev_handler(struct mg_connection *c, int ev, void *ev_data);
 
-double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
+double haversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
 
 #endif
