@@ -10,7 +10,7 @@ CC = clang
 # Important flags to include when compiling
 # Adding all and extra warnings
 # Including include
-CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON
+CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON -Ithird-party/mongoose
 
 # Local libraries to include
 LDLIBS = -lcurl -lm
@@ -22,7 +22,7 @@ BUILD_DIR = build
 TARGET = quakewarn
 
 # All source code
-SRC = $(wildcard src/*.c) third-party/cJSON/cJSON.c
+SRC = $(wildcard src/*.c) third-party/cJSON/cJSON.c third-party/mongoose/mongoose.c
 
 # All intermediate .o files (switching source code files ending to .o)
 OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC))
@@ -48,7 +48,7 @@ $(BUILD_DIR)/%.o: %.c
 # Make Testfile
 # -------------
 TEST_TARGET = test_json
-TEST_SRC = $(filter-out src/main.c, $(wildcard src/*.c)) tests/test.c third-party/cJSON/cJSON.c
+TEST_SRC = $(filter-out src/main.c, $(wildcard src/*.c)) tests/test.c third-party/cJSON/cJSON.c third-party/mongoose/mongoose.c
 TEST_OBJ = $(patsubst %.c,$(BUILD_DIR)/%.o,$(TEST_SRC))
 
 $(TEST_TARGET): $(TEST_OBJ)

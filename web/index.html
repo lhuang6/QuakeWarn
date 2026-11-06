@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Earthquake Shelter Locator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Earthquake Shelter Locator</h1>
+
+    <div class="card">
+        <h2>Earthquake Information</h2>
+
+        <p id="magnitude">Magnitude: --</p>
+        <p id="location">Location: --</p>
+        <p id="latitude">Latitude: --</p>
+        <p id="longitude">Longitude: --</p>
+        <p id="time">Time: --</p>
+    </div>
+
+    <div class="card">
+        <h2>Nearby Shelters</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Shelter Name</th>
+                    <th>Distance (mi)</th>
+                </tr>
+            </thead>
+
+            <tbody id="shelterTable">
+                <tr>
+                    <td>Waiting for data...</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button id="refreshButton">
+        Refresh Data
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>
