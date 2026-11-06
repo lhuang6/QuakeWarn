@@ -96,7 +96,11 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
         double shelterLon = cJSON_GetArrayItem(coords, 0);
         double shelterLat = cJSON_GetArrayItem(coords, 1);
 
-        double 
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+
+        // Distance
+        double distance = haversineFormula(lat, lon, shelterLat, shelterLon);
+        print("%s: %.1f", distance);
     }
 }
 
