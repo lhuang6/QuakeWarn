@@ -74,11 +74,11 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
     return radius * c;
 }
 
-cJSON *sortByImpact(cJSON *json, double lat, double lon) {
+void sortByImpact(cJSON *json, double lat, double lon) {
 
 }
 
-cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
+void sortClosestShelters(cJSON *json, double lat, double lon) {
     // Fetches earthquake features list
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
@@ -98,7 +98,7 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
 
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
 
-        // Distance
+        // Distance from haversine formula
         double distance = haversineFormula(lat, lon, shelterLat, shelterLon);
         print("%s: %.1f", distance);
     }

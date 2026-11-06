@@ -12,4 +12,8 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data);
 
 double haversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
 
+void sortByImpact(cJSON *json, double lat, double lon);
+
+void sortClosestShelters(cJSON *json, double lat, double lon);
+
 #endif
