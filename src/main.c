@@ -25,7 +25,7 @@ int main(void)
         mg_mgr_poll(&mgr, 1000);  // Infinite event loop
     } */
 
-    sortClosestShelters(shelters.openShelters, )
+    sortClosestShelters(shelters.openShelters, 34.02, -84.19);
 
     return 0;
 }

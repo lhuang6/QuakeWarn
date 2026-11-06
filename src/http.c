@@ -73,10 +73,10 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
     // To convert distance into KM
     return radius * c;
 }
-
+/*
 void sortByImpact(cJSON *json, double lat, double lon) {
 
-}
+}*/
 
 void sortClosestShelters(cJSON *json, double lat, double lon) {
     // Fetches earthquake features list
@@ -93,14 +93,12 @@ void sortClosestShelters(cJSON *json, double lat, double lon) {
         cJSON *coords = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
 
         // Latitude and Longitude from the array
-        double shelterLon = cJSON_GetArrayItem(coords, 0);
-        double shelterLat = cJSON_GetArrayItem(coords, 1);
-
-        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+        double shelterLon = cJSON_GetArrayItem(coords, 0)->valuedouble;
+        double shelterLat = cJSON_GetArrayItem(coords, 1)->valuedouble;
 
         // Distance from haversine formula
         double distance = haversineFormula(lat, lon, shelterLat, shelterLon);
-        print("%s: %.1f", distance);
+        printf("%.1f\n", distance);
     }
 }
 
