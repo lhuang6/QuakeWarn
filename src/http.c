@@ -79,6 +79,24 @@ cJSON *sortByImpact(cJSON *json, double lat, double lon) {
 }
 
 cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
-    
+    // Fetches earthquake features list
+    cJSON *features = cJSON_GetObjectItem(json, "features");
+
+    // Counts how many earthquakes there are
+    int count = cJSON_GetArraySize(features);
+
+    for (int i = 0; i < count; i++) {
+        // Each shelter
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+
+        // Array for the latitude and longitude
+        cJSON *coords = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
+
+        // Latitude and 
+        double shelterLon = cJSON_GetArrayItem(coords, 0);
+        double shelterLat = cJSON_GetArrayItem(coords, 1);
+
+
+    }
 }
 
