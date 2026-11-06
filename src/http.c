@@ -35,8 +35,6 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
             mg_http_serve_dir(c, hm, &opts);  // For all other URLs, Serve static files
         }
-
-
     }
 }
 
