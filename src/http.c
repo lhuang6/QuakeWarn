@@ -84,7 +84,9 @@ void sortClosestShelters(cJSON *json, double lat, double lon) {
 
     // Counts how many earthquakes there are
     int count = cJSON_GetArraySize(features);
+    double distances[count];
 
+    // Creating a list of distances which index cooresponds to the shelter in the JSON
     for (int i = 0; i < count; i++) {
         // Each shelter
         cJSON *feature = cJSON_GetArrayItem(features, i);
@@ -98,7 +100,49 @@ void sortClosestShelters(cJSON *json, double lat, double lon) {
 
         // Distance from haversine formula
         double distance = haversineFormula(lat, lon, shelterLat, shelterLon);
-        printf("%.1f\n", distance);
+
+        // Adding the distance to the shelter into a new list
+        distances[i] = distance;
+    }
+
+    // Performing an Insertion Sort:
+    // 1. Start with the second element as the first element is assumed to be sorted.
+    // 2. Compare the second element with the first if the second is smaller then swap them.
+    // 3. Move to the third element, compare it with the first two, and put it in its correct position
+    // 4. Repeat until the entire array is sorted.
+    for (int i = 1; i < count; i++) {
+
+
+        // Grabbing the magnitude for each member on the right
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
+        cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
+        float magnitude = jsonMag->valuedouble;
+
+        // Compare with elements to the left
+        int j = i - 1;
+        while (j >= 0) {
+            // Grabbing the magnitude for each element on the left
+            cJSON *lastFeature = cJSON_GetArrayItem(features, j);
+            cJSON *lastProperties = cJSON_GetObjectItem(lastFeature, "properties");
+            cJSON *lastJsonMag = cJSON_GetObjectItem(lastProperties, "mag");
+            double lastMagnitude = lastJsonMag->valuedouble;
+
+            // Stop when the correct position is found
+            if (lastMagnitude <= magnitude) {
+                break;
+            }
+
+            // Going through each element towards the left
+            j--;
+        }
+
+        // Move the current element into its sorted position
+        if (j != i - 1) {
+            // Detatching the element and inserting it back into the swapped position
+            cJSON *item = cJSON_DetachItemFromArray(features, i);
+            cJSON_InsertItemInArray(features, j + 1, item);
+        }
     }
 }
 
