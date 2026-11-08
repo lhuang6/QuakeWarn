@@ -44,7 +44,14 @@ double HaversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
 }
 
 /**
- * 
+ * Sorts earthquakes based on how much the earthquake will impact a point. The formula for calculating "impact" is magnitude divided
+ * by the distance from that earthquake.
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
+ *
+ * Returns:
+ *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
 cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
     // Sorting a duplicate of the actual json file
@@ -232,46 +239,46 @@ void PrintDistance(cJSON *json){
             fprintf(stderr, "Error: longitude must be between -180 to 180\n");
             continue;
         }
-    // Repeats until the lag and lat is kept right
+//Repeats until the lag and lat is kept right
     }while (Userlat < -90 || Userlat > 90 || Userlon < -180 || Userlon > 180);
 
         cJSON *features = cJSON_GetObjectItem(json, "features");
-        // For the method i did for choice, D is fro distance and I is for Impact
-        if (type == 'D'){// sorting from least to most distance
+        //For the method i did for choice, D is fro distance and I is for Impact
+        if (type == 'D'){//srting from least to most distance
             sortingDistance(json, Userlat, Userlon);
         }
-        if(type == 'I'){// sorting from highest to lowest impact
+        if(type == 'I'){//sorting from highest to lowest impact
             sortingImpact(json, Userlat, Userlon);
         }
 
         for (int i = 0; i < cJSON_GetArraySize(features); i++){
-            // it goes line by line to grab the coordinates for distance
+            //it goes line by line to grab the coordinates for distance
             cJSON *feature = cJSON_GetArrayItem(features, i);
             cJSON *geometry = cJSON_GetObjectItemCaseSensitive(feature, "geometry");
             cJSON *coordinates = cJSON_GetObjectItemCaseSensitive(geometry, "coordinates");
 
-            // Coordinates being decleared
+            //Coordinates being decleared
             double Shelterlon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
             double Shelterlat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
 
-            // Distance is being calcualted with the use of HaversineFormula
+            //Distance is being calcualted with the use of HaversineFormula
             double distance = HaversineFormula(Userlat, Userlon, Shelterlat, Shelterlon);
 
-            // Grabing magnitude for imapact calculation
+            //Grabing magnitude for imapact calculation
             cJSON *properties = cJSON_GetObjectItem(feature, "properties");
             cJSON *mag = cJSON_GetObjectItemCaseSensitive (properties, "mag");
 
-            // magnitude is getting an value in double
+            //magnitude is getting an value in double
             double magnitude = mag->valuedouble;
 
-            // If the impact is more then 500 then you have to be consured
-            // Imapact bring calculated with distance and magnitude
+            //If the impact is more then 500 then you have to be consured
+            //Imapact bring calculated with distance and magnitude
             double impact = magnitude*1000 / (distance+1);
 
-            // Printing the eartire sorting
+            //Printing the eartire sorting
             printf("Earthquake %d Distance: %.2f km\n The impact : %.2f\n", i + 1, distance, impact);
 
-            // Repeating the process by make magnitude 0 again
+            //Repeating the process by make magnitude 0 again
             magnitude = 0.00;
     }
 }
