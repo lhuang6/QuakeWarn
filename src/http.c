@@ -185,13 +185,16 @@ void sortingDistance(cJSON *json, double latitude, double longitude){
         int j = i - 1;
         while (j >= 0) {
 
+            // Each array of coordinates to the left of the current earthquake in the JSON
             cJSON *lastFeature = cJSON_GetArrayItem(features, j);
             cJSON *lastGeometry = cJSON_GetObjectItemCaseSensitive(lastFeature, "geometry");
             cJSON *lastCoordinates = cJSON_GetObjectItemCaseSensitive(lastGeometry, "coordinates");
 
+            // Each latitude and longitude
             double lastQuakeLon = cJSON_GetArrayItem(lastCoordinates, 0)->valuedouble;
             double lastShelterlat = cJSON_GetArrayItem(lastCoordinates, 1)->valuedouble;
 
+            // Calculating 
             double lastDistance = HaversineFormula(latitude, longitude, lastShelterlat, lastQuakeLon);
             if (lastDistance <= distance) {
                 break;
