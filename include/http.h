@@ -1,4 +1,4 @@
-// Header for the http server
+// Header for the HTTP server
 
 #ifndef HTTP
 #define HTTP

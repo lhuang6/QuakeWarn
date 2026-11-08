@@ -1,3 +1,5 @@
+// Code for the HTTP server
+
 #include "http.h"
 #include "earthquake.h"
 #include "shelters.h"
