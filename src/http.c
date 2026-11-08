@@ -48,7 +48,7 @@ double HaversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
  * by the distance from that earthquake.
  *
  * Parameters:
- *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
  *
  * Returns:
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
@@ -76,11 +76,11 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
         cJSON *coordinates = cJSON_GetObjectItemCaseSensitive(geometry, "coordinates");
 
         //Decleared the longitudes and latitudes for the distance formula
-        double shelterLon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
-        double shelterLat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
+        double quakeLon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
+        double quakeLat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
 
         // Distance between the point and the shelter's coordinates
-        double distance = HaversineFormula(latitude, longitude, shelterLat, shelterLon);
+        double distance = HaversineFormula(latitude, longitude, quakeLat, quakeLon);
 
         // Finding the magnitude of the earthquakes
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
@@ -108,11 +108,11 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
             //Goes to the coordinates for latitudes and longitudes
             cJSON *lastCoordinates = cJSON_GetObjectItemCaseSensitive(lastGeometry, "coordinates");
 
-            double lastShelterLon = cJSON_GetArrayItem(lastCoordinates, 0) ->valuedouble;
-            double lastShelterLon = cJSON_GetArrayItem(lastCoordinates, 1) ->valuedouble;
+            double lastQuakeLon = cJSON_GetArrayItem(lastCoordinates, 0) ->valuedouble;
+            double lastQuakeLat = cJSON_GetArrayItem(lastCoordinates, 1) ->valuedouble;
 
             //Declaring the last distance of the feature
-            double lastDistance = HaversineFormula(latitude, longitude, lastShelterLon, lastShelterLon);
+            double lastDistance = HaversineFormula(latitude, longitude, lastQuakeLat, lastQuakeLon);
 
             cJSON *lastProperties = cJSON_GetObjectItem(lastFeature, "properties");
             cJSON *lastMag = cJSON_GetObjectItemCaseSensitive(lastProperties, "mag");
@@ -147,7 +147,7 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
  * Sorts earthquakes based on how far the earthquake is from a point.
  *
  * Parameters:
- *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
  *
  * Returns:
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
@@ -174,23 +174,25 @@ void sortingDistance(cJSON *json, double latitude, double longitude){
         cJSON *geometry = cJSON_GetObjectItemCaseSensitive(feature, "geometry");
         cJSON *coordinates = cJSON_GetObjectItemCaseSensitive(geometry, "coordinates");
 
-        // Latitude and longitude of the sehlter
-        double shelterLon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
-        double shelterLat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
+        // Latitude and longitude of earhtuqake
+        double quakeLon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
+        double quakeLat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
 
-        // Distance between 
-        double distance = HaversineFormula(latitude, longitude, shelterLat, shelterLon);
+        // Distance between earthquake and location
+        double distance = HaversineFormula(latitude, longitude, quakeLat, quakeLon);
 
         // Compare with elements to the left
         int j = i - 1;
         while (j >= 0) {
+
             cJSON *lastFeature = cJSON_GetArrayItem(features, j);
             cJSON *lastGeometry = cJSON_GetObjectItemCaseSensitive(lastFeature, "geometry");
             cJSON *lastCoordinates = cJSON_GetObjectItemCaseSensitive(lastGeometry, "coordinates");
-            double lastShelterLon = cJSON_GetArrayItem(lastCoordinates, 0)->valuedouble;
+
+            double lastQuakeLon = cJSON_GetArrayItem(lastCoordinates, 0)->valuedouble;
             double lastShelterlat = cJSON_GetArrayItem(lastCoordinates, 1)->valuedouble;
 
-            double lastDistance = HaversineFormula(latitude, longitude, lastShelterlat, lastShelterLon);
+            double lastDistance = HaversineFormula(latitude, longitude, lastShelterlat, lastQuakeLon);
             if (lastDistance <= distance) {
                 break;
             }
