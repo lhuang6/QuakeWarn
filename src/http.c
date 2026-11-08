@@ -47,8 +47,11 @@ double HaversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
  * Sorts earthquakes based on how much the earthquake will impact a point. The formula for calculating "impact" is magnitude divided
  * by the distance from that earthquake.
  *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
  *
- *
+ * Returns:
+ *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
 cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
     // Sorting a duplicate of the actual json file
@@ -127,15 +130,18 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
             j--;
         }
 
-            // Move the current element into its sorted position
-            if (j != i - 1) {
-                // Detatching the element and inserting it back into the swapped position
-                cJSON *item = cJSON_DetachItemFromArray(features, i);
+        // Move the current element into its sorted position
+        if (j != i - 1) {
+            // Detatching the element and inserting it back into the swapped position
+            cJSON *item = cJSON_DetachItemFromArray(features, i);
 
-                cJSON_InsertItemInArray(features, j + 1, item);
-            }
+            cJSON_InsertItemInArray(features, j + 1, item);
         }
     }
+
+    // Returns a duplicated, sorted JSON object
+    return duplicate;
+}
 
 void sortingDistance(cJSON *json, double latitude, double longitude){
     cJSON *features = cJSON_GetObjectItem(json, "features");
