@@ -6,6 +6,22 @@
 #include "mongoose.h"
 #include <stdio.h>
 
+void sendRefreshShelters(struct mg_connection *c, int status, cJSON *json) {
+    char *response = cJSON_PrintUnformatted(json);
+
+    if (response == NULL) {
+        mg_http_reply(c, 500, "", "{\"error\":\"JSON serialization failed\"}\n");
+        return;
+    }
+
+    mg_http_reply(c, status,
+        "Content-Type: application/json\r\n",
+        "%s\n", response
+    );
+
+    cJSON_free(response);
+}
+
 /**
  * Method for recieving new events for the webserver with mongoose. Taken from mongoose's API: https://mongoose.ws/docs/api/
  *
@@ -35,8 +51,9 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             allShelters shelters = loadShelters();
             cJSON *closeShelters = sortClosestShelters(shelters.openShelters);
 
+            sendRefreshShelters(c, 200, closeShelters);
 
-
+            cJSON_Delete(closeShelters);
         } else  {
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
             mg_http_serve_dir(c, hm, &opts);  // For all other URLs, Serve static files
