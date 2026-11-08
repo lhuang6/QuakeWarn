@@ -1,6 +1,8 @@
 // HTTP server for connecting C code with HTML
 
 #include "http.h"
+#include "earthquake.h"
+#include "shelters.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include "cJSON.h"
@@ -412,7 +414,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         // URL reply for the "Refresh Data" Button
         } else if (mg_match(hm->uri, mg_str("/api/refresh-shelters"), NULL)) {
             allShelters shelters = loadShelters();
-
+            
 
         } else  {
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
