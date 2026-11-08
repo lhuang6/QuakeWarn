@@ -157,7 +157,7 @@ void sortingDistance(cJSON *json, double latitude, double longitude){
     cJSON *duplicate = cJSON_Duplicate(json, true);
 
     // List of earthquakes
-    cJSON *features = cJSON_GetObjectItem(json, "features");
+    cJSON *features = cJSON_GetObjectItem(duplicate, "features");
 
     // Counts how many strings 'features' there are
     int count = cJSON_GetArraySize(features);
@@ -258,7 +258,7 @@ void PrintDistance(cJSON *json){
             fprintf(stderr, "Error: longitude must be between -180 to 180\n");
             continue;
         }
-//Repeats until the lag and lat is kept right
+    //Repeats until the lag and lat is kept right
     }while (Userlat < -90 || Userlat > 90 || Userlon < -180 || Userlon > 180);
 
         cJSON *features = cJSON_GetObjectItem(json, "features");
