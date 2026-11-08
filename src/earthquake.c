@@ -160,7 +160,7 @@ void sortingMag(cJSON *json){
             double lastMagnitude = lastJsonMag->valuedouble;
 
             // Stop when the correct position is found
-            if (lastMagnitude <= magnitude) {
+            if (lastMagnitude >= magnitude) {
                 break;
             }
 
