@@ -15,7 +15,7 @@ double haversineFormula(double Userlat, double Userlon, double Shelterlat, doubl
 
 // void sortByImpact(cJSON *json, double lat, double lon);
 
-void sortClosestShelters(cJSON *json, double lat, double lon);
+cJSON *sortClosestShelters(cJSON *json, double lat, double lon);
 
 void PrintDistance(cJSON *json);
 

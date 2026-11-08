@@ -74,14 +74,21 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
     // To convert distance into KM
     return radius * c;
 }
-/*
-void sortByImpact(cJSON *json, double lat, double lon) {
 
-}*/
-
+/**
+ * Sorts the shelter JSON by closest to the 
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
+ *
+ * Returns:
+ *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
+ */
 void sortClosestShelters(cJSON *json, double lat, double lon) {
+    cJSON *duplicate = cJSON_Duplicate(json, true);
+
     // Fetches earthquake features list
-    cJSON *features = cJSON_GetObjectItem(json, "features");
+    cJSON *features = cJSON_GetObjectItem(duplicate, "features");
 
     // Counts how many earthquakes there are
     int count = cJSON_GetArraySize(features);
@@ -257,7 +264,7 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
  * Returns:
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
-void sortingDistance(cJSON *json, double latitude, double longitude){
+cJSON *sortingDistance(cJSON *json, double latitude, double longitude){
     // Duplicating JSON to edit
     cJSON *duplicate = cJSON_Duplicate(json, true);
 
@@ -316,6 +323,8 @@ void sortingDistance(cJSON *json, double latitude, double longitude){
             cJSON_InsertItemInArray(features, j + 1, item);
         }
     }
+
+    return duplicate;
 }
 
 char choice() {
