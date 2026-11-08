@@ -194,7 +194,7 @@ void sortingDistance(cJSON *json, double latitude, double longitude){
             double lastQuakeLon = cJSON_GetArrayItem(lastCoordinates, 0)->valuedouble;
             double lastShelterlat = cJSON_GetArrayItem(lastCoordinates, 1)->valuedouble;
 
-            // Calculating 
+            // Calculating distance 
             double lastDistance = HaversineFormula(latitude, longitude, lastShelterlat, lastQuakeLon);
             if (lastDistance <= distance) {
                 break;
