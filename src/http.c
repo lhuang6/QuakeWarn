@@ -76,7 +76,7 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
 }
 
 /**
- * Sorts the shelter JSON by closest to the 
+ * Sorts shelters by closest to a point in latitude and longitude
  *
  * Parameters:
  *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
