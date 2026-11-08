@@ -192,7 +192,7 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
         double quakeLat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
 
         // Distance between the point and the shelter's coordinates
-        double distance = HaversineFormula(latitude, longitude, quakeLat, quakeLon);
+        double distance = haversineFormula(latitude, longitude, quakeLat, quakeLon);
 
         // Finding the magnitude of the earthquakes
         cJSON *properties = cJSON_GetObjectItem(feature, "properties");
@@ -224,7 +224,7 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
             double lastQuakeLat = cJSON_GetArrayItem(lastCoordinates, 1) ->valuedouble;
 
             //Declaring the last distance of the feature
-            double lastDistance = HaversineFormula(latitude, longitude, lastQuakeLat, lastQuakeLon);
+            double lastDistance = haversineFormula(latitude, longitude, lastQuakeLat, lastQuakeLon);
 
             cJSON *lastProperties = cJSON_GetObjectItem(lastFeature, "properties");
             cJSON *lastMag = cJSON_GetObjectItemCaseSensitive(lastProperties, "mag");
@@ -291,7 +291,7 @@ cJSON *sortingDistance(cJSON *json, double latitude, double longitude){
         double quakeLat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
 
         // Distance between earthquake and location
-        double distance = HaversineFormula(latitude, longitude, quakeLat, quakeLon);
+        double distance = haversineFormula(latitude, longitude, quakeLat, quakeLon);
 
         // Compare with elements to the left
         int j = i - 1;
@@ -307,7 +307,7 @@ cJSON *sortingDistance(cJSON *json, double latitude, double longitude){
             double lastShelterlat = cJSON_GetArrayItem(lastCoordinates, 1)->valuedouble;
 
             // Calculating distance
-            double lastDistance = HaversineFormula(latitude, longitude, lastShelterlat, lastQuakeLon);
+            double lastDistance = haversineFormula(latitude, longitude, lastShelterlat, lastQuakeLon);
             if (lastDistance <= distance) {
                 break;
             }
@@ -394,8 +394,8 @@ void PrintDistance(cJSON *json){
             double Shelterlon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
             double Shelterlat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
 
-            //Distance is being calcualted with the use of HaversineFormula
-            double distance = HaversineFormula(Userlat, Userlon, Shelterlat, Shelterlon);
+            //Distance is being calcualted with the use of haversineFormula
+            double distance = haversineFormula(Userlat, Userlon, Shelterlat, Shelterlon);
 
             //Grabing magnitude for imapact calculation
             cJSON *properties = cJSON_GetObjectItem(feature, "properties");

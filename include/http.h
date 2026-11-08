@@ -11,13 +11,13 @@
 
 void ev_handler(struct mg_connection *c, int ev, void *ev_data);
 
-double haversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
+double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
 
-// void sortByImpact(cJSON *json, double lat, double lon);
+cJSON *sortingImpact(cJSON *json, double latitude, double longitude);
 
-cJSON *sortClosestShelters(cJSON *json, double lat, double lon);
-
-void PrintDistance(cJSON *json);
+cJSON *sortingDistance(cJSON *json, double latitude, double longitude);
 
 char choice();
+
+void PrintDistance(cJSON *json);
 #endif
