@@ -39,7 +39,11 @@ bool checkShelters(cJSON *json) {
  * Loads the shelter data from the disk and returns a pointer to the cJSON object.
  *
  * Returns:
- *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
+ *     allShelters shelters: Open, Closed, Full, and Alert shelters in one struct:
+ *          cJSON *openShelters - All open shelters
+ *          cJSON *closedShelters - Closed shelters
+ *          cJSON *fullShelters - Shelters at full capacity
+ *          cJSON *alertShelters - Ones that are alert
 */
 allShelters loadShelters() {
 
@@ -93,6 +97,63 @@ allShelters loadShelters() {
     // Returning the shelters object
     return shelters;
 }
+
+/**
+ * Loads the shelter data that only contains OPEN shelters
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
+*/
+cJSON *loadOpenShelters() {
+
+    // Opening files shelters_0 to shelters_1.geojson
+    char filename[100];
+    snprintf(filename, sizeof(filename),
+            "data/shelters_0.geojson");
+
+    // Loading the shelter data on JSON
+    cJSON *json = loadJson(filename);
+
+    // Checking if the shelter data passed the checks
+    if (!checkShelters(json)) {
+        // Deleting the memory of the json file
+        cJSON_Delete(json);
+        // Returning all null if not passed
+        return NULL;
+    }
+
+    // Returning the shelters object
+    return json;
+}
+
+/**
+ * Loads the shelter data that only contains CLOSED shelters
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
+*/
+cJSON *loadClosedShelters() {
+
+    // Opening files shelters_0 to shelters_1.geojson
+    char filename[100];
+    snprintf(filename, sizeof(filename),
+            "data/shelters_1.geojson");
+
+    // Loading the shelter data on JSON
+    cJSON *json = loadJson(filename);
+
+    // Checking if the shelter data passed the checks
+    if (!checkShelters(json)) {
+        // Deleting the memory of the json file
+        cJSON_Delete(json);
+        // Returning all null if not passed
+        return NULL;
+    }
+
+    // Returning the shelters object
+    return json;
+}
+
 
 /**
  * Prints out shelter names and their addresses.
