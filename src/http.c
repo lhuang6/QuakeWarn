@@ -72,7 +72,7 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
 
         // Fetching coordinates of each earthquake
         cJSON *feature = cJSON_GetArrayItem(features, i);
-        cJSON *geometry = cJSON_GetObjectItemCaseSensitive(feature, "geometry");
+        cJSON *geometry = cJSON_GetObjectItemCaseSensitive(cJSON_GetArrayItem(features, i), "geometry");
         cJSON *coordinates = cJSON_GetObjectItemCaseSensitive(geometry, "coordinates");
 
         //Decleared the longitudes and latitudes for the distance formula
@@ -143,7 +143,20 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
     return duplicate;
 }
 
+/**
+ * Sorts earthquakes based on how far the earthquake is from a point.
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
+ *
+ * Returns:
+ *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
+ */
 void sortingDistance(cJSON *json, double latitude, double longitude){
+    // Duplicating JSON to edit
+    cJSON *duplicate = cJSON_Duplicate(json, true);
+
+    // List of earthquakes
     cJSON *features = cJSON_GetObjectItem(json, "features");
 
     // Counts how many strings 'features' there are
@@ -156,16 +169,17 @@ void sortingDistance(cJSON *json, double latitude, double longitude){
     // 4. Repeat until the entire array is sorted.
     for (int i = 1; i < count; i++) {
 
-
-        // it goes line by line BUT it skips the first one, for J to sort
+        // Fetching the coordinates array for each earthquake
         cJSON *feature = cJSON_GetArrayItem(features, i);
         cJSON *geometry = cJSON_GetObjectItemCaseSensitive(feature, "geometry");
         cJSON *coordinates = cJSON_GetObjectItemCaseSensitive(geometry, "coordinates");
 
-        double Shelterlon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
-        double Shelterlat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
+        // Latitude and longitude of the sehlter
+        double shelterLon = cJSON_GetArrayItem(coordinates, 0)->valuedouble;
+        double shelterLat = cJSON_GetArrayItem(coordinates, 1)->valuedouble;
 
-        double distance = HaversineFormula(latitude, longitude, Shelterlat, Shelterlon);
+        // Distance between 
+        double distance = HaversineFormula(latitude, longitude, shelterLat, shelterLon);
 
         // Compare with elements to the left
         int j = i - 1;
@@ -174,10 +188,10 @@ void sortingDistance(cJSON *json, double latitude, double longitude){
             cJSON *lastGeometry = cJSON_GetObjectItemCaseSensitive(lastFeature, "geometry");
             cJSON *lastCoordinates = cJSON_GetObjectItemCaseSensitive(lastGeometry, "coordinates");
             double lastShelterLon = cJSON_GetArrayItem(lastCoordinates, 0)->valuedouble;
-            double LastShelterlat = cJSON_GetArrayItem(lastCoordinates, 1)->valuedouble;
+            double lastShelterlat = cJSON_GetArrayItem(lastCoordinates, 1)->valuedouble;
 
-            double Lastdistance = HaversineFormula(latitude, longitude, LastShelterlat, lastShelterLon);
-            if (Lastdistance <= distance) {
+            double lastDistance = HaversineFormula(latitude, longitude, lastShelterlat, lastShelterLon);
+            if (lastDistance <= distance) {
                 break;
             }
 
