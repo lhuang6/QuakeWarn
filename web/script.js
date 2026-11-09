@@ -6,7 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const table = new Tabulator("#earthquake-table", {
 
         // URL for C backend to send JSON
-        ajaxURL: "/api/shelters",
+        ajaxURL: function(url, params, response) {
+            return response.features;
+        },
 
         layout: "fitColumns",
         columns: [
