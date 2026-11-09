@@ -130,8 +130,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 // Changing the values of the earthquake information tab
                 document.getElementById("magnitude").textContent = `Magnitude: ${feature.properties.mag}`;
                 document.getElementById("location").textContent = `Location: ${feature.properties.place}`;
-                document.getElementById("latitude").textContent = `Latitude: ${latlng[0]}`;
-                document.getElementById("longitude").textContent = `Longitude: ${latlng[1]}`;
+                document.getElementById("latitude").textContent = `Latitude: ${latlng.lat}`;
+                document.getElementById("longitude").textContent = `Longitude: ${latlng.lng}`;
             });
         }
     }).addTo(map);
