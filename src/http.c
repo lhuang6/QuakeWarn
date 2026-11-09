@@ -93,7 +93,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             // Latitude and Longitude set by user
             // C recieves as JSON, requested by javascript
-            /*cJSON *request = cJSON_ParseWithLength(
+            cJSON *request = cJSON_ParseWithLength(
                 hm->body.buf,
                 hm->body.len
             );
@@ -101,13 +101,13 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             if (request == NULL) {
                 mg_http_reply(c, 400, "", "%.*s", (int) hm->body.len, hm->body.buf);
                 return;
-            }*/
+            }
 
             // Extract the state field
-            double latitude = 34;
-            double longitude = -84;
+            double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
+            double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
 
-            // mg_http_reply(c, 200, "", "{\"latitude\":\"%.1f\"}\n", latitude);
+            mg_http_reply(c, 200, "", "{\"latitude\":\"%.1f\"}\n", latitude);
 
             // Pass the state to your C function
             cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);
@@ -116,7 +116,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             sendJson(c, 200, sortedShelters);
 
             // Deleting all JSON objects to free up memory
-            // cJSON_Delete(request);
+            cJSON_Delete(request);
             cJSON_Delete(closeShelters);
             cJSON_Delete(sortedShelters);
 
