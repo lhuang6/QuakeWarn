@@ -55,29 +55,26 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
         if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
 
-            mg_http_reply(c, 200,
-                "Content-Type: application/json\r\n",
-                "{"
-                    "\"method\":\"%.*s\","
-                    "\"uri\":\"%.*s\","
-                    "\"body_length\":%lu,"
-                    "\"message_length\":%lu"
-                "}",
-                (int) hm->method.len, hm->method.buf,
-                (int) hm->uri.len, hm->uri.buf,
-                (unsigned long) hm->body.len,
-                (unsigned long) hm->message.len
-            );
+            if (mg_match(hm->method, mg_str("POST"), NULL)) {
+
+                mg_http_reply(c, 200, "",
+                    "{\"method\":\"POST\",\"body_length\":%lu}",
+                    (unsigned long) hm->body.len
+                );
+
+            } else {
+
+                mg_http_reply(c, 200, "",
+                    "{\"method\":\"NOT POST\",\"actual_method\":\"%.*s\"}",
+                    (int) hm->method.len,
+                    hm->method.buf
+                );
+            }
+
             return;
         }
 
-        struct mg_http_serve_opts opts = {
-            .root_dir = "./web",
-            .fs = &mg_fs_posix
-        };
 
-        mg_http_serve_dir(c, hm, &opts);
-    }
 
         /*// Test URL reply
         if (mg_match(hm->uri, mg_str("/api/hello"), NULL)) {                // REST API call?
