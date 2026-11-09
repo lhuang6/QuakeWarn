@@ -40,10 +40,24 @@ refereshButton.addEventListener("click", async () => {
     // document.getElementById("location").textContent = `Location: ${data.location}`;
 });
 
-document.getElementById("shelterForm").addEventListener("submit", async (event) => {
+const form = document.getElementById("shelterForm");
 
-    // Prevents the page from reloading
-    event.preventDefault();
+form.addEventListener("submit", async (event) => {
 
-    
+    const latitude = document.getElementById("latitude").value;
+    const longitude = document.getElementById("longitude").value;
+
+    // Send the value to the C backend
+    const response = await fetch("/api/search-shelters", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            latitude: latitude,
+            longitude: longitude
+        })
+    });
+
+    const data = await response.json();
 });
