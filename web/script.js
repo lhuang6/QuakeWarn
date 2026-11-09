@@ -63,9 +63,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         pointToLayer: function(feature, latlng) {
             return L.circleMarker(latlng, {
                 radius: 8,
-                color: "red",
+                color: "black",
                 fillColor: "red",
-                fillOpacity: 1
+                fillOpacity: 1,
+                stroke: true,
             });
         },
 
