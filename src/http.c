@@ -104,7 +104,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             // Extract the state field
             double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
-            double longitude = cJSON_GetObjecItem(request, "longitude")->valuedouble;
+            double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
 
             // Pass the state to your C function
             cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);

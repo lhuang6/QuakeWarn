@@ -66,4 +66,6 @@ form.addEventListener("submit", async (event) => {
     });
 
     const data = await response.json();
+
+    table.setData(data);
 });
