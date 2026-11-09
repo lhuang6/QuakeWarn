@@ -46,8 +46,9 @@ const submitLocation = document.getElementById("submitLocation");
 
 // Updating the table based on the location
 submitLocation.addEventListener("click", async () => {
+    console.log("Hey");
 
-    console.log("Form submitted!");
+    /*console.log("Form submitted!");
 
     // Fetching latitude and longitude from the inputted values in html
     const latitude = document.getElementById("latitude").value;
@@ -59,7 +60,7 @@ submitLocation.addEventListener("click", async () => {
     };
 
     console.log("Hey");
-    console.log("Sending:", payload);
+    console.log("Sending:", payload);*/
 
     /*// Send the value to the C backend
     const response = await fetch("/api/sort-shelter-location", {
