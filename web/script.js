@@ -21,7 +21,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 // Listens for when the HTML page is opened up
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 
     // New Tabulator (External Javascript library) table for shelters
     table = new Tabulator("#earthquake-table", {
@@ -48,7 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Response from the backend
     const shelterData = await response.json();
 
-    L.geoJSON(shelterData).addTo(map);
+    L.geoJSON(shelterData, {onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.shelter_name);
+        }}).addTo(map);
 });
 
 
