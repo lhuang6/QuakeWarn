@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/lhuang6/QuakeWarn#readme",
   "dependencies": {
+    "leaflet": "^2.0.0-beta.2",
     "tabulator-tables": "^6.7.1"
   }
 }
