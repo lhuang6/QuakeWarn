@@ -44,29 +44,41 @@ const submitLocation = document.getElementById("submitLocation");
 
 // Updating the table based on the location
 submitLocation.addEventListener("click", async (event) => {
-    event.preventDefault();
+    try {
+        event.preventDefault();
 
-    // Fetching latitude and longitude from the inputted values in html
-    const latitude = document.getElementById("submitLatitude").value;
-    const longitude = document.getElementById("submitLongitude").value;
-    
-    // Send the value to the C backend
-    const response = await fetch("/api/sort-shelter-location", {
-        method: "POST",
+        // Fetching latitude and longitude from the inputted values in html
+        const latitude = document.getElementById("submitLatitude").value;
+        const longitude = document.getElementById("submitLongitude").value;
 
-        // Sending it as a JSON
-        headers: {
-            "Content-Type": "application/json"
-        },
+        const payload = {
+                latitude: Number(latitude),
+                longitude: Number(longitude)
+        };
 
-        // Turning it into a JSON
-        body: JSON.stringify({
-            latitude: Number(latitude),
-            longitude: Number(longitude)
-        })
-    });
+        console.log(payload);
 
-    const data = await response.json();
+        // Send the value to the C backend
+        const response = await fetch("/api/sort-shelter-location", {
+            method: "POST",
 
-    table.setData(data);
+            // Sending it as a JSON
+            headers: {
+                "Content-Type": "application/json",
+                'Accept': 'application/json'
+            },
+
+            // Turning it into a JSON
+            body: JSON.stringify({
+                latitude: Number(latitude),
+                longitude: Number(longitude)
+            })
+        });
+
+        const data = await response.json();
+
+        table.setData(data);
+    } catch (error) {
+        console.error("Failed to send data:", error.message);
+    }
 });
