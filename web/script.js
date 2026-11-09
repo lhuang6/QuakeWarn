@@ -49,6 +49,8 @@ form.addEventListener("submit", async (event) => {
     // Prevents page from reloading (the default action)
     event.preventDefault()
 
+    console.log("Form submitted!");
+
     // Fetching latitude and longitude from the inputted values in html
     const latitude = document.getElementById("latitude").value;
     const longitude = document.getElementById("longitude").value;
