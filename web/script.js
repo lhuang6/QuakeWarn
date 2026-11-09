@@ -1,11 +1,4 @@
-const map = L.map('map').setView([37.8, -96], 4);
-
-// Add OpenStreetMap base tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
-
+// Custom color table for earthquake markers
 function getMagnitudeColor(magnitude) {
     return magnitude >= 7 ? "#8000ff" :
            magnitude >= 6 ? "#ff0000" :
@@ -15,6 +8,14 @@ function getMagnitudeColor(magnitude) {
            magnitude >= 2 ? "#00bfff" :
                            "#0000ff";
 }
+
+const map = L.map('map').setView([37.8, -96], 4);
+
+// Add OpenStreetMap base tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
 
 // Load and render your GeoJSON data file
 /*fetch('all_day.geojson')
@@ -125,7 +126,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return L.circleMarker(latlng, {
                 radius: markerRadius,
                 color: "black",
-                fillColor: "red",
+                fillColor: getMagnitudeColor(feature.properties.mag),
                 fillOpacity: 1,
                 stroke: true,
             });
