@@ -16,8 +16,10 @@ int main(void)
 
     cJSON *closeShelters = loadOpenShelters();
 
-    printf("Here\n");
-    sortClosestShelters(closeShelters, 34, -84);
+    printf("Entered sortClosestShelters\n");
+    fflush(stdout);
+    printf("json pointer: %p\n", (void *)closeShelters);
+    fflush(stdout);
 
     // printShelters(sortedShelters, 1);
 
