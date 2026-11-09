@@ -105,18 +105,20 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             // Extract the state field
             double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
-            double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
+            // double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
+
+            mg_http_reply(c, 200, "", "{\"latitude\":\"%.1f\"}\n", latitude);
 
             // Pass the state to your C function
-            cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);
+            // cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);
 
             // Send a response back to JavaScript
-            sendJson(c, 200, sortedShelters);
+            // sendJson(c, 200, sortedShelters);
 
             // Deleting all JSON objects to free up memory
             cJSON_Delete(request);
             cJSON_Delete(closeShelters);
-            cJSON_Delete(sortedShelters);
+            // cJSON_Delete(sortedShelters);
 
         } else  {
 
