@@ -45,6 +45,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         ]
     });
 
+    // New Tabulator (External Javascript library) table for EATHQUAKES
+    table = new Tabulator("#earthquake-table", {
+
+        // URL for C backend to send JSON
+        ajaxURL: "/api/earthquakes",
+
+        // Taking URL and responses to put on the table to update
+        ajaxResponse: function(url, params, response) {
+            return response;
+        },
+
+        // Fit the columns to the right size
+        layout: "fitColumns",
+
+        // Adding the fields from the geojson into the table
+        columns: [
+            { title: "Name", field: "properties.place" },
+            { title: "Title", field: "properties.title" },
+            { title: "Magnitude", field: "properties.mag" },
+        ]
+    });
+
     // Requesting a new URL request for the C backend to retrieve shelter data
     const response = await fetch("/api/shelters");
 
