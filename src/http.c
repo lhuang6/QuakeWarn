@@ -84,6 +84,12 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
 
+        } else if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
+            cJSON *request = cJSON_ParseWithLength(
+                hm->body.buf,
+                hm->body.len
+            );
+
         } else  {
 
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};

@@ -42,14 +42,18 @@ refereshButton.addEventListener("click", async () => {
 
 const form = document.getElementById("shelterForm");
 
+// Updating the table based on the location
 form.addEventListener("submit", async (event) => {
 
+    // Fetching latitude and longitude from the inputted values in html
     const latitude = document.getElementById("latitude").value;
     const longitude = document.getElementById("longitude").value;
 
     // Send the value to the C backend
-    const response = await fetch("/api/search-shelters", {
+    const response = await fetch("/api/sort-shelter-location", {
         method: "POST",
+
+        // Sending it as a JSON
         headers: {
             "Content-Type": "application/json"
         },
