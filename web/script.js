@@ -5,8 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // New Tabulator (External Javascript library) table for shelters
     const table = new Tabulator("#earthquake-table", {
 
-        // URL for C backend to send JSON
-        ajaxURL: function(url, params, response) {
+        // URL for C backend
+        ajaxURL: "/api/shelters",
+
+        // Extract GeoJSON features
+        ajaxResponse: function(url, params, response) {
             return response.features;
         },
 
