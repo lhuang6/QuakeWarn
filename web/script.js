@@ -40,7 +40,7 @@ refereshButton.addEventListener("click", async () => {
     // document.getElementById("location").textContent = `Location: ${data.location}`;
 });
 
-const form = document.getElementById("shelterForm");
+const form = document.getElementById("location");
 
 // Updating the table based on the location
 form.addEventListener("submit", async (event) => {
