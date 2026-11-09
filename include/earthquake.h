@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "cJSON.h"
+#include "download.h"
 #include <stdbool.h>
 
 bool checkEarthquakes(cJSON *json);

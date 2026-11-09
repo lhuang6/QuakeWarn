@@ -29,7 +29,7 @@ cJSON *loadFullShelters();
 
 cJSON *loadAlertShelters();
 
-void freeShelters();
+void freeShelters(allShelters shelters);
 
 void printShelters(cJSON *json, double percent);
 

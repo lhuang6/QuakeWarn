@@ -184,7 +184,7 @@ cJSON *loadFullShelters() {
  * Returns:
  *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
 */
-cJSON *loadFullShelters() {
+cJSON *loadAlertShelters() {
     char filename[100];
     snprintf(filename, sizeof(filename),
             "data/shelters_3.geojson");

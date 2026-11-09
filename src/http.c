@@ -11,21 +11,26 @@
  *
  * Parameters:
  *      c: Connection associated with the event
- *      status: 
+ *      status: HTTP status code(Usually 200 for success)
+ *      json: cJSON object of the shelter data
  */
 void sendRefreshShelters(struct mg_connection *c, int status, cJSON *json) {
+    // JSON data all in one char
     char *response = cJSON_PrintUnformatted(json);
 
+    // If cJSON was unable to turn into a char
     if (response == NULL) {
         mg_http_reply(c, 500, "", "{\"error\":\"JSON serialization failed\"}\n");
         return;
     }
 
+    // Printing JSON data for JavaScript
     mg_http_reply(c, status,
         "Content-Type: application/json\r\n",
         "%s\n", response
     );
 
+    // Freeing up the memory used for the JSON text
     cJSON_free(response);
 }
 
@@ -55,6 +60,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
         // URL reply for the "Refresh Data" Button
         } else if (mg_match(hm->uri, mg_str("/api/refresh-shelters"), NULL)) {
+
             // Loads the open shelters file
             cJSON *closeShelters = loadOpenShelters();
 
@@ -63,7 +69,9 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
+            
         } else  {
+
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
             mg_http_serve_dir(c, hm, &opts);  // For all other URLs, Serve static files
         }
