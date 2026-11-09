@@ -61,18 +61,6 @@ allShelters loadShelters() {
         // Loading the shelter data on JSON
         cJSON *json = loadJson(filename);
 
-        cJSON *features = cJSON_GetObjectItem(json, "features");
-        int count = cJSON_GetArraySize(features);
-
-        // Adding a new distance object to the geometry
-        // Distance will be used for later methods
-        for(int i = 0; i < count; i++) {
-
-            // Adding "distance: " to every geometry section of shelter data
-            cJSON *geometry = cJSON_GetObjectItem(cJSON_GetArrayItem(features, i), "geometry");
-            cJSON_AddNullToObject(geometry, "distance");
-        }
-
         // Checking if the shelter data passed the checks
         if (!checkShelters(json)) {
 
@@ -125,18 +113,6 @@ cJSON *loadOpenShelters() {
     // Loading the shelter data on JSON
     cJSON *json = loadJson(filename);
 
-    cJSON *features = cJSON_GetObjectItem(json, "features");
-    int count = cJSON_GetArraySize(features);
-
-    // Adding a new distance object to the geometry
-    // Distance will be used for later methods
-    for(int i = 0; i < count; i++) {
-
-        // Adding "distance: " to every geometry section of shelter data
-        cJSON *geometry = cJSON_GetObjectItem(cJSON_GetArrayItem(features, i), "geometry");
-        cJSON_AddNullToObject(geometry, "distance");
-    }
-
     // Checking if the shelter data passed the checks
     if (!checkShelters(json)) {
         // Deleting the memory of the json file
@@ -164,18 +140,6 @@ cJSON *loadClosedShelters() {
     // Loading the shelter data on JSON
     cJSON *json = loadJson(filename);
 
-    cJSON *features = cJSON_GetObjectItem(json, "features");
-    int count = cJSON_GetArraySize(features);
-
-    // Adding a new distance object to the geometry
-    // Distance will be used for later methods
-    for(int i = 0; i < count; i++) {
-
-        // Adding "distance: " to every geometry section of shelter data
-        cJSON *geometry = cJSON_GetObjectItem(cJSON_GetArrayItem(features, i), "geometry");
-        cJSON_AddNullToObject(geometry, "distance");
-    }
-
     // Checking if the shelter data passed the checks
     if (!checkShelters(json)) {
         // Deleting the memory of the json file
@@ -202,18 +166,6 @@ cJSON *loadFullShelters() {
     // Loading the shelter data on JSON
     cJSON *json = loadJson(filename);
 
-    cJSON *features = cJSON_GetObjectItem(json, "features");
-    int count = cJSON_GetArraySize(features);
-
-    // Adding a new distance object to the geometry
-    // Distance will be used for later methods
-    for(int i = 0; i < count; i++) {
-
-        // Adding "distance: " to every geometry section of shelter data
-        cJSON *geometry = cJSON_GetObjectItem(cJSON_GetArrayItem(features, i), "geometry");
-        cJSON_AddNullToObject(geometry, "distance");
-    }
-
     // Checking if the shelter data passed the checks
     if (!checkShelters(json)) {
         // Deleting the memory of the json file
@@ -239,18 +191,6 @@ cJSON *loadAlertShelters() {
 
     // Loading the shelter data on JSON
     cJSON *json = loadJson(filename);
-
-    cJSON *features = cJSON_GetObjectItem(json, "features");
-    int count = cJSON_GetArraySize(features);
-
-    // Adding a new distance object to the geometry
-    // Distance will be used for later methods
-    for(int i = 0; i < count; i++) {
-
-        // Adding "distance: " to every geometry section of shelter data
-        cJSON *geometry = cJSON_GetObjectItem(cJSON_GetArrayItem(features, i), "geometry");
-        cJSON_AddNullToObject(geometry, "distance");
-    }
 
     // Checking if the shelter data passed the checks
     if (!checkShelters(json)) {
