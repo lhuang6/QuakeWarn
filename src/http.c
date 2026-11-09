@@ -16,10 +16,11 @@
  */
 void sendJson(struct mg_connection *c, int status, cJSON *json) {
 
-    cJSON *features = cJSON
+    // Retrieve table of 
+    cJSON *features = cJSON_GetObjectItem(json, "features");
 
     // JSON data all in one char
-    char *response = cJSON_PrintUnformatted(json);
+    char *response = cJSON_PrintUnformatted(features);
 
     // If cJSON was unable to turn into a char
     if (response == NULL) {
