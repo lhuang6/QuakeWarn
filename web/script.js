@@ -1,15 +1,3 @@
-function populateTable(data) {
-
-    const table = document.getElementById("earthquakeTable");
-
-    data.forEach(earthquake => {
-
-        const row = table.insertRow();
-
-        row.insertCell().textContent = earthquake.magnitude;
-        row.insertCell().textContent = earthquake.location;
-    });
-}
 
 // Waiting for HTML page to open
 document.addEventListener("DOMContentLoaded", () => {
@@ -23,10 +11,12 @@ async function loadEarthquakes() {
     const response = await fetch("/api/earthquakes");
 
     // Gets data from the response the C-HTML web-server made
-    const data = await response.json();
+    const tabledata = await response.json();
 
-    // Runs populate table method
-    populateTable(data);
+    var table = new Tabulator("#shelter-table", {
+        data:tabledata,
+        autoColumns:true
+    })
 }
 
 
