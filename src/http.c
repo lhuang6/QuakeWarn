@@ -72,7 +72,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(closeShelters);
 
         // URL reply for the "Refresh Data" Button
-        } else if (mg_match(hm->uri, mg_str("/api/referesh-shelters"), NULL)) {
+        } else if (mg_match(hm->uri, mg_str("/api/refresh-shelters"), NULL)) {
             downloadShelters();
 
             // Loads the open shelters file
