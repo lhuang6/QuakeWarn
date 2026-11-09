@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     <hr>
 
-                    <p style="font-size: 14px;"><strong>Distance:</strong> -- km</p>
+                    <p style="font-size: 14px;"><strong>Distance:</strong> ${feature.geometry.distance} km</p>
                 </div>
             `;
 
