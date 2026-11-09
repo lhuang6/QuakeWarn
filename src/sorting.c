@@ -100,7 +100,6 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
 
     // Counts how many earthquakes there are
     int count = cJSON_GetArraySize(features);
-    double distances[count];
 
     // Performing an Insertion Sort:
     // 1. Start with the second element as the first element is assumed to be sorted.
@@ -112,13 +111,13 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
         // Getting the distance for each shelter
         cJSON *iFeature = cJSON_GetArrayItem(features, i);
         cJSON *iGeometry = cJSON_GetObjectItem(iFeature, "geometry");
-        cJSON *iDistance = cJSON_GetObjectItem(iGeometry, "distance")->valuedouble;
+        double iDistance = cJSON_GetObjectItem(iGeometry, "distance")->valuedouble;
 
         // Looking for each element on the left and make sure it's sorted
         for(int j = 0; j < i; j++) {
             cJSON *jFeature = cJSON_GetArrayItem(features, j);
             cJSON *jGeometry = cJSON_GetObjectItem(jFeature, "geometry");
-            cJSON *jDistance = cJSON_GetObjectItem(jGeometry, "distance")->valuedouble;
+            double jDistance = cJSON_GetObjectItem(jGeometry, "distance")->valuedouble;
 
             if(iDistance < jDistance) {
                 // Detatching and adding the shelter into the right position
