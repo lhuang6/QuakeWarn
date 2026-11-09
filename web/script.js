@@ -22,18 +22,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // Listens for when the HTML page is opened up
 document.addEventListener("DOMContentLoaded", async () => {
 
-    // New Tabulator (External Javascript library) table for shelters
+    // New Tabulator (External Javascript library) table for SHELTERS
     table = new Tabulator("#earthquake-table", {
 
         // URL for C backend to send JSON
         ajaxURL: "/api/shelters",
 
-        // Taking URL from 
+        // Taking URL and responses to put on the table to update
         ajaxResponse: function(url, params, response) {
             return response;
         },
 
+        // Fit the columns to the right size
         layout: "fitColumns",
+
+        // Adding the fields from the geojson into the table
         columns: [
             { title: "Name", field: "properties.shelter_name" },
             { title: "Status Code", field: "properties.shelter_status_code" },
@@ -56,13 +59,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         popupAnchor: [0, -32]
     });
 
+    // Adding all shelter icons
     L.geoJSON(shelterData, {
+        // Pointing to the latitude and longitude from GeoJSON
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
                 icon: shelterIcon
             });
         },
 
+        // Labeling the marker with the shelter name
         onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.shelter_name);
         }
@@ -77,6 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Adding each earthquake to the map
     L.geoJSON(earthquakeData, {
         pointToLayer: function(feature, latlng) {
+            // Plotting a red marker for all earthquakes
             return L.circleMarker(latlng, {
                 radius: 8,
                 color: "black",
@@ -86,6 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         },
 
+        // Plotting the place for each earthquake marker
         onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.place);
         }
