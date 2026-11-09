@@ -98,7 +98,7 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
                 // Swapping unsorted values in distances
                 double temp = distances[i];
                 distances[i] = distances[j];
-                distances[j] = distances[i];
+                distances[j] = temp;
 
                 // Detatching and adding the shelter into the right position
                 cJSON *item = cJSON_DetachItemFromArray(features, i);

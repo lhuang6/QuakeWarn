@@ -16,18 +16,12 @@ int main(void)
 
     cJSON *json = loadOpenShelters();
 
-    printf("Main JSON: %p\n", (void *)json);
+    cJSON *sortedShelters = sortClosestShelters(json, 34, -84);
 
-    cJSON *test = cJSON_Duplicate(json, true);
-    printf("Main duplicate: %p\n", (void *)test);
-    cJSON_Delete(test);
-
-    cJSON *result = sortClosestShelters(json, 34, -84);
-
-    // printShelters(sortedShelters, 1);
+    printShelters(sortedShelters, 1);
 
     cJSON_Delete(json);
-    cJSON_Delete(result);
+    cJSON_Delete(sortedShelters);
     // cJSON_Delete(sortedShelters);
 
     /*
