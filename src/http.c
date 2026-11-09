@@ -76,7 +76,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             downloadShelters();
 
             // Loads the open shelters file
-            cJSON *closeShelters = loadClosedShelters();
+            cJSON *closeShelters = loadAlertShelters();
 
             // Sends JSON data to JavaScript
             sendJson(c, 200, closeShelters);
