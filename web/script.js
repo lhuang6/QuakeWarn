@@ -43,11 +43,17 @@ refereshButton.addEventListener("click", async () => {
 const submitLocation = document.getElementById("submitLocation");
 
 // Updating the table based on the location
-submitLocation.addEventListener("click", async () => {
-    
+submitLocation.addEventListener("click", async (event) => {
+    event.preventDefault();
+
     // Fetching latitude and longitude from the inputted values in html
     const latitude = document.getElementById("submitLatitude").value;
     const longitude = document.getElementById("submitLongitude").value;
+
+    console.log("Sending:", {
+        latitude: Number(latitude),
+        longitude: Number(longitude)
+    });
 
     // Send the value to the C backend
     const response = await fetch("/api/sort-shelter-location", {
