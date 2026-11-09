@@ -17,12 +17,12 @@ int main(void)
     cJSON *closeShelters = loadOpenShelters();
 
     printf("Here\n");
-    cJSON *sortedShelters = sortingImpact(closeShelters, 34, -84);
+    sortClosestShelters(closeShelters, 34, -84);
 
-    printShelters(sortedShelters, 1);
+    // printShelters(sortedShelters, 1);
 
     cJSON_Delete(closeShelters);
-    cJSON_Delete(sortedShelters);
+    // cJSON_Delete(sortedShelters);
 
     /*
     struct mg_mgr mgr;  // Mongoose event manager. Holds all connections

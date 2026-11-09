@@ -9,7 +9,7 @@
 #include "mongoose.h"
 #include <math.h>
 
-double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
+double haversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
 
 cJSON *sortClosestShelters(cJSON *json, double lat, double lon);
 
