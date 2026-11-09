@@ -15,12 +15,16 @@ h1 {
 }
 
 #map {
-    height: 600px;
+    height: 800px;
     flex: 2;
 }
 
 #sidebar {
     flex: 1;
+    width: 400px;
+    height: 800px;
+    overflow-y: auto;
+    overflow-x: auto
 }
 
 .card {
