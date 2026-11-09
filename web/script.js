@@ -27,7 +27,7 @@ const refereshButton = document.getElementById("refreshButton");
 
 refereshButton.addEventListener("click", async () => {
 
-    table.setData("/api/refresh-shelters");
+    await table.setData("/api/refresh-shelters");
 
     // Requesting a new URL request for the C backend
     // const response = await fetch("/api/refresh-shelters");
