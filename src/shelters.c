@@ -61,6 +61,8 @@ allShelters loadShelters() {
         // Loading the shelter data on JSON
         cJSON *json = loadJson(filename);
 
+        cJSON *features = cJSON_
+
         // Checking if the shelter data passed the checks
         if (!checkShelters(json)) {
 
