@@ -61,7 +61,10 @@ allShelters loadShelters() {
         // Loading the shelter data on JSON
         cJSON *json = loadJson(filename);
 
-        cJSON *features = cJSON_
+        // Adding a new distance object to the geometry
+        // Distance will be used for later methods
+        cJSON *geometry = cJSON_GetObjectItem(cJSON_GetObjectItem(json, "features"), "geometry");
+
 
         // Checking if the shelter data passed the checks
         if (!checkShelters(json)) {
