@@ -15,6 +15,9 @@
  *      json: cJSON object of the shelter data
  */
 void sendJson(struct mg_connection *c, int status, cJSON *json) {
+
+    cJSON *features = cJSON
+
     // JSON data all in one char
     char *response = cJSON_PrintUnformatted(json);
 
