@@ -57,8 +57,18 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         if (mg_match(hm->uri, mg_str("/api/hello"), NULL)) {                // REST API call?
             mg_http_reply(c, 200, "", "{%m:%d}\n", MG_ESC("status"), 1);    // Yes. Respond JSON
 
+        // Sending all earthquake JSON data
         } else if (mg_match(hm->uri, mg_str("/api/earthquakes"), NULL)) {
-            //To-Do
+
+            // Downloading and loading earthquake data
+            downloadEarthquakes(ALL_DAY, ALL);
+            cJSON *earthquakes = loadEarthquakes(ALL_DAY, ALL);
+
+            // Sending the JSON to JavaScript
+            sendJson(c, 200, earthquakes);
+
+            // Deleting earthquake JSON
+            cJSON_Delete(earthquakes);
 
         // Starting up the Shelter table
         } else if (mg_match(hm->uri, mg_str("/api/shelters"), NULL)) {
