@@ -42,12 +42,10 @@ refereshButton.addEventListener("click", async () => {
     // document.getElementById("location").textContent = `Location: ${data.location}`;
 });
 
-const form = document.getElementById("location");
+const submitLocation = document.getElementById("submitLocation");
 
 // Updating the table based on the location
-form.addEventListener("submit", async (event) => {
-    // Prevents page from reloading (the default action)
-    event.preventDefault()
+submitLocation.addEventListener("click", async () => {
 
     console.log("Form submitted!");
 
