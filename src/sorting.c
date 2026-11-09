@@ -56,7 +56,9 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
 cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
-    cJSON *duplicate = cJSON_Duplicate(json, true);
+    cJSON *duplicate = cJSON_Duplicate(json, 1);
+
+    printf("Here");
 
     // Fetches earthquake features list
     cJSON *features = cJSON_GetObjectItem(duplicate, "features");
