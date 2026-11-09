@@ -57,10 +57,17 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             mg_http_reply(c, 200,
                 "Content-Type: application/json\r\n",
-                "{\"body_length\":%lu}",
-                (unsigned long) hm->body.len
+                "{"
+                    "\"method\":\"%.*s\","
+                    "\"uri\":\"%.*s\","
+                    "\"body_length\":%lu,"
+                    "\"message_length\":%lu"
+                "}",
+                (int) hm->method.len, hm->method.buf,
+                (int) hm->uri.len, hm->uri.buf,
+                (unsigned long) hm->body.len,
+                (unsigned long) hm->message.len
             );
-
             return;
         }
 
