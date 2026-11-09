@@ -58,6 +58,9 @@ submitLocation.addEventListener("click", async (event) => {
 
         console.log(payload);
 
+        console.log("ABOUT TO SEND POST");
+        console.log("Payload:", JSON.stringify(payload));
+
         // Send the value to the C backend
         const response = await fetch("/api/sort-shelter-location", {
             method: "POST",
@@ -71,6 +74,9 @@ submitLocation.addEventListener("click", async (event) => {
             // Turning it into a JSON
             body: JSON.stringify(payload)
         });
+
+        console.log("Response status:", response.status);
+        console.log("Response:", data);
 
         const data = await response.json();
 

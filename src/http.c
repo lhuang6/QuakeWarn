@@ -73,8 +73,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             return;
         }
-
-
+    }
 
         /*// Test URL reply
         if (mg_match(hm->uri, mg_str("/api/hello"), NULL)) {                // REST API call?
