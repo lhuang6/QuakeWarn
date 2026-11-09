@@ -101,9 +101,8 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             if (request == NULL) {
                 mg_http_reply(c, 400,
                     "Content-Type: application/json\r\n",
-                    "{\"error\":\"JSON parsing failed\",\"received\":%.*s}",
-                    (int) hm->body.len,
-                    hm->body.buf
+                    "{\"error\":\"JSON parsing failed\",\"body_length\":%lu}",
+                    (unsigned long) hm->body.len
                 );
                 return;
             }
