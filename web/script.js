@@ -44,6 +44,8 @@ const form = document.getElementById("shelterForm");
 
 // Updating the table based on the location
 form.addEventListener("submit", async (event) => {
+    // Prevents page from reloading (the default action)
+    event.preventDefault()
 
     // Fetching latitude and longitude from the inputted values in html
     const latitude = document.getElementById("latitude").value;
