@@ -57,6 +57,11 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             mg_http_reply(c, 200, "", "{%m:%d}\n", MG_ESC("status"), 1);    // Yes. Respond JSON
 
         } else if (mg_match(hm->uri, mg_str("/api/earthquakes"), NULL)) {
+            //To-Do
+
+        // URL reply for the "Refresh Data" Button
+        } else if (mg_match(hm->uri, mg_str("/api/shelters"), NULL)) {
+            
             // Loads the open shelters file
             cJSON *closeShelters = loadOpenShelters();
 
@@ -65,11 +70,6 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
-
-        // URL reply for the "Refresh Data" Button
-        } else if (mg_match(hm->uri, mg_str("/api/refresh-shelters"), NULL)) {
-
-            //To-Do
 
         } else  {
 

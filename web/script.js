@@ -11,12 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
         layout: "fitColumns",
         columns: [
             { title: "Name", field: "shelter_name" },
-            { title: "Location", field: "location" },
-            { title: "Time", field: "time" }
+            { title: "Status Code", field: "shelter_status_code" },
+            { title: "Address", field: "address_1" }
         ]
-
     });
-
 });
 
 
