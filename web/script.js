@@ -120,14 +120,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
 
         // Function for each marker
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function(feature, layer, latlng) {
             // Labeling the marker with the place where it is located
             layer.bindPopup(feature.properties.place);
 
-            // Changing the values of the earthquake information tab
-            document.getElementById("magnitude").textContent = `Magnitude: ${feature.properties.mag}`;
-            document.getElementById("location").textContent = `Location: ${feature.properties.place}`;
-            document.getElementById("latitude").textContent = `Latitude: ${feature.properties.place}`;
+            layer.on("click", function(event) {
+                // Changing the values of the earthquake information tab
+                document.getElementById("magnitude").textContent = `Magnitude: ${feature.properties.mag}`;
+                document.getElementById("location").textContent = `Location: ${feature.properties.place}`;
+                document.getElementById("latitude").textContent = `Latitude: ${latlng[0]}`;
+                document.getElementById("longitude").textContent = `Longitude: ${latlng[1]}`;
+            });
         }
     }).addTo(map);
 
