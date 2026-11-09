@@ -44,6 +44,7 @@ const submitLocation = document.getElementById("submitLocation");
 
 // Updating the table based on the location
 submitLocation.addEventListener("click", async (event) => {
+    
     try {
         event.preventDefault();
 
