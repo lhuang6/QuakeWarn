@@ -9,7 +9,16 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const response = fetch("data/shelters_0.geojson");
 const shelterData = response.json();
 
-const shelterLayer = L.geoJSON(shelterData).addTo(map);
+const shelterLayer = L.geoJSON(shelterData, {
+    onEachFeature: function(feature, layer) {
+
+        // Get shelter name from GeoJSON properties
+        const name = feature.properties.shelter_name;
+
+        // Add popup to marker
+        layer.bindPopup(name);
+    }
+}).addTo(map);
 
 // Load and render your GeoJSON data file
 /*fetch('all_day.geojson')
