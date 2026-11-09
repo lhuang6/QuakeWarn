@@ -120,13 +120,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         },
 
         // Function for each marker
-        onEachFeature: function(feature, layer, latlng) {
+        onEachFeature: function(feature, layer) {
+            const latlng = layer.getLatLng();
+
             // Labeling the marker with the place where it is located
             layer.bindPopup(feature.properties.place);
 
             layer.on("click", function(event) {
-                
-
                 // Changing the values of the earthquake information tab
                 document.getElementById("magnitude").textContent = `Magnitude: ${feature.properties.mag}`;
                 document.getElementById("location").textContent = `Location: ${feature.properties.place}`;
