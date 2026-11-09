@@ -362,3 +362,4 @@ void printEarthquakes(cJSON *json) {
         printf("Magnitude %.1f at %s\n", mag->valuedouble, place->valuestring);
     }
 }
+ 
