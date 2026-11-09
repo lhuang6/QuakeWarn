@@ -93,9 +93,16 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
     // 3. Move to the third element, compare it with the first two, and put it in its correct position
     // 4. Repeat until the entire array is sorted.
     for (int i = 1; i < count; i++) {
-
         for(int j = 0; j < i; j++) {
-            
+            if(distances[i] < distances[j]) {
+                // Swapping unsorted values in distances
+                double temp = distances[i];
+                distances[i] = distances[j];
+                distances[j] = distances[i];
+
+                cJSON *item = cJSON_DetachItemFromArray(features, i);
+                cJSON_InsertItemInArray(features, j, item);
+            }
         }
 
         // Compare with elements to the left
