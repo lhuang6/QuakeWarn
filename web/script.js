@@ -62,8 +62,8 @@ form.addEventListener("submit", async (event) => {
 
         // Turning it into a JSON
         body: JSON.stringify({
-            latitude: latitude,
-            longitude: longitude
+            latitude: Number(latitude),
+            longitude: Number(longitude)
         })
     });
 
