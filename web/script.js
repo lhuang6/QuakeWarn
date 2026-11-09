@@ -1,18 +1,3 @@
-// Waiting for HTML page to open
-document.addEventListener("DOMContentLoaded", () => {
-    loadEarthquakes();
-});
-
-// Sends in JSON data when html is opened
-async function loadEarthquakes() {
-
-    const response = await fetch("/api/earthquakes");
-
-    const data = await response.json();
-
-    populateTable(data);
-}
-
 function populateTable(data) {
 
     const table = document.getElementById("earthquakeTable");
@@ -25,6 +10,25 @@ function populateTable(data) {
         row.insertCell().textContent = earthquake.location;
     });
 }
+
+// Waiting for HTML page to open
+document.addEventListener("DOMContentLoaded", () => {
+    loadEarthquakes();
+});
+
+// Sends in JSON data when html is opened
+async function loadEarthquakes() {
+
+    // Waits for C response
+    const response = await fetch("/api/earthquakes");
+
+    // Gets data from the response the C-HTML web-server made
+    const data = await response.json();
+
+    // Runs populate table method
+    populateTable(data);
+}
+
 
 const refereshButton = document.getElementById("refreshButton");
 
