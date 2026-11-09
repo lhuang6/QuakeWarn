@@ -88,14 +88,12 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         // Sending a sorted JSON table based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
 
-            mg_http_reply(c, 200, "", "{%m:%d}\n", MG_ESC("status"), 1);
-
-            /*// Shelter data as a cJSON object
+            // Shelter data as a cJSON object
             cJSON *closeShelters = loadOpenShelters();
 
             // Latitude and Longitude set by user
             // C recieves as JSON, requested by javascript
-            cJSON *request = cJSON_ParseWithLength(
+            /*cJSON *request = cJSON_ParseWithLength(
                 hm->body.buf,
                 hm->body.len
             );
@@ -106,21 +104,21 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             }*/
 
             // Extract the state field
-            //double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
-            // double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
+            double latitude = 34;
+            double longitude = -84;
 
-            //mg_http_reply(c, 200, "", "{\"latitude\":\"%.1f\"}\n", latitude);
+            // mg_http_reply(c, 200, "", "{\"latitude\":\"%.1f\"}\n", latitude);
 
             // Pass the state to your C function
-            // cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);
+            cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);
 
             // Send a response back to JavaScript
-            // sendJson(c, 200, sortedShelters);
+            sendJson(c, 200, sortedShelters);
 
             // Deleting all JSON objects to free up memory
             // cJSON_Delete(request);
-            // cJSON_Delete(closeShelters);
-            // cJSON_Delete(sortedShelters);
+            cJSON_Delete(closeShelters);
+            cJSON_Delete(sortedShelters);
 
         } else  {
 
