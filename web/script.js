@@ -61,6 +61,17 @@ submitLocation.addEventListener("click", async (event) => {
         console.log("ABOUT TO SEND POST");
         console.log("Payload:", JSON.stringify(payload));
 
+        const request = new Request("/api/sort-shelter-location", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        console.log("Method:", request.method);
+        console.log("Body:", await request.clone().text());
+
         // Send the value to the C backend
         const response = await fetch("/api/sort-shelter-location", {
             method: "POST",
@@ -74,9 +85,6 @@ submitLocation.addEventListener("click", async (event) => {
             // Turning it into a JSON
             body: JSON.stringify(payload)
         });
-
-        console.log("Method:", request.method);
-        console.log("Body:", await request.clone().text());
 
         const data = await response.json();
 
