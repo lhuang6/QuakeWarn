@@ -14,16 +14,20 @@ int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
 
-    cJSON *closeShelters = loadOpenShelters();
+    cJSON *json = loadOpenShelters();
 
-    printf("Entered sortClosestShelters\n");
-    fflush(stdout);
-    printf("json pointer: %p\n", (void *)closeShelters);
-    fflush(stdout);
+    printf("Main JSON: %p\n", (void *)json);
+
+    cJSON *test = cJSON_Duplicate(json, true);
+    printf("Main duplicate: %p\n", (void *)test);
+    cJSON_Delete(test);
+
+    cJSON *result = sortClosestShelters(json, 34, -84);
 
     // printShelters(sortedShelters, 1);
 
-    cJSON_Delete(closeShelters);
+    cJSON_Delete(json);
+    cJSON_Delete(result);
     // cJSON_Delete(sortedShelters);
 
     /*
