@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Adding each shelter to the map
     const shelterIcon = L.icon({
-        iconUrl: "https://www.flaticon.com/free-icon/house_6831963",
+        iconUrl: "icons/house.png",
         iconSize: [32, 32],
         iconAnchor: [16, 32],
         popupAnchor: [0, -32]
