@@ -16,16 +16,12 @@ int main(void)
 
     cJSON *json = loadOpenShelters();
 
-    char *string = cJSON_Print(json);
+    cJSON *sortedShelters = sortClosestShelters(json, 34, -84);
 
-    printf("%s\n", string);
-
-    //cJSON *sortedShelters = sortClosestShelters(json, 34, -84);
-
-    //printShelters(sortedShelters, 1);
+    printShelters(sortedShelters, 1);
 
     cJSON_Delete(json);
-    //cJSON_Delete(sortedShelters);
+    cJSON_Delete(sortedShelters);
     // cJSON_Delete(sortedShelters);
 
     /*
