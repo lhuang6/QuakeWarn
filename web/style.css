@@ -9,6 +9,12 @@ h1 {
     color: #003366;
 }
 
+.top-container {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
 .card {
     background-color: white;
     border: 1px solid #cccccc;
