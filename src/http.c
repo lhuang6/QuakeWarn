@@ -105,7 +105,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             double longitude = cJSON_GetObjecItem(request, "longitude")->valuedouble;
 
             // Pass the state to your C function
-            cJSON *sortedShelters = ;
+            cJSON *sortedShelters = sortClosestShelters();
 
             cJSON_Delete(request);
 
