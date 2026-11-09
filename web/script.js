@@ -41,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
             { title: "State", field: "properties.state" },
         ]
     });
+
+    L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
 });
 
 
