@@ -3,6 +3,7 @@
 #include "http.h"
 #include "earthquake.h"
 #include "shelters.h"
+#include "sorting.h"
 #include "mongoose.h"
 #include <stdio.h>
 
@@ -84,11 +85,36 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
 
+        // Sending a sorted JSON table based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
+
+            // Latitude and Longitude set by user
+            // C recieves as JSON, requested by javascript
             cJSON *request = cJSON_ParseWithLength(
                 hm->body.buf,
                 hm->body.len
             );
+
+            if (request == NULL) {
+                mg_http_reply(c, 400, "", "{\"error\":\"Invalid JSON\"}\n");
+                return;
+            }
+
+            // Extract the state field
+            double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
+            double longitude = cJSON_GetObjecItem(request, "longitude")->valuedouble;
+
+            // Pass the state to your C function
+            cJSON *sortedShelters = ;
+
+            cJSON_Delete(request);
+
+            // Send a response back to JavaScript
+            mg_http_reply(c, 200,
+                "Content-Type: application/json\r\n",
+                "{\"message\":\"Search received\"}\n");
+
+            return;
 
         } else  {
 

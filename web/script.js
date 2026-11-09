@@ -57,6 +57,8 @@ form.addEventListener("submit", async (event) => {
         headers: {
             "Content-Type": "application/json"
         },
+
+        // Turning it into a JSON
         body: JSON.stringify({
             latitude: latitude,
             longitude: longitude

@@ -55,7 +55,7 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
  * Returns:
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
-void sortClosestShelters(cJSON *json, double lat, double lon) {
+cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
     cJSON *duplicate = cJSON_Duplicate(json, true);
 
     // Fetches earthquake features list
@@ -123,6 +123,8 @@ void sortClosestShelters(cJSON *json, double lat, double lon) {
             cJSON_InsertItemInArray(features, j + 1, item);
         }
     }
+
+    return duplicate;
 }
 
 

@@ -11,6 +11,8 @@
 
 double HaversineFormula(double Userlat, double Userlon, double Shelterlat, double Shelterlon);
 
+cJSON *sortClosestShelters(cJSON *json, double lat, double lon);
+
 cJSON *sortingImpact(cJSON *json, double latitude, double longitude);
 
 cJSON *sortingDistance(cJSON *json, double latitude, double longitude);
