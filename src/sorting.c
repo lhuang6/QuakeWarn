@@ -94,12 +94,9 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
     // 4. Repeat until the entire array is sorted.
     for (int i = 1; i < count; i++) {
 
-
-        // Grabbing the magnitude for each member on the right
-        cJSON *feature = cJSON_GetArrayItem(features, i);
-        cJSON *properties = cJSON_GetObjectItem(feature, "properties");
-        cJSON *jsonMag = cJSON_GetObjectItem(properties, "mag");
-        float magnitude = jsonMag->valuedouble;
+        for(int j = 0; j < i; j++) {
+            
+        }
 
         // Compare with elements to the left
         int j = i - 1;
