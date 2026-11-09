@@ -137,8 +137,24 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Getting latitude and longitude
             const latlng = layer.getLatLng();
 
-            // Labeling the marker with the place where it is located
-            layer.bindPopup(feature.properties.place);
+            const popupContent = `
+                <div class="earthquake-popup">
+                    <h3>${feature.properties.place}</h3>
+
+                    <hr>
+
+                    <p><strong>Magnitude:</strong> ${feature.properties.mag}</p>
+                    <p><strong>Location:</strong> ${feature.properties.placee}</p>
+                    <p><strong>Latitude:</strong> ${latlng.lat}</p>
+                    <p><strong>Longitude:</strong> ${latlng.lng}</p>
+
+                    <hr>
+
+                    <p><strong>Distance:</strong> -- km</p>
+                </div>
+            `;
+
+            layer.bindPopup(popupContent);
 
             layer.on("click", function(event) {
                 // Changing the values of the earthquake information tab
