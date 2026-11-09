@@ -109,11 +109,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Adding each earthquake to the map
     L.geoJSON(earthquakeData, {
         pointToLayer: function(feature, latlng) {
-            if(feature.properties.mag)
+            let markerRadius = feature.properties.mag * 3 + 2;
 
             // Plotting a red marker for all earthquakes
             return L.circleMarker(latlng, {
-                radius: 8,
+                radius: markerRadius,
                 color: "black",
                 fillColor: "red",
                 fillOpacity: 1,
