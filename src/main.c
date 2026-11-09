@@ -14,14 +14,14 @@ int main(void)
 {
     // (TEMPORARY) Downloading all earthquakes in the past day
 
-    /*cJSON *json = loadOpenShelters();
+    cJSON *json = loadOpenShelters();
 
     cJSON *sortedShelters = sortClosestShelters(json, 34, -84);
 
     printShelters(sortedShelters, 1);
 
     cJSON_Delete(json);
-    cJSON_Delete(sortedShelters);*/
+    cJSON_Delete(sortedShelters);
     // cJSON_Delete(sortedShelters);
 
     /*
