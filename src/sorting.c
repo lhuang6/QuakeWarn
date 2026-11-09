@@ -101,8 +101,11 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
                 distances[j] = temp;
 
                 // Detatching and adding the shelter into the right position
-                cJSON *item = cJSON_DetachItemFromArray(features, i);
-                cJSON_InsertItemInArray(features, j, item);
+                cJSON *right = cJSON_DetachItemFromArray(features, i);
+                cJSON_InsertItemInArray(features, j, right);
+
+                cJSON *left = cJSON_DetachItemFromArray(features, j + 1);
+                
             }
         }
     }
