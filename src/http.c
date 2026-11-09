@@ -98,6 +98,10 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
                 hm->body.len
             );
 
+            printf("Request body: %.*s\n",
+                    (int) hm->body.len,
+                    hm->body.buf);
+
             if (request == NULL) {
                 mg_http_reply(c, 400, "", "{\"error\":\"Invalid JSON\"}\n");
                 return;
