@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/lhuang6/QuakeWarn/issues"
   },
-  "homepage": "https://github.com/lhuang6/QuakeWarn#readme"
+  "homepage": "https://github.com/lhuang6/QuakeWarn#readme",
+  "dependencies": {
+    "tabulator-tables": "^6.7.1"
+  }
 }
