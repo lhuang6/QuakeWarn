@@ -47,48 +47,42 @@ submitLocation.addEventListener("click", async (event) => {
     try {
         event.preventDefault();
 
-        // Fetching latitude and longitude from the inputted values in html
-        const latitude = document.getElementById("submitLatitude").value;
-        const longitude = document.getElementById("submitLongitude").value;
+        // Get user coordinates
+        const latitude = Number(
+            document.getElementById("submitLatitude").value
+        );
 
+        const longitude = Number(
+            document.getElementById("submitLongitude").value
+        );
+
+        // Create JSON payload
         const payload = {
-                latitude: Number(latitude),
-                longitude: Number(longitude)
+            latitude: latitude,
+            longitude: longitude
         };
 
-        console.log(payload);
-
-        console.log("ABOUT TO SEND POST");
-        console.log("Payload:", JSON.stringify(payload));
-
-        const request = new Request("/api/sort-shelter-location", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        console.log("Method:", request.method);
-        console.log("Body:", await request.clone().text());
-
-        // Send the value to the C backend
+        // Send POST request to C backend
         const response = await fetch("/api/sort-shelter-location", {
             method: "POST",
-
-            // Sending it as a JSON
             headers: {
                 "Content-Type": "application/json",
-                'Accept': 'application/json'
+                "Accept": "application/json"
             },
-
-            // Turning it into a JSON
             body: JSON.stringify(payload)
         });
 
+        // Check HTTP response
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        // Receive sorted shelter data
         const data = await response.json();
 
+        // Update Tabulator table
         table.setData(data);
+
     } catch (error) {
         console.error("Failed to send data:", error.message);
     }
