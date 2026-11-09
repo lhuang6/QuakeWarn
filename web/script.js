@@ -41,9 +41,9 @@ refereshButton.addEventListener("click", async () => {
 });
 
 document.getElementById("shelterForm").addEventListener("submit", async (event) => {
+
     // Prevents the page from reloading
     event.preventDefault();
 
     
-
 });
