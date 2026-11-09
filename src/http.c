@@ -127,6 +127,8 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
             double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
 
+            // mg_http_reply(c, 200, "", "{\"latitude\":\"%.1f\"}\n", latitude);
+
             // Pass the state to your C function
             cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);
 

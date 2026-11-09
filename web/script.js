@@ -56,6 +56,19 @@ submitLocation.addEventListener("click", async (event) => {
                 longitude: Number(longitude)
         };
 
+        console.log(payload);
+
+        console.log("ABOUT TO SEND POST");
+        console.log("Payload:", JSON.stringify(payload));
+
+        const request = new Request("/api/sort-shelter-location", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
         console.log("Method:", request.method);
         console.log("Body:", await request.clone().text());
 
