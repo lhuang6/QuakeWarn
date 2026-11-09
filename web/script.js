@@ -139,18 +139,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const popupContent = `
                 <div class="earthquake-popup">
-                    <h3>${feature.properties.place}</h3>
+                    <h2>${feature.properties.place}</h2>
 
                     <hr>
 
-                    <p><strong>Magnitude:</strong> ${feature.properties.mag}</p>
-                    <p><strong>Location:</strong> ${feature.properties.placee}</p>
-                    <p><strong>Latitude:</strong> ${latlng.lat}</p>
-                    <p><strong>Longitude:</strong> ${latlng.lng}</p>
+                    <p style="font-size: 14px;"><strong>Magnitude:</strong> ${feature.properties.mag}</p>
+                    <p style="font-size: 14px;"><strong>Latitude:</strong> ${latlng.lat}</p>
+                    <p style="font-size: 14px;"><strong>Longitude:</strong> ${latlng.lng}</p>
 
                     <hr>
 
-                    <p><strong>Distance:</strong> -- km</p>
+                    <p style="font-size: 14px;"><strong>Distance:</strong> -- km</p>
                 </div>
             `;
 
