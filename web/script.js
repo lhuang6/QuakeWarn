@@ -104,6 +104,8 @@ submitLocation.addEventListener("click", async (event) => {
         // Update Tabulator table
         table.setData(data);
 
+        L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
+
     } catch (error) {
         console.error("Failed to send data:", error.message);
     }
