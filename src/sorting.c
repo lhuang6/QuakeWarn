@@ -46,6 +46,17 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
     return radius * c;
 }
 
+void addShelterDistances(cJSON *json, double lat, double lon) {
+
+    cJSON *features = cJSON_GetObjectItem(json, "features");
+    int count = cJSON_GetArraySize(features);
+
+    for(int i = 0; i < count; i++) {
+        // Geometry object in shelters data
+        cJSON *geometry = cJSON_GetObjectItem(features, "geometry");
+    }
+}
+
 /**
  * Sorts shelters by closest to a point in latitude and longitude
  *

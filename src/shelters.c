@@ -64,7 +64,7 @@ allShelters loadShelters() {
         // Adding a new distance object to the geometry
         // Distance will be used for later methods
         cJSON *geometry = cJSON_GetObjectItem(cJSON_GetObjectItem(json, "features"), "geometry");
-
+        cJSON_AddNullToObject(geometry, "distance");
 
         // Checking if the shelter data passed the checks
         if (!checkShelters(json)) {
