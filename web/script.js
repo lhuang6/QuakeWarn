@@ -119,12 +119,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         },
 
-        // Plotting the place for each earthquake marker
+        // Function for each marker
         onEachFeature: function(feature, layer) {
+            // Labeling the marker with the place where it is located
             layer.bindPopup(feature.properties.place);
 
-            document.getElementById("magnitude").textContent = `Magnitude: ${features.properties.mag}`;
-            document.getElementById("location").textContent = `Location: ${features.properties.mag}`;
+            // Changing the values of the earthquake information tab
+            document.getElementById("magnitude").textContent = `Magnitude: ${feature.properties.mag}`;
+            document.getElementById("location").textContent = `Location: ${feature.properties.place}`;
+            document.getElementById("latitude").textContent = `Latitude: ${feature.properties.place}`;
         }
     }).addTo(map);
 
