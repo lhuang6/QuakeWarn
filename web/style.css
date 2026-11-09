@@ -15,7 +15,8 @@ h1 {
 }
 
 #map {
-    height: 600px;
+    height: 800px;
+    width: 400px;
     flex: 2;
 }
 
