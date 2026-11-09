@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Extract GeoJSON features
         ajaxResponse: function(url, params, response) {
+            console.log("Full response:", response);
+            console.log("Features:", response.features);
+
             return response.features;
         },
 
