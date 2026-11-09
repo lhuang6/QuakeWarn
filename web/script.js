@@ -42,7 +42,19 @@ document.addEventListener("DOMContentLoaded", () => {
         ]
     });
 
-    L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
+    const response = await fetch("data/shelters_0.geojson");
+    const shelterData = await response.json();
+
+    const shelterLayer = L.geoJSON(shelterData, {
+        onEachFeature: function(feature, layer) {
+
+            // Get shelter name from GeoJSON properties
+            const name = feature.properties.shelter_name;
+
+            // Add popup to marker
+            layer.bindPopup(name);
+        }
+    }).addTo(map);
 });
 
 
