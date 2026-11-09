@@ -48,13 +48,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Response from the backend
     const shelterData = await response.json();
 
+    // Adding each shelter to the map
     L.geoJSON(shelterData, {onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.shelter_name);
         }}).addTo(map);
 
-
+    // Requesting a URL request for C backend to recieve earthquake data
     const earthquakes = await fetch("/api/earthquakes");
-    
+
+    // Response from backend
+    const earthquakeData = await earthquakes.json();
+
+    // Adding each earthquake to the map
+    L.geoJSON(earthquakeData, {onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.place);
+        }}).addTo(map);
+
 });
 
 
