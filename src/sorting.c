@@ -54,7 +54,7 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
  *      lat: Latitude (-90 to 90) of the point
  *      lon: Longitude (-180 to 180) of the point
  */
-void addShelterDistances(cJSON *json, double lat, double lon) {
+void addDistances(cJSON *json, double lat, double lon) {
 
     // Getting all shelters and counting how many there are
     cJSON *features = cJSON_GetObjectItem(json, "features");
@@ -78,6 +78,7 @@ void addShelterDistances(cJSON *json, double lat, double lon) {
     }
 }
 
+
 /**
  * Sorts shelters by closest to a point in latitude and longitude
  *
@@ -93,7 +94,7 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
 
     cJSON *duplicate = cJSON_Duplicate(json, true);
 
-    addShelterDistances(duplicate, lat, lon);
+    addDistances(duplicate, lat, lon);
 
     // Fetches earthquake features list
     cJSON *features = cJSON_GetObjectItem(duplicate, "features");
