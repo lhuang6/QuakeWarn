@@ -3,7 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     // New Tabulator (External Javascript library) table for shelters
-    const table = new Tabulator("#earthquake-table", {
+    table = new Tabulator("#earthquake-table", {
 
         // URL for C backend to send JSON
         ajaxURL: "/api/shelters",
