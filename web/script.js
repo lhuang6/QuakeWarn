@@ -1,4 +1,3 @@
-
 const map = new LeafletMap('map').setView([37.8, -96], 4);
 
 // Add OpenStreetMap base tiles
@@ -8,7 +7,7 @@ new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Load and render your GeoJSON data file
-fetch('all_day.geojson')
+/*fetch('all_day.geojson')
     .then(response => response.json())
     .then(geojsonData => {
         const geojsonLayer = L.geoJSON(geojsonData).addTo(map);
@@ -18,7 +17,7 @@ fetch('all_day.geojson')
             map.fitBounds(geojsonLayer.getBounds());
         }
     })
-    .catch(error => console.error('Error loading GeoJSON:', error));
+    .catch(error => console.error('Error loading GeoJSON:', error));*/
 
 
 // Listens for when the HTML page is opened up
