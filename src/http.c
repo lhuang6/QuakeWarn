@@ -99,7 +99,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             );
 
             if (request == NULL) {
-                mg_http_reply(c, 400, "", "{\"error\":\"%zu\"}\n", 34.05);
+                mg_http_reply(c, 400, "", "%.*s", (int) hm->body.len, hm->body.buf);
                 return;
             }
 
