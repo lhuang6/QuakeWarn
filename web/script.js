@@ -40,12 +40,10 @@ refereshButton.addEventListener("click", async () => {
     // document.getElementById("location").textContent = `Location: ${data.location}`;
 });
 
-const form = document.getElementById("shelterForm");
+const submitLocation = document.getElementById("submitLocation");
 
 // Updating the table based on the location
-form.addEventListener("submit", async (event) => {
-    // Prevents page from reloading (the default action)
-    event.preventDefault()
+submitLocation.addEventListener("submit", async () => {
 
     // Fetching latitude and longitude from the inputted values in html
     const latitude = document.getElementById("submitLatitude").value;
