@@ -114,13 +114,13 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
         cJSON *iGeometry = cJSON_GetObjectItem(iFeature, "geometry");
         cJSON *iDistance = cJSON_GetObjectItem(iGeometry, "distance")->valuedouble;
 
+        // Looking for each element on the left and make sure it's sorted
         for(int j = 0; j < i; j++) {
-            if(distances[i] < distances[j]) {
-                // Swapping unsorted values in distances
-                double temp = distances[i];
-                distances[i] = distances[j];
-                distances[j] = temp;
+            cJSON *jFeature = cJSON_GetArrayItem(features, j);
+            cJSON *jGeometry = cJSON_GetObjectItem(jFeature, "geometry");
+            cJSON *jDistance = cJSON_GetObjectItem(jGeometry, "distance")->valuedouble;
 
+            if(iDistance < jDistance) {
                 // Detatching and adding the shelter into the right position
                 cJSON *right = cJSON_DetachItemFromArray(features, i);
                 cJSON_InsertItemInArray(features, j, right);
@@ -130,11 +130,6 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
             }
         }
     }
-
-    for(int i = 0; i < count; i++) {
-        printf("%.1f ", distances[i]);
-    }
-
     printf("\n");
 
     return duplicate;
