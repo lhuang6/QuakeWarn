@@ -34,7 +34,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 document.addEventListener("DOMContentLoaded", async () => {
 
     // New Tabulator (External Javascript library) table for SHELTERS
-    quakeTable = new Tabulator("#shelter-table", {
+    shelterTable = new Tabulator("#shelter-table", {
 
         // URL for C backend to send JSON
         ajaxURL: "/api/shelters",
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // New Tabulator (External Javascript library) table for EATHQUAKES
-    shelterTable = new Tabulator("#earthquake-table", {
+    quakeTable = new Tabulator("#earthquake-table", {
 
         // URL for C backend to send JSON
         ajaxURL: "/api/earthquakes",
@@ -216,7 +216,7 @@ submitLocation.addEventListener("click", async (event) => {
         const data = await response.json();
 
         // Update Tabulator table
-        table.setData(data);
+        shelterTable.setData(data);
 
         L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
 
