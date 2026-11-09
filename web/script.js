@@ -6,27 +6,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-async function loadShelters() {
-    const response = await fetch("data/shelters_0.geojson");
-
-    if (!response.ok) {
-        throw new Error(`HTTP error: ${response.status}`);
-    }
-
-    const shelterData = await response.json();
-
-    const shelterLayer = L.geoJSON(shelterData, {
-        onEachFeature: function(feature, layer) {
-
-            const name = feature.properties.shelter_name;
-
-            layer.bindPopup(name);
-        }
-    }).addTo(map);
-}
-
-loadShelters();
-
 // Load and render your GeoJSON data file
 /*fetch('all_day.geojson')
     .then(response => response.json())
@@ -68,6 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Response from the backend
     const data = await response.json();
+
+    L.geoJSON()
 });
 
 
