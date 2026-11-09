@@ -14,7 +14,7 @@
  *      status: HTTP status code(Usually 200 for success)
  *      json: cJSON object of the shelter data
  */
-void sendRefreshShelters(struct mg_connection *c, int status, cJSON *json) {
+void sendJson(struct mg_connection *c, int status, cJSON *json) {
     // JSON data all in one char
     char *response = cJSON_PrintUnformatted(json);
 
@@ -65,11 +65,11 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON *closeShelters = loadOpenShelters();
 
             // Sends JSON data to JavaScript
-            sendRefreshShelters(c, 200, closeShelters);
+            sendJson(c, 200, closeShelters);
 
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
-            
+
         } else  {
 
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
