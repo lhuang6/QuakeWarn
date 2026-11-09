@@ -57,9 +57,9 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
  */
 cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
 
-    cJSON *duplicate = cJSON_Duplicate(json, true);
-
     printf("Here");
+
+    cJSON *duplicate = cJSON_Duplicate(json, true);
 
     // Fetches earthquake features list
     cJSON *features = cJSON_GetObjectItem(duplicate, "features");

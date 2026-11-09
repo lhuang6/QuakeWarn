@@ -15,7 +15,9 @@ int main(void)
     // (TEMPORARY) Downloading all earthquakes in the past day
 
     cJSON *closeShelters = loadOpenShelters();
-    cJSON *sortedShelters = sortClosestShelters(closeShelters, 34, -84);
+
+    printf("Here\n");
+    cJSON *sortedShelters = sortingImpact(closeShelters, 34, -84);
 
     printShelters(sortedShelters, 1);
 
