@@ -27,6 +27,8 @@ const refereshButton = document.getElementById("refreshButton");
 
 refereshButton.addEventListener("click", async () => {
 
+    console.log("Hey");
+
     await table.setData("/api/refresh-shelters");
 
     // Requesting a new URL request for the C backend
@@ -44,9 +46,6 @@ const form = document.getElementById("location");
 
 // Updating the table based on the location
 form.addEventListener("submit", async (event) => {
-    console.log("Hey");
-    console.log("Sending:", payload);
-    
     // Prevents page from reloading (the default action)
     event.preventDefault()
 
