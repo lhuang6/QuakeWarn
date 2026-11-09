@@ -69,10 +69,7 @@ submitLocation.addEventListener("click", async (event) => {
             },
 
             // Turning it into a JSON
-            body: JSON.stringify({
-                latitude: Number(latitude),
-                longitude: Number(longitude)
-            })
+            body: JSON.stringify(payload)
         });
 
         const data = await response.json();
