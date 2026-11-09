@@ -50,11 +50,6 @@ submitLocation.addEventListener("click", async (event) => {
     const latitude = document.getElementById("submitLatitude").value;
     const longitude = document.getElementById("submitLongitude").value;
 
-    console.log("Sending:", {
-        latitude: Number(latitude),
-        longitude: Number(longitude)
-    });
-
     // Send the value to the C backend
     const response = await fetch("/api/sort-shelter-location", {
         method: "POST",
