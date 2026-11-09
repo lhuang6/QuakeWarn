@@ -6,6 +6,16 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
+function getMagnitudeColor(magnitude) {
+    return magnitude >= 7 ? "#8000ff" :
+           magnitude >= 6 ? "#ff0000" :
+           magnitude >= 5 ? "#ff8000" :
+           magnitude >= 4 ? "#ffff00" :
+           magnitude >= 3 ? "#00ff00" :
+           magnitude >= 2 ? "#00bfff" :
+                           "#0000ff";
+}
+
 // Load and render your GeoJSON data file
 /*fetch('all_day.geojson')
     .then(response => response.json())
