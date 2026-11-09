@@ -48,12 +48,25 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
 
 void addShelterDistances(cJSON *json, double lat, double lon) {
 
+    // Getting all shelters and counting how many there are
     cJSON *features = cJSON_GetObjectItem(json, "features");
     int count = cJSON_GetArraySize(features);
 
     for(int i = 0; i < count; i++) {
-        // Geometry object in shelters data
-        cJSON *geometry = cJSON_GetObjectItem(features, "geometry");
+        // Each shelter
+        cJSON *feature = cJSON_GetArrayITem(features, i);
+
+        // Array for the latitude and longitude
+        cJSON *coords = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
+
+        // Latitude and Longitude from the array
+        double shelterLon = cJSON_GetArrayItem(coords, 0)->valuedouble;
+        double shelterLat = cJSON_GetArrayItem(coords, 1)->valuedouble;
+
+        // Distance from haversine formula
+        double distance = haversineFormula(lat, lon, shelterLat, shelterLon);
+
+        
     }
 }
 
