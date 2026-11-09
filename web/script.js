@@ -62,6 +62,12 @@ document.addEventListener("DOMContentLoaded", () => {
             { title: "State", field: "properties.state" },
         ]
     });
+
+    // Requesting a new URL request for the C backend to retrieve shelter data
+    const response = await fetch("/api/shelters");
+
+    // Response from the backend
+    const data = await response.json();
 });
 
 
