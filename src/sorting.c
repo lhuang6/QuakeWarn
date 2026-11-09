@@ -74,7 +74,7 @@ void addShelterDistances(cJSON *json, double lat, double lon) {
 
         // Distance from haversine formula
         double distance = haversineFormula(lat, lon, shelterLat, shelterLon);
-        cJSON_ReplaceItemInObjectCaseSensitive(geometry, "distance", distance);
+        cJSON_ReplaceItemInObjectCaseSensitive(geometry, "distance", cJSON_CreateNumber(distance));
     }
 }
 
