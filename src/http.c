@@ -53,29 +53,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         // Additional information about what method to run, http headers, and etc.
         struct mg_http_message *hm = (struct mg_http_message *) ev_data;
 
-        if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
-
-            if (mg_match(hm->method, mg_str("POST"), NULL)) {
-
-                mg_http_reply(c, 200, "",
-                    "{\"method\":\"POST\",\"body_length\":%lu}",
-                    (unsigned long) hm->body.len
-                );
-
-            } else {
-
-                mg_http_reply(c, 200, "",
-                    "{\"method\":\"NOT POST\",\"actual_method\":\"%.*s\"}",
-                    (int) hm->method.len,
-                    hm->method.buf
-                );
-            }
-
-            return;
-        }
-    }
-
-        /*// Test URL reply
+        // Test URL reply
         if (mg_match(hm->uri, mg_str("/api/hello"), NULL)) {                // REST API call?
             mg_http_reply(c, 200, "", "{%m:%d}\n", MG_ESC("status"), 1);    // Yes. Respond JSON
 
@@ -110,6 +88,18 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         // Sending a sorted JSON table based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
 
+            if (!mg_match(hm->method, mg_str("POST"), NULL)) {
+
+                mg_http_reply(c, 405,
+                    "Content-Type: application/json\r\n",
+                    "{\"error\":\"Expected POST\",\"actual_method\":\"%.*s\"}",
+                    (int) hm->method.len,
+                    hm->method.buf
+                );
+
+                return;
+            }
+
             // Shelter data as a cJSON object
             cJSON *closeShelters = loadOpenShelters();
 
@@ -120,12 +110,16 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
                 hm->body.len
             );
 
+            // Check whether JSON parsing succeeded
             if (request == NULL) {
+
                 mg_http_reply(c, 400,
                     "Content-Type: application/json\r\n",
                     "{\"error\":\"JSON parsing failed\",\"body_length\":%lu}",
                     (unsigned long) hm->body.len
                 );
+
+                cJSON_Delete(closeShelters);
                 return;
             }
 
@@ -151,5 +145,5 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
             mg_http_serve_dir(c, hm, &opts);  // For all other URLs, Serve static files
         }
-    }*/
+    }
 }
