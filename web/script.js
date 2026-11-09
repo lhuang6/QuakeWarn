@@ -48,9 +48,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     const shelterData = await response.json();
 
     // Adding each shelter to the map
-    L.geoJSON(shelterData, {onEachFeature: function(feature, layer) {
+    const shelterIcon = L.icon({
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/ house.png",
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
+    });
+
+    L.geoJSON(shelterData, {
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+                icon: shelterIcon
+            });
+        },
+
+        onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.shelter_name);
-        }}).addTo(map);
+        }
+    }).addTo(map);
 
     // Requesting a URL request for C backend to recieve earthquake data
     const earthquakes = await fetch("/api/earthquakes");
