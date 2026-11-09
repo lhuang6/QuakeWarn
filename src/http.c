@@ -53,6 +53,15 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         // Additional information about what method to run, http headers, and etc.
         struct mg_http_message *hm = (struct mg_http_message *) ev_data;
 
+        mg_http_reply(c, 200,
+            "Content-Type: application/json\r\n",
+            "{\"uri\":%.*s,\"body_length\":%lu}",
+            (int) hm->uri.len,
+            hm->uri.buf,
+            (unsigned long) hm->body.len
+        );
+        return;
+
         // Test URL reply
         if (mg_match(hm->uri, mg_str("/api/hello"), NULL)) {                // REST API call?
             mg_http_reply(c, 200, "", "{%m:%d}\n", MG_ESC("status"), 1);    // Yes. Respond JSON
