@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Fit the columns to the right size
         layout: "fitColumns",
-        height: "800px",
+        height: "500px",
 
         // Adding the fields from the geojson into the table
         columns: [
