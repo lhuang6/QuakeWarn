@@ -46,9 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const response = await fetch("/api/shelters");
 
     // Response from the backend
-    const data = await response.json();
+    const shelterData = await response.json();
 
-    L.geoJSON()
+    L.geoJSON(shelterData).addTo(map);
 });
 
 
