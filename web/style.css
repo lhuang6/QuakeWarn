@@ -9,10 +9,18 @@ h1 {
     color: #003366;
 }
 
-.top-container {
+.container {
     display: flex;
     gap: 20px;
-    align-items: stretch;
+}
+
+#map {
+    height: 600px;
+    flex: 2;
+}
+
+#sidebar {
+    flex: 1;
 }
 
 .card {
