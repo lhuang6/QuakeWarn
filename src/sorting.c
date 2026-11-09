@@ -100,34 +100,10 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
                 distances[i] = distances[j];
                 distances[j] = distances[i];
 
+                // Detatching and adding the shelter into the right position
                 cJSON *item = cJSON_DetachItemFromArray(features, i);
                 cJSON_InsertItemInArray(features, j, item);
             }
-        }
-
-        // Compare with elements to the left
-        int j = i - 1;
-        while (j >= 0) {
-            // Grabbing the magnitude for each element on the left
-            cJSON *lastFeature = cJSON_GetArrayItem(features, j);
-            cJSON *lastProperties = cJSON_GetObjectItem(lastFeature, "properties");
-            cJSON *lastJsonMag = cJSON_GetObjectItem(lastProperties, "mag");
-            double lastMagnitude = lastJsonMag->valuedouble;
-
-            // Stop when the correct position is found
-            if (lastMagnitude <= magnitude) {
-                break;
-            }
-
-            // Going through each element towards the left
-            j--;
-        }
-
-        // Move the current element into its sorted position
-        if (j != i - 1) {
-            // Detatching the element and inserting it back into the swapped position
-            cJSON *item = cJSON_DetachItemFromArray(features, i);
-            cJSON_InsertItemInArray(features, j + 1, item);
         }
     }
 
