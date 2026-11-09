@@ -27,8 +27,6 @@ const refereshButton = document.getElementById("refreshButton");
 
 refereshButton.addEventListener("click", async () => {
 
-    console.log("Hey");
-
     await table.setData("/api/refresh-shelters");
 
     // Requesting a new URL request for the C backend
@@ -42,27 +40,18 @@ refereshButton.addEventListener("click", async () => {
     // document.getElementById("location").textContent = `Location: ${data.location}`;
 });
 
-const submitLocation = document.getElementById("submitLocation");
+const form = document.getElementById("shelterForm");
 
 // Updating the table based on the location
-submitLocation.addEventListener("click", async () => {
-    console.log("Hey");
-
-    console.log("Form submitted!");
+form.addEventListener("submit", async (event) => {
+    // Prevents page from reloading (the default action)
+    event.preventDefault()
 
     // Fetching latitude and longitude from the inputted values in html
-    const latitude = document.getElementById("latitude").value;
-    const longitude = document.getElementById("longitude").value;
+    const latitude = document.getElementById("submitLatitude").value;
+    const longitude = document.getElementById("submitLongitude").value;
 
-    const payload = {
-        latitude: Number(latitude),
-        longitude: Number(longitude)
-    };
-
-    console.log("Hey");
-    console.log("Sending:", latitude);
-
-    /*// Send the value to the C backend
+    // Send the value to the C backend
     const response = await fetch("/api/sort-shelter-location", {
         method: "POST",
 
@@ -80,5 +69,5 @@ submitLocation.addEventListener("click", async () => {
 
     const data = await response.json();
 
-    table.setData(data);*/
+    table.setData(data);
 });

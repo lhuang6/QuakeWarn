@@ -39,12 +39,14 @@
     </div>
 
     <div>
-        <label for="latitude">Latitude:</label>
-        <input type="text" id="latitude" name="latitude" placeholder="">
-        <label for="longitude">Longitude:</label>
-        <input type="text" id="longitude" name="longitude" placeholder="">
+        <form id="location">
+            <label for="submitLatitude">Latitude:</label>
+            <input type="text" id="latitude" name="latitude" placeholder="">
+            <label for="submitLongitude">Longitude:</label>
+            <input type="text" id="longitude" name="longitude" placeholder="">
 
-        <button id="submitLocation">Submit</button>
+            <input type="submit" value="Submit" id="submitButton">
+        </form>
     </div>
 
     <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
