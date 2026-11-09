@@ -88,7 +88,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         // Sending a sorted JSON table based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
 
-            printf("yo");
+            mg_http_reply(c, 200, "", "{%m:%d}\n", MG_ESC("status"), 1); 
 
             // Shelter data as a cJSON object
             cJSON *closeShelters = loadOpenShelters();
