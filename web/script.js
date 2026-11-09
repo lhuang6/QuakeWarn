@@ -23,7 +23,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 document.addEventListener("DOMContentLoaded", async () => {
 
     // New Tabulator (External Javascript library) table for SHELTERS
-    table = new Tabulator("#earthquake-table", {
+    table = new Tabulator("#shelter-table", {
 
         // URL for C backend to send JSON
         ajaxURL: "/api/shelters",
