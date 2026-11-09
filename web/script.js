@@ -1,23 +1,23 @@
 
-// Waiting for HTML page to open
+// Listens for when the HTML page is opened up
 document.addEventListener("DOMContentLoaded", () => {
-    loadEarthquakes();
+
+    // New Tabulator (External Javascript library) table for shelters
+    const table = new Tabulator("#earthquake-table", {
+
+        // URL for C backend to send JSON
+        ajaxURL: "/api/shelters",
+
+        layout: "fitColumns",
+        columns: [
+            { title: "Name", field: "shelter_name" },
+            { title: "Location", field: "location" },
+            { title: "Time", field: "time" }
+        ]
+
+    });
+
 });
-
-// Sends in JSON data when html is opened
-async function loadEarthquakes() {
-
-    // Waits for C response
-    const response = await fetch("/api/earthquakes");
-
-    // Gets data from the response the C-HTML web-server made
-    const tabledata = await response.json();
-
-    var table = new Tabulator("#shelter-table", {
-        data:tabledata,
-        autoColumns:true
-    })
-}
 
 
 const refereshButton = document.getElementById("refreshButton");
