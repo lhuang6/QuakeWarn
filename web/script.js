@@ -51,6 +51,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     L.geoJSON(shelterData, {onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.shelter_name);
         }}).addTo(map);
+
+
+    const earthquakes = await fetch("/api/earthquakes");
+    
 });
 
 
