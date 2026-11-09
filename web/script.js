@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             layer.on("click", function(event) {
                 // Changing the values of the earthquake information tab
                 document.getElementById("magnitude").textContent = `Magnitude: ${feature.properties.mag}`;
-                document.getElementById("location").textContent = `Location: ${feature.properties.place}`;
+                document.getElementById("earthquake-title").textContent = `Location: ${feature.properties.place}`;
                 document.getElementById("latitude").textContent = `Latitude: ${latlng.lat}`;
                 document.getElementById("longitude").textContent = `Longitude: ${latlng.lng}`;
             });
