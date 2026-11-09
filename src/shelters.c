@@ -106,7 +106,6 @@ allShelters loadShelters() {
 */
 cJSON *loadOpenShelters() {
 
-    // Opening files shelters_0 to shelters_1.geojson
     char filename[100];
     snprintf(filename, sizeof(filename),
             "data/shelters_0.geojson");
@@ -134,7 +133,6 @@ cJSON *loadOpenShelters() {
 */
 cJSON *loadClosedShelters() {
 
-    // Opening files shelters_0 to shelters_1.geojson
     char filename[100];
     snprintf(filename, sizeof(filename),
             "data/shelters_1.geojson");
@@ -154,6 +152,57 @@ cJSON *loadClosedShelters() {
     return json;
 }
 
+/**
+ * Loads the shelter data that only contains FULL shelters
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
+*/
+cJSON *loadFullShelters() {
+    char filename[100];
+    snprintf(filename, sizeof(filename),
+            "data/shelters_2.geojson");
+
+    // Loading the shelter data on JSON
+    cJSON *json = loadJson(filename);
+
+    // Checking if the shelter data passed the checks
+    if (!checkShelters(json)) {
+        // Deleting the memory of the json file
+        cJSON_Delete(json);
+        // Returning all null if not passed
+        return NULL;
+    }
+
+    // Returning the shelters object
+    return json;
+}
+
+/**
+ * Loads the shelter data that only contains ALERT shelters
+ *
+ * Returns:
+ *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
+*/
+cJSON *loadFullShelters() {
+    char filename[100];
+    snprintf(filename, sizeof(filename),
+            "data/shelters_3.geojson");
+
+    // Loading the shelter data on JSON
+    cJSON *json = loadJson(filename);
+
+    // Checking if the shelter data passed the checks
+    if (!checkShelters(json)) {
+        // Deleting the memory of the json file
+        cJSON_Delete(json);
+        // Returning all null if not passed
+        return NULL;
+    }
+
+    // Returning the shelters object
+    return json;
+}
 
 /**
  * Prints out shelter names and their addresses.
