@@ -34,7 +34,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 document.addEventListener("DOMContentLoaded", async () => {
 
     // New Tabulator (External Javascript library) table for SHELTERS
-    table = new Tabulator("#shelter-table", {
+    quakeTable = new Tabulator("#shelter-table", {
 
         // URL for C backend to send JSON
         ajaxURL: "/api/shelters",
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // New Tabulator (External Javascript library) table for EATHQUAKES
-    table = new Tabulator("#earthquake-table", {
+    shelterTable = new Tabulator("#earthquake-table", {
 
         // URL for C backend to send JSON
         ajaxURL: "/api/earthquakes",
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // Adding all shelter icons
-    L.geoJSON(shelterData, {
+    const shelterLayer = L.geoJSON(shelterData, {
         // Pointing to the latitude and longitude from GeoJSON
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const earthquakeData = await earthquakes.json();
 
     // Adding each earthquake to the map
-    L.geoJSON(earthquakeData, {
+    const quakeLayer = L.geoJSON(earthquakeData, {
         pointToLayer: function(feature, latlng) {
             let markerRadius = feature.properties.mag * 3 + 2;
 
@@ -148,6 +148,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                 document.getElementById("longitude").textContent = `Longitude: ${latlng.lng}`;
             });
         }
+    }).addTo(map);
+
+    L.control.layers(null, {
+        "Earthquakes": quakeLayer,
+        "Shelters": shelterLayer
     }).addTo(map);
 
 });
