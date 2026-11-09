@@ -205,6 +205,24 @@ cJSON *loadFullShelters() {
 }
 
 /**
+ * Frees up the memory of all the cJSON objects inside the allShelters struct.
+ *
+ * Parameters:
+ *      allShelters shelters: Open, Closed, Full, and Alert shelters in one struct:
+ *          cJSON *openShelters - All open shelters
+ *          cJSON *closedShelters - Closed shelters
+ *          cJSON *fullShelters - Shelters at full capacity
+ *          cJSON *alertShelters - Ones that are alert
+ */
+void freeShelters(allShelters shelters) {
+    // Using cJSON_Delete to delete all fields
+    cJSON_Delete(shelters.openShelters);
+    cJSON_Delete(shelters.closedShelters);
+    cJSON_Delete(shelters.fullShelters);
+    cJSON_Delete(shelters.alertShelters);
+}
+
+/**
  * Prints out shelter names and their addresses.
  *
  * Parameters:

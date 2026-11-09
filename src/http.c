@@ -6,6 +6,13 @@
 #include "mongoose.h"
 #include <stdio.h>
 
+/**
+ * Sends shelter JSON data to JavaScript for the interface to use.
+ *
+ * Parameters:
+ *      c: Connection associated with the event
+ *      status: 
+ */
 void sendRefreshShelters(struct mg_connection *c, int status, cJSON *json) {
     char *response = cJSON_PrintUnformatted(json);
 
@@ -48,11 +55,13 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
         // URL reply for the "Refresh Data" Button
         } else if (mg_match(hm->uri, mg_str("/api/refresh-shelters"), NULL)) {
-            allShelters shelters = loadShelters();
-            cJSON *closeShelters = sortClosestShelters(shelters.openShelters);
+            // Loads the open shelters file
+            cJSON *closeShelters = loadOpenShelters();
 
+            // Sends JSON data to JavaScript
             sendRefreshShelters(c, 200, closeShelters);
 
+            // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
         } else  {
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};

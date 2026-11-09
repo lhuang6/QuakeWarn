@@ -21,6 +21,16 @@ bool checkShelters(cJSON *json);
 
 allShelters loadShelters();
 
+cJSON *loadOpenShelters();
+
+cJSON *loadClosedShelters();
+
+cJSON *loadFullShelters();
+
+cJSON *loadAlertShelters();
+
+void freeShelters();
+
 void printShelters(cJSON *json, double percent);
 
 #endif
