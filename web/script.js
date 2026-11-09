@@ -1,7 +1,7 @@
-const map = new LeafletMap('map').setView([37.8, -96], 4);
+const map = L.map('map').setView([37.8, -96], 4);
 
 // Add OpenStreetMap base tiles
-new TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);

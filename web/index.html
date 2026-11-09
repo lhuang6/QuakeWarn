@@ -4,14 +4,14 @@
     <title>Earthquake Shelter Locator</title>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@2.0.0-beta.2/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
     <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
 </head>
 <body>
 
     <h1>Earthquake Shelter Locator</h1>
 
-    <div id="map"></div>
+    <div id="earthquakes"></div>
 
     <div class="card">
         <h2>Earthquake Information</h2>
@@ -22,6 +22,8 @@
         <p id="longitude">Longitude: --</p>
         <p id="time">Time: --</p>
     </div>
+
+    <div id="map" style="height: 400px"></div>
 
     <div class="card">
         <h2>Nearby Shelters</h2>
