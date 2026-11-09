@@ -43,9 +43,24 @@ refereshButton.addEventListener("click", async () => {
 const submitLocation = document.getElementById("submitLocation");
 
 // Updating the table based on the location
-submitLocation.addEventListener("submit", async () => {
+submitLocation.addEventListener("click", async () => {
+    event.preventDefault();
 
-    // Fetching latitude and longitude from the inputted values in html
+    console.log("Button clicked");
+
+    const latitudeElement = document.getElementById("submitLatitude");
+    const longitudeElement = document.getElementById("submitLongitude");
+
+    console.log("Latitude element:", latitudeElement);
+    console.log("Longitude element:", longitudeElement);
+
+    const latitude = latitudeElement.value;
+    const longitude = longitudeElement.value;
+
+    console.log("Latitude:", latitude);
+    console.log("Longitude:", longitude);
+
+    /*// Fetching latitude and longitude from the inputted values in html
     const latitude = document.getElementById("submitLatitude").value;
     const longitude = document.getElementById("submitLongitude").value;
 
@@ -67,5 +82,5 @@ submitLocation.addEventListener("submit", async () => {
 
     const data = await response.json();
 
-    table.setData(data);
+    table.setData(data);*/
 });
