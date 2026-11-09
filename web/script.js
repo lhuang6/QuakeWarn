@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // URL for C backend to send JSON
         ajaxURL: "/api/shelters",
 
+        // Taking URL from 
         ajaxResponse: function(url, params, response) {
             return response;
         },
