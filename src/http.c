@@ -61,7 +61,20 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
         // URL reply for the "Refresh Data" Button
         } else if (mg_match(hm->uri, mg_str("/api/shelters"), NULL)) {
+
+            // Loads the open shelters file
+            cJSON *closeShelters = loadOpenShelters();
+
+            // Sends JSON data to JavaScript
+            sendJson(c, 200, closeShelters);
+
+            // Freeing up memory taken by cJSON object
+            cJSON_Delete(closeShelters);
+
+        } else if (mg_match(hm->uri, mg_str("/api/referesh-shelters"), NULL)) {
+
             
+
             // Loads the open shelters file
             cJSON *closeShelters = loadOpenShelters();
 
