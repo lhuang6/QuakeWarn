@@ -93,6 +93,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Labeling the marker with the shelter name
         onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.shelter_name);
+
+            layer.on("click", function(event) {
+
+            });
         }
     }).addTo(map);
 
@@ -118,6 +122,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Plotting the place for each earthquake marker
         onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.place);
+
+            document.getElementById("magnitude").textContent = `Magnitude: ${features.properties.mag}`;
+            document.getElementById("location").textContent = `Location: ${features.properties.mag}`;
         }
     }).addTo(map);
 
