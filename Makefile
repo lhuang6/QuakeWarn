@@ -10,7 +10,7 @@ CC = clang
 # Important flags to include when compiling
 # Adding all and extra warnings
 # Including include
-CFLAGS = -Wall -Wextra -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON -Ithird-party/mongoose
+CFLAGS = -Wall -Wextra -g -O0 -Iinclude -Ithird-party/civetweb -Ithird-party/cJSON -Ithird-party/mongoose
 
 # Local libraries to include
 LDLIBS = -lcurl -lm
