@@ -57,6 +57,7 @@ form.addEventListener("submit", async (event) => {
     };
 
     console.log("Hey");
+    console.log("Sending:", payload);
 
     // Send the value to the C backend
     const response = await fetch("/api/sort-shelter-location", {
