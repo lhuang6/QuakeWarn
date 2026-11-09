@@ -109,6 +109,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Adding each earthquake to the map
     L.geoJSON(earthquakeData, {
         pointToLayer: function(feature, latlng) {
+            if(feature.properties.mag)
+
             // Plotting a red marker for all earthquakes
             return L.circleMarker(latlng, {
                 radius: 8,
@@ -121,6 +123,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Function for each marker
         onEachFeature: function(feature, layer) {
+            // Getting latitude and longitude
             const latlng = layer.getLatLng();
 
             // Labeling the marker with the place where it is located
