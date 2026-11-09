@@ -107,6 +107,12 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
         }
     }
 
+    for(int i = 0; i < count; i++) {
+        printf("%.1f ", distances[i]);
+    }
+
+    printf("\n");
+
     return duplicate;
 }
 
