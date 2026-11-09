@@ -46,6 +46,14 @@ double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2){
     return radius * c;
 }
 
+/**
+ * Calculates the distance between each shelter and a point and puts it in geometry -> distance
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
+ *      lat: Latitude (-90 to 90) of the point
+ *      lon: Longitude (-180 to 180) of the point
+ */
 void addShelterDistances(cJSON *json, double lat, double lon) {
 
     // Getting all shelters and counting how many there are
@@ -53,11 +61,12 @@ void addShelterDistances(cJSON *json, double lat, double lon) {
     int count = cJSON_GetArraySize(features);
 
     for(int i = 0; i < count; i++) {
-        // Each shelter
-        cJSON *feature = cJSON_GetArrayITem(features, i);
+        // Each shelter's geometry
+        cJSON *feature = cJSON_GetArrayItem(features, i);
+        cJSON *geometry = cJSON_GetObjectItem(feature, "geometry");
 
         // Array for the latitude and longitude
-        cJSON *coords = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
+        cJSON *coords = cJSON_GetObjectItem(geometry, "coordinates");
 
         // Latitude and Longitude from the array
         double shelterLon = cJSON_GetArrayItem(coords, 0)->valuedouble;
@@ -65,8 +74,7 @@ void addShelterDistances(cJSON *json, double lat, double lon) {
 
         // Distance from haversine formula
         double distance = haversineFormula(lat, lon, shelterLat, shelterLon);
-
-        
+        cJSON_ReplaceItemInObjectCaseSensitive(geometry, "distance", distance);
     }
 }
 
@@ -75,15 +83,17 @@ void addShelterDistances(cJSON *json, double lat, double lon) {
  *
  * Parameters:
  *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadEarthquakes
+ *      lat: Latitude (-90 to 90) of the point
+ *      lon: Longitude (-180 to 180) of the point
  *
  * Returns:
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
 cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
 
-    printf("Here");
-
     cJSON *duplicate = cJSON_Duplicate(json, true);
+
+    addShelterDistances(duplicate, lat, lon);
 
     // Fetches earthquake features list
     cJSON *features = cJSON_GetObjectItem(duplicate, "features");
@@ -92,31 +102,18 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
     int count = cJSON_GetArraySize(features);
     double distances[count];
 
-    // Creating a list of distances which index cooresponds to the shelter in the JSON
-    for (int i = 0; i < count; i++) {
-        // Each shelter
-        cJSON *feature = cJSON_GetArrayItem(features, i);
-
-        // Array for the latitude and longitude
-        cJSON *coords = cJSON_GetObjectItem(cJSON_GetObjectItem(feature, "geometry"), "coordinates");
-
-        // Latitude and Longitude from the array
-        double shelterLon = cJSON_GetArrayItem(coords, 0)->valuedouble;
-        double shelterLat = cJSON_GetArrayItem(coords, 1)->valuedouble;
-
-        // Distance from haversine formula
-        double distance = haversineFormula(lat, lon, shelterLat, shelterLon);
-
-        // Adding the distance to the shelter into a new list
-        distances[i] = distance;
-    }
-
     // Performing an Insertion Sort:
     // 1. Start with the second element as the first element is assumed to be sorted.
     // 2. Compare the second element with the first if the second is smaller then swap them.
     // 3. Move to the third element, compare it with the first two, and put it in its correct position
     // 4. Repeat until the entire array is sorted.
     for (int i = 1; i < count; i++) {
+
+        // Getting the distance for each shelter
+        cJSON *iFeature = cJSON_GetArrayItem(features, i);
+        cJSON *iGeometry = cJSON_GetObjectItem(iFeature, "geometry");
+        cJSON *iDistance = cJSON_GetObjectItem(iGeometry, "distance")->valuedouble;
+
         for(int j = 0; j < i; j++) {
             if(distances[i] < distances[j]) {
                 // Swapping unsorted values in distances
