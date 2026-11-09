@@ -19,11 +19,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     })
     .catch(error => console.error('Error loading GeoJSON:', error));*/
 
-
-const earthquakeIcon = new Icon(
-    
-)
-
 // Listens for when the HTML page is opened up
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -67,6 +62,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     L.geoJSON(earthquakeData, {onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.place);
         }}).addTo(map);
+
+        
 
 });
 
