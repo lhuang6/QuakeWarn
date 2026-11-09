@@ -59,11 +59,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const earthquakeData = await earthquakes.json();
 
     // Adding each earthquake to the map
-    L.geoJSON(earthquakeData, {onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.place);
-        }}).addTo(map);
+    L.geoJSON(earthquakeData, {
+        pointToLayer: function(feature, latlng) {
+            return L.circleMarker(latlng, {
+                radius: 8,
+                color: "red",
+                fillColor: "red",
+                fillOpacity: 1
+            });
+        },
 
-        
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.place);
+        }
+    }).addTo(map);
 
 });
 
