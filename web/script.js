@@ -75,8 +75,8 @@ submitLocation.addEventListener("click", async (event) => {
             body: JSON.stringify(payload)
         });
 
-        console.log("Response status:", response.status);
-        console.log("Response:", data);
+        console.log("Method:", request.method);
+        console.log("Body:", await request.clone().text());
 
         const data = await response.json();
 
