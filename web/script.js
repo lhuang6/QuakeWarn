@@ -108,9 +108,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Initial sorting options
     updateSortingOptions("shelters");
 
-
-
-
     // New Tabulator (External Javascript library) table for SHELTERS
     shelterTable = new Tabulator("#shelter-table", {
 

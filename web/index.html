@@ -18,29 +18,26 @@
             <div class="sidebar-section">
                 <h3>Your Location</h3>
 
-                <form id="location-form">
+                <label for="submitLatitude">Latitude</label>
+                <input
+                    type="number"
+                    id="submitLongitude"
+                    step="any"
+                    placeholder="e.g. 33.7490"
+                    required
+                >
 
-                    <label for="submitLatitude">Latitude</label>
-                    <input
-                        type="number"
-                        id="submitLongitude"
-                        step="any"
-                        placeholder="e.g. 33.7490"
-                        required
-                    >
+                <label for="submitLongitude">Longitude</label>
+                <input
+                    type="number"
+                    id="submitLongitude"
+                    step="any"
+                    placeholder="e.g. -84.3880"
+                    required
+                >
 
-                    <label for="submitLongitude">Longitude</label>
-                    <input
-                        type="number"
-                        id="submitLongitude"
-                        step="any"
-                        placeholder="e.g. -84.3880"
-                        required
-                    >
+                <button id="submitLocation">Update Location</button>
 
-                    <button type="submit" id="submitLocation">Update Location</button>
-
-                </form>
             </div>
 
             <hr>
