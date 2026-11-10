@@ -77,9 +77,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Adding the fields from the geojson into the table
         columns: [
             { title: "Name", field: "properties.shelter_name" },
-            { title: "Status Code", field: "properties.shelter_status_code" },
             { title: "Address", field: "properties.address_1" },
-            { title: "State", field: "properties.state" },
+            { title: "State", field: "properties.state", width: 100},
         ]
     });
 
