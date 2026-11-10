@@ -154,14 +154,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
 
             layer.bindPopup(popupContent);
-
-            layer.on("click", function(event) {
-                // Changing the values of the earthquake information tab
-                document.getElementById("magnitude").textContent = `Magnitude: ${feature.properties.mag}`;
-                document.getElementById("earthquake-title").textContent = `Location: ${feature.properties.place}`;
-                document.getElementById("latitude").textContent = `Latitude: ${latlng.lat}`;
-                document.getElementById("longitude").textContent = `Longitude: ${latlng.lng}`;
-            });
         }
     }).addTo(map);
 
@@ -235,7 +227,6 @@ submitLocation.addEventListener("click", async (event) => {
 
         shelterLayer.clearLayers();
         shelterLayer.addData(data);
-
 
         L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
 
