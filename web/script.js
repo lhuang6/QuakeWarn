@@ -33,13 +33,16 @@ tableSelect.addEventListener("change", function() {
     if (tableSelect.value === "shelters") {
         shelterContainer.style.display = "block";
         earthquakeContainer.style.display = "none";
+
+        shelterTable.redraw(true);
     }
 
     else if (tableSelect.value === "earthquakes") {
         shelterContainer.style.display = "none";
         earthquakeContainer.style.display = "block";
-    }
 
+        earthquakeTable.redraw(true);
+    }
 });
 
 // Listens for when the HTML page is opened up
@@ -58,6 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Fit the columns to the right size
         layout: "fitColumns",
+        height: "650px",
 
         // Adding the fields from the geojson into the table
         columns: [

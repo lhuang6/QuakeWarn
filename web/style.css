@@ -57,7 +57,10 @@ h1 {
 }
 
 #earthquake-table {
-    width: 100%;
+    height: 650px;
+}
+
+#shelter-table {
     height: 650px;
 }
 
