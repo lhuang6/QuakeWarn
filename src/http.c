@@ -172,11 +172,18 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(closeShelters);
             cJSON_Delete(sortedShelters);
 
+        // Sending a sorted JSON table based on earthquake magnitude
         } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-magnitude"), NULL)) {
 
+            // Creating a sorted earthquake JSON file
             cJSON *earthquakes = loadEarthquakes(ALL_DAY, ALL);
-            
+            cJSON *sortedEarthquakes = sortingMag(earthquakes);
 
+            // Sending it over URL
+            sendJson(c, 200, sortedEarthquakes);
+
+            cJSON_Delete(earthquakes);
+            cJSON_Delete(sortedEarthquakes);
 
         // Sending a sorted JSON table based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-location"), NULL)) {
