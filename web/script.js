@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Adding each shelter to the map
     const shelterIcon = L.icon({
         iconUrl: "icons/house.png",
-        iconSize: [32, 32],
+        iconSize: [25, 25],
         iconAnchor: [16, 32],
         popupAnchor: [0, -32]
     });
