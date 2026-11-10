@@ -23,39 +23,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-const tableSelect = document.getElementById("table-select");
-
-const shelterContainer = document.getElementById("shelter-table-container");
-const earthquakeContainer = document.getElementById("earthquake-table-container");
-const sortSelect = document.getElementById("sort-select");
-
-tableSelect.addEventListener("change", function() {
-
-    if (tableSelect.value === "shelters") {
-        shelterContainer.style.display = "block";
-        earthquakeContainer.style.display = "none";
-
-        sortSelect.innerHTML = `
-            <option value="distance">Distance</option>
-        `;
-
-        shelterTable.redraw(true);
-    }
-
-    else if (tableSelect.value === "earthquakes") {
-        shelterContainer.style.display = "none";
-        earthquakeContainer.style.display = "block";
-
-        sortSelect.innerHTML = `
-            <option value="magnitude">Magnitude</option>
-            <option value="distance">Distance</option>
-            <option value="impact">Impact</option>
-        `;
-
-        earthquakeTable.redraw(true);
-    }
-});
-
 // Listens for when the HTML page is opened up
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -224,10 +191,56 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 });
 
+// Selecting tables dropdown variable
+const tableSelect = document.getElementById("table-select");
 
-const refereshButton = document.getElementById("refreshButton");
+// Contains map of shelter and earthquake
+const shelterContainer = document.getElementById("shelter-table-container");
+const earthquakeContainer = document.getElementById("earthquake-table-container");
 
-refereshButton.addEventListener("click", async () => {
+// Dropdown for sorting methods
+const sortSelect = document.getElementById("sort-select");
+
+// Changing the sorting methods based on which table visible
+tableSelect.addEventListener("change", function() {
+
+    // Redrawing the table and changing dropdowns
+    if (tableSelect.value === "shelters") {
+        shelterContainer.style.display = "block";
+        earthquakeContainer.style.display = "none";
+
+        sortSelect.innerHTML = `
+            <option value="distance">Distance</option>
+        `;
+
+        shelterTable.redraw(true);
+    }
+
+    // Redrawing the table and changing dropdowns
+    else if (tableSelect.value === "earthquakes") {
+        shelterContainer.style.display = "none";
+        earthquakeContainer.style.display = "block";
+
+        sortSelect.innerHTML = `
+            <option value="magnitude">Magnitude</option>
+            <option value="distance">Distance</option>
+            <option value="impact">Impact</option>
+        `;
+
+        earthquakeTable.redraw(true);
+    }
+});
+
+sortSelect.addEventListener("change", async () => {
+
+    if (sortSelect.value === "Magnitude") {
+        await table.setData("/api/)
+    }
+});
+
+const refreshButton = document.getElementById("refreshButton");
+
+refreshButton.addEventListener("click", async () => {
 
     await table.setData("/api/refresh-shelters");
 
