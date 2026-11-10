@@ -47,26 +47,22 @@ body {
     overflow-y: auto;
 }
 
-.sidebar-section {
-    margin-bottom: 10px;
-}
-
 .location-inputs {
     display: flex;
-    align-items: center;
+    align-items: left;
     gap: 12px;
 }
 
 .input-fields {
     display: flex;
     flex: 1;
-    gap: 5px;
+    gap: 0px;
 }
 
 .input-fields label {
-    margin: 15px;
+    margin-top: 15px;
     font-weight: 700;
-    font-size: 21px;
+    font-size: 18px;
 }
 
 .input-fields input {
