@@ -41,7 +41,7 @@ body {
 #sidebar {
     width: 700px;
     margin-right: 20px;
-
+    background: white;
 }
 
 .location-inputs {
