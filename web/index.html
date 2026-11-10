@@ -14,6 +14,60 @@
         <div id="map"></div>
 
         <div id="sidebar">
+            <h2>QuakeSafe Controls</h2>
+
+            <!-- USER LOCATION -->
+            <div class="sidebar-section">
+                <h3>Your Location</h3>
+
+                <form id="location-form">
+
+                    <label for="latitude-input">Latitude</label>
+                    <input
+                        type="number"
+                        id="latitude-input"
+                        step="any"
+                        placeholder="e.g. 33.7490"
+                        required
+                    >
+
+                    <label for="longitude-input">Longitude</label>
+                    <input
+                        type="number"
+                        id="longitude-input"
+                        step="any"
+                        placeholder="e.g. -84.3880"
+                        required
+                    >
+
+                    <button type="submit">Update Location</button>
+
+                </form>
+            </div>
+
+            <hr>
+
+            <!-- TABLE SELECTION -->
+            <div class="sidebar-section">
+                <h3>Data Table</h3>
+
+                <label for="table-select">Select Data</label>
+                <select id="table-select">
+                    <option value="shelters">Shelters</option>
+                    <option value="earthquakes">Earthquakes</option>
+                </select>
+            </div>
+
+            <!-- SORTING -->
+            <div class="sidebar-section">
+                <h3>Sort Data</h3>
+
+                <label for="sort-select">Sort By</label>
+                <select id="sort-select">
+                    <!-- JavaScript populates these options -->
+                </select>
+            </div>
+            
             <div id="earthquake-table"></div>
         </div>
     </div>
