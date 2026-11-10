@@ -4,6 +4,7 @@
 #define HTTP
 
 #include "mongoose.h"
+#include "cJSON.h"
 
 void sendJson(struct mg_connection *c, int status, cJSON *json);
 
