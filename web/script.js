@@ -23,7 +23,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-async function submitCoordinates(latitude, longitude) {
+async function submitCoordinates(url, latitude, longitude) {
 
     // Create JSON payload
     const payload = {
@@ -32,7 +32,7 @@ async function submitCoordinates(latitude, longitude) {
     };
 
     // Send coordinates to C backend
-    const response = await fetch("/api/sort-shelter-location", {
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -300,33 +300,12 @@ submitLocation.addEventListener("click", async (event) => {
             document.getElementById("submitLongitude").value
         );
 
-        // Create JSON payload
-        const payload = {
-            latitude: latitude,
-            longitude: longitude
-        };
-
-        // Send coordinates to sort out shelters
-        const shelterResponse = await fetch("/api/sort-shelter-location", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        // Check HTTP response
-        if (!shelterResponse.ok) {
-            throw new Error(`HTTP error: ${shelterResponse.status}`);
-        }
-
         // Receive sorted shelter data
-        const shelterResponse = await submitCoordinates(latitude, longitude);
+        const shelterResponse = await submitCoordinates("/api/sort-shelter-location", latitude, longitude);
         const shelterData = await shelterResponse.json();
 
         // Send coordinates to sort earthquakes
-        const quakeResponse = await submitCoordinates(latitude, longitude);
+        const quakeResponse = await submitCoordinates("/api/sort-earthquake-location", latitude, longitude);
         const quakeData = await quakeResponse.json();
 
         // Update Tabulator tables
