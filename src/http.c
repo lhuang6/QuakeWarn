@@ -198,6 +198,32 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(earthquakes);
             cJSON_Delete(sortedEarthquakes);
 
+        // Sending a sorted JSON table based on location
+        } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-location"), NULL)) {
+            
+            // Parsing the request for latitude and longitude to be used
+            cJSON *request = parseRequest(c, hm);
+            if (request == NULL) {
+                // Not continuing if the parse failed
+                return;
+            }
+
+            // Extract the coordinates
+            double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
+            double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
+
+            // Sorting the earthquake data
+            cJSON *earthquakes = loadEarthquakes(ALL_DAY, ALL);
+            cJSON *sortedEarthquakes = sortClosestShelters(earthquakes, latitude, longitude);
+
+            // Send a response back to JavaScript
+            sendJson(c, 200, sortedEarthquakes);
+
+            // Deleting all JSON objects to free up memory
+            cJSON_Delete(request);
+            cJSON_Delete(earthquakes);
+            cJSON_Delete(sortedEarthquakes);
+
         } else  {
 
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
