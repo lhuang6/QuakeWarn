@@ -15,6 +15,33 @@ function getMagnitudeColor(magnitude) {
                            "#0000ff";
 }
 
+// Function for sending latitude and longitude into the C backend
+async function submitCoordinates(latitude, longitude) {
+
+    // Create JSON payload
+    const payload = {
+        latitude: Number(latitude),
+        longitude: Number(longitude)
+    };
+
+    // Send coordinates to C backend
+    const response = await fetch("/api/sort-shelter-location", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    // Check HTTP response
+    if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+    }
+
+    return response;
+}
+
 const map = L.map('map').setView([37.8, -96], 4);
 
 // Add OpenStreetMap base tiles
@@ -265,54 +292,15 @@ submitLocation.addEventListener("click", async (event) => {
     try {
         event.preventDefault();
 
-        // Get user coordinates
-        const latitude = Number(
-            document.getElementById("submitLatitude").value
-        );
-
-        const longitude = Number(
-            document.getElementById("submitLongitude").value
-        );
-
-        // Create JSON payload
-        const payload = {
-            latitude: latitude,
-            longitude: longitude
-        };
-
-        // Send coordinates to sort out shelters
-        const shelterResponse = await fetch("/api/sort-shelter-location", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        // Check HTTP response
-        if (!shelterResponse.ok) {
-            throw new Error(`HTTP error: ${shelterResponse.status}`);
-        }
+        const latitude = document.getElementById("submitLatitude").value;
+        const longitude = document.getElementById("submitLongitude").value;
 
         // Receive sorted shelter data
+        const shelterResponse = await submitCoordinates(latitude, longitude);
         const shelterData = await shelterResponse.json();
 
         // Send coordinates to sort earthquakes
-        const quakeResponse = await fetch("/api/sort-earthquake-location", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        // Check HTTP response
-        if (!quakeResponse.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-        }
-
+        const quakeResponse = await submitCoordinates(latitude, longitude);
         const quakeData = await quakeResponse.json();
 
         // Update Tabulator tables
