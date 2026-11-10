@@ -262,7 +262,7 @@ tableSelect.addEventListener("change", function() {
 sortSelect.addEventListener("change", async () => {
 
     // If the user wants to sort any table by closest distance
-    if (sortSelect.value === "Distance") {
+    if (sortSelect.value === "distance") {
 
         console.log("Sorting by distance");
 
@@ -296,7 +296,7 @@ sortSelect.addEventListener("change", async () => {
     }
 
     // If the user wants to sort earthquakes by most impactful
-    if (sortSelect.value === "Impact") {
+    if (sortSelect.value === "impact") {
         // Request and Response from C backend
         const quakeResponse = await submitCoordinates("/api/sort-earthquake-impact", latitude, longitude);
         const quakeData = await quakeResponse.json();
@@ -305,7 +305,7 @@ sortSelect.addEventListener("change", async () => {
     }
 
     // If the user wants to sort earthquakes by magnitude
-    if (sortSelect.value === "Magnitude") {
+    if (sortSelect.value === "magnitude") {
         quakeTable.setData("/api/sort-earthquake-magnitude");
     }
 });
