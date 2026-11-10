@@ -27,6 +27,7 @@ const tableSelect = document.getElementById("table-select");
 
 const shelterContainer = document.getElementById("shelter-table-container");
 const earthquakeContainer = document.getElementById("earthquake-table-container");
+const sortSelect = document.getElementById("sort-select");
 
 tableSelect.addEventListener("change", function() {
 
@@ -34,12 +35,22 @@ tableSelect.addEventListener("change", function() {
         shelterContainer.style.display = "block";
         earthquakeContainer.style.display = "none";
 
+        sortSelect.innerHTML = `
+            <option value="magnitude">Magnitude</option>
+            <option value="distance">Distance</option>
+            <option value="impact">Impact</option>
+        `;
+
         shelterTable.redraw(true);
     }
 
     else if (tableSelect.value === "earthquakes") {
         shelterContainer.style.display = "none";
         earthquakeContainer.style.display = "block";
+
+        sortSelect.innerHTML = `
+            <option value="distance">Distance</option>
+        `;
 
         earthquakeTable.redraw(true);
     }
