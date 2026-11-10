@@ -98,8 +98,11 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         // Sending a sorted JSON table based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
 
+            // Checking if the URL recieved is of type "POST"
+            // Earlier debugging error
             if (!mg_match(hm->method, mg_str("POST"), NULL)) {
 
+                // Replying with an error message
                 mg_http_reply(c, 405,
                     "Content-Type: application/json\r\n",
                     "{\"error\":\"Expected POST\",\"actual_method\":\"%.*s\"}",
@@ -123,6 +126,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             // Check whether JSON parsing succeeded
             if (request == NULL) {
 
+                // Replying with an error message
                 mg_http_reply(c, 400,
                     "Content-Type: application/json\r\n",
                     "{\"error\":\"JSON parsing failed\",\"body_length\":%lu}",
@@ -137,8 +141,6 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
             double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
 
-            // mg_http_reply(c, 200, "", "{\"latitude\":\"%.1f\"}\n", latitude);
-
             // Pass the state to your C function
             cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);
 
@@ -151,7 +153,61 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(sortedShelters);
 
         } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-location"), NULL)) {
+
+            // Checking if the URL recieved is of type "POST"
+            // Earlier debugging error
+            if (!mg_match(hm->method, mg_str("POST"), NULL)) {
+
+                // Replying with an error message
+                mg_http_reply(c, 405,
+                    "Content-Type: application/json\r\n",
+                    "{\"error\":\"Expected POST\",\"actual_method\":\"%.*s\"}",
+                    (int) hm->method.len,
+                    hm->method.buf
+                );
+
+                return;
+            }
+
+            // Shelter data as a cJSON object
+            cJSON *earthquakes = loadEarthquakes(ALL_DAY, ALL);
+
+            // Latitude and Longitude set by user
+            // C recieves as JSON, requested by javascript
+            cJSON *request = cJSON_ParseWithLength(
+                hm->body.buf,
+                hm->body.len
+            );
+
+            // Check whether JSON parsing succeeded
+            if (request == NULL) {
+
+                // Replying with an error message
+                mg_http_reply(c, 400,
+                    "Content-Type: application/json\r\n",
+                    "{\"error\":\"JSON parsing failed\",\"body_length\":%lu}",
+                    (unsigned long) hm->body.len
+                );
+
+                cJSON_Delete(earthquakes);
+                return;
+            }
             
+            // Extract the state field
+            double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
+            double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
+
+            // Pass the state to your C function
+            cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude);
+
+            // Send a response back to JavaScript
+            sendJson(c, 200, sortedShelters);
+
+            // Deleting all JSON objects to free up memory
+            cJSON_Delete(request);
+            cJSON_Delete(closeShelters);
+            cJSON_Delete(sortedShelters);
+
 
         } else  {
 
