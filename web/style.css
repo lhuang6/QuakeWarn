@@ -93,6 +93,21 @@ body {
     background-color: #1d4ed8;
 }
 
+.select-fields label {
+    margin: 15px;
+    font-weight: 700;
+    font-size: 21px;
+}
+
+.select-fields select {
+    margin: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    box-sizing: border-box;
+}
+
 #earthquake-table {
     height: 650px;
 }
