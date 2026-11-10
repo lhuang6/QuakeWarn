@@ -23,6 +23,32 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
+async function submitCoordinates(latitude, longitude) {
+
+    // Create JSON payload
+    const payload = {
+        latitude: Number(latitude),
+        longitude: Number(longitude)
+    };
+
+    // Send coordinates to C backend
+    const response = await fetch("/api/sort-shelter-location", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+
+    // Check HTTP response
+    if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+    }
+
+    return response;
+}
+
 // Listens for when the HTML page is opened up
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -296,23 +322,11 @@ submitLocation.addEventListener("click", async (event) => {
         }
 
         // Receive sorted shelter data
+        const shelterResponse = await submitCoordinates(latitude, longitude);
         const shelterData = await shelterResponse.json();
 
         // Send coordinates to sort earthquakes
-        const quakeResponse = await fetch("/api/sort-earthquake-location", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        // Check HTTP response
-        if (!quakeResponse.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-        }
-
+        const quakeResponse = await submitCoordinates(latitude, longitude);
         const quakeData = await quakeResponse.json();
 
         // Update Tabulator tables
