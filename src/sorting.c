@@ -220,7 +220,7 @@ cJSON *sortEarthquakeImpact(cJSON *json, double latitude, double longitude){
             //Declaring the last impact with use of the formula
             double lastImpact = lastMagnitude * 1000 / (lastDistance + 1);
 
-            if (lastImpact <= impact) {
+            if (lastImpact >= impact) {
                 break;
             }
 
