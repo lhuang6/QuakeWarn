@@ -15,7 +15,7 @@ function getMagnitudeColor(magnitude) {
                            "#0000ff";
 }
 
-const map = L.map('map', { maxBounds: [[-90, -180],[90, 180]], maxBoundsViscosity: 1.0, minZoom: 2}).setView([37.8, -96], 4);
+const map = L.map('map', { maxBounds: [[-100, -190],[100, 190]], maxBoundsViscosity: 1.0, minZoom: 2}).setView([37.8, -96], 4);
 
 // Add OpenStreetMap base tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
