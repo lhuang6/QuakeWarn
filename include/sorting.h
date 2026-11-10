@@ -11,13 +11,13 @@
 
 double haversineFormula(double lat_1, double lon_1, double lat_2, double lon_2);
 
-void addShelterDistances(cJSON *json, double lat, double lon);
+void addDistances(cJSON *json, double lat, double lon);
 
 cJSON *sortClosestShelters(cJSON *json, double lat, double lon);
 
-cJSON *sortingImpact(cJSON *json, double latitude, double longitude);
+cJSON *sortEarthquakeImpact(cJSON *json, double latitude, double longitude);
 
-cJSON *sortingDistance(cJSON *json, double latitude, double longitude);
+cJSON *sortEarthquakeDistance(cJSON *json, double latitude, double longitude);
 
 char choice();
 

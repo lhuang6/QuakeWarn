@@ -146,7 +146,7 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
  * Returns:
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
-cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
+cJSON *sortEarthquakeImpact(cJSON *json, double latitude, double longitude){
     // Sorting a duplicate of the actual json file
     cJSON *duplicate = cJSON_Duplicate(json, true);
 
@@ -245,7 +245,7 @@ cJSON *sortingImpact(cJSON *json, double latitude, double longitude){
  * Returns:
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
-cJSON *sortingDistance(cJSON *json, double latitude, double longitude){
+cJSON *sortEarthquakeDistance(cJSON *json, double latitude, double longitude){
     // Duplicating JSON to edit
     cJSON *duplicate = cJSON_Duplicate(json, true);
 
