@@ -213,6 +213,12 @@ submitLocation.addEventListener("click", async (event) => {
         // Receive sorted shelter data
         const data = await response.json();
 
+        // Update Tabulator table
+        shelterTable.setData(data);
+
+        shelterLayer.clearLayers();
+        shelterLayer.addData(data);
+
         L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
 
     } catch (error) {
