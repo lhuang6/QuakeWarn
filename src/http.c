@@ -102,6 +102,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         if (mg_match(hm->uri, mg_str("/api/hello"), NULL)) {                // REST API call?
             mg_http_reply(c, 200, "", "{%m:%d}\n", MG_ESC("status"), 1);    // Yes. Respond JSON
 
+
         // Sending all earthquake JSON data
         } else if (mg_match(hm->uri, mg_str("/api/earthquakes"), NULL)) {
 
@@ -115,6 +116,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             // Deleting earthquake JSON
             cJSON_Delete(earthquakes);
 
+
         // Starting up the Shelter table
         } else if (mg_match(hm->uri, mg_str("/api/shelters"), NULL)) {
 
@@ -126,6 +128,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
+
 
         // URL reply for the "Refresh Data" Button
         } else if (mg_match(hm->uri, mg_str("/api/refresh-shelters"), NULL)) {
@@ -140,7 +143,8 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
 
-        // Sending a sorted JSON table based on location
+
+        // Sending a sorted shelter JSON based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
 
             // Parsing the request for latitude and longitude to be used
@@ -153,7 +157,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             // Shelter data as a cJSON object
             cJSON *closeShelters = loadOpenShelters();
 
-            // Extract the state field
+            // Extract the coordinates
             double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
             double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
 
@@ -168,8 +172,22 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(closeShelters);
             cJSON_Delete(sortedShelters);
 
-        } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-location"), NULL)) {
 
+        // Sending a sorted JSON table based on location
+        } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-location"), NULL)) {
+            // Parsing the request for latitude and longitude to be used
+            cJSON *request = parseRequest(c, hm);
+            if (request == NULL) {
+                // Not continuing if the parse failed
+                return;
+            }
+
+            // Extract the coordinates
+            double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
+            double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
+
+            cJSON *earthquakes = loadEarthquakes(ALL_DAY, ALL);
+            cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude)
 
         } else  {
 
