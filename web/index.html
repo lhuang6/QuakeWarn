@@ -14,33 +14,31 @@
         <div id="map"></div>
 
         <div id="sidebar">
-            <h2>QuakeSafe Controls</h2>
-
             <!-- USER LOCATION -->
             <div class="sidebar-section">
                 <h3>Your Location</h3>
 
                 <form id="location-form">
 
-                    <label for="latitude-input">Latitude</label>
+                    <label for="submitLatitude">Latitude</label>
                     <input
                         type="number"
-                        id="latitude-input"
+                        id="submitLongitude"
                         step="any"
                         placeholder="e.g. 33.7490"
                         required
                     >
 
-                    <label for="longitude-input">Longitude</label>
+                    <label for="submitLongitude">Longitude</label>
                     <input
                         type="number"
-                        id="longitude-input"
+                        id="submitLongitude"
                         step="any"
                         placeholder="e.g. -84.3880"
                         required
                     >
 
-                    <button type="submit">Update Location</button>
+                    <button type="submit" id="submitLocation">Update Location</button>
 
                 </form>
             </div>
@@ -76,15 +74,6 @@
                 <div id="earthquake-table"></div>
             </div>
         </div>
-    </div>
-
-    <div>
-        <label for="submitLatitude">Latitude:</label>
-        <input type="text" id="submitLatitude" name="submitLatitude" placeholder="">
-        <label for="submitLongitude">Longitude:</label>
-        <input type="text" id="submitLongitude" name="submitLongitude" placeholder="">
-
-        <button id="submitLocation">Submit</button>
     </div>
 
     <button id="refreshButton">
