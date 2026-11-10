@@ -17,19 +17,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Load and render your GeoJSON data file
-/*fetch('all_day.geojson')
-    .then(response => response.json())
-    .then(geojsonData => {
-        const geojsonLayer = L.geoJSON(geojsonData).addTo(map);
-
-        // Zoom map to fit data bounds
-        if (geojsonLayer.getBounds().isValid()) {
-            map.fitBounds(geojsonLayer.getBounds());
-        }
-    })
-    .catch(error => console.error('Error loading GeoJSON:', error));*/
-
 // Listens for when the HTML page is opened up
 document.addEventListener("DOMContentLoaded", async () => {
 
