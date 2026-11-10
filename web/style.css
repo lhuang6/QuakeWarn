@@ -68,12 +68,6 @@ body {
     box-sizing: border-box;
 }
 
-.sidebar button {
-    width: 100%;
-    padding: 10px;
-    cursor: pointer;
-}
-
 .location-inputs {
     display: flex;
     align-items: center;
@@ -89,11 +83,11 @@ body {
 .input-fields label {
     margin: 15px;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 21px;
 }
 
 .input-fields input {
-    margin: 20px;
+    margin: 10px;
     border: 1px solid #cbd5e1;
     border-radius: 5px;
     height: 30px;
@@ -102,7 +96,7 @@ body {
 }
 
 #submitLocation {
-    padding: 12px 16px;
+    margin-right: 10px;
     font-size: 15px;
     font-weight: 700;
     border: none;
