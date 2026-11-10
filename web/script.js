@@ -227,12 +227,13 @@ tableSelect.addEventListener("change", function() {
             <option value="impact">Impact</option>
         `;
 
-        earthquakeTable.redraw(true);
+        quakeTable.redraw(true);
     }
 });
 
+// Sorting the table based on different dropdowns
 sortSelect.addEventListener("change", async () => {
-
+    
     if (sortSelect.value === "Distance") {
         if (tableSelect.value === "shelters") {
             await table.setData("/api/sort-shelter-distance");
