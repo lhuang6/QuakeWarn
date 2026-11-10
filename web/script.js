@@ -96,11 +96,37 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Labeling the marker with the shelter name
         onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.shelter_name);
 
-            layer.on("click", function(event) {
+            // Getting address and coordinates
+            const latlng = layer.getLatLng();
+            let fullAddress = `${feature.properties.address_1}, ${feature.properties.city}, ${feature.properties.state} ${feature.properties.zip}`;
 
-            });
+            // Checking if distance is null then rounding the number
+            // Can't round a null number
+            let distance = null;
+            if (feature.geometry.distance != null) {
+                distance = feature.geometry.distance.toFixed(2);
+            }
+
+            // Shelter information when the marker is clicked
+            const popupContent = `
+                <div class="earthquake-popup">
+                    <h2>${feature.properties.shelter_name}</h2>
+
+                    <hr>
+
+                    <p style="font-size: 14px;"><strong>Address:</strong> ${fullAddress}</p>
+                    <p style="font-size: 14px;"><strong>Latitude:</strong> ${latlng.lat.toFixed(2)}</p>
+                    <p style="font-size: 14px;"><strong>Longitude:</strong> ${latlng.lng.toFixed(2)}</p>
+                    <p style="font-size: 14px;"><strong>Longitude:</strong> ${feature.properties.shelter_status_code}</p>
+
+                    <hr>
+
+                    <p style="font-size: 14px;"><strong>Distance:</strong> ${distance} km</p>
+                </div>
+            `;
+
+            layer.bindPopup(popupContent);
         }
     }).addTo(map);
 
