@@ -1,7 +1,8 @@
 let shelterLayer;
 let quakeLayer;
 let quakeTable;
-let shelterTable
+let shelterTable;
+let locationMarker;
 
 // Custom color table for earthquake markers
 function getMagnitudeColor(magnitude) {
@@ -250,7 +251,7 @@ submitLocation.addEventListener("click", async (event) => {
         quakeLayer.clearLayers();
         quakeLayer.addData(quakeData);
 
-        L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
+        locationMarker = L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
 
     } catch (error) {
         console.error("Failed to send data:", error.message);
