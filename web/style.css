@@ -24,7 +24,7 @@ html, body {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: white;
 }
 
 .container {
@@ -41,7 +41,7 @@ body {
 #sidebar {
     width: 700px;
     margin-right: 20px;
-    background: white;
+    overflow-y: auto;
 }
 
 .location-inputs {
