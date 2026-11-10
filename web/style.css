@@ -41,13 +41,14 @@ body {
 .sidebar {
     width: 300px;
     padding: 20px;
+    margin-top: 20px;
     background: white;
     border-right: 1px solid #ddd;
     overflow-y: auto;
 }
 
 .sidebar-section {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .sidebar-section h3 {
