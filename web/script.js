@@ -129,8 +129,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Getting latitude and longitude
             const latlng = layer.getLatLng();
 
-            const distance = null;
-            if (feature.geometry.distance != null)
+            let distance = null;
+            if (feature.geometry.distance != null) {
+                distance = feature.geometry.distance.toFixed(2);
+            }
 
             const popupContent = `
                 <div class="earthquake-popup">
@@ -144,7 +146,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     <hr>
 
-                    <p style="font-size: 14px;"><strong>Distance:</strong> ${feature.geometry.distance} km</p>
+                    <p style="font-size: 14px;"><strong>Distance:</strong> ${distance} km</p>
                 </div>
             `;
 
