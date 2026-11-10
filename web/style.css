@@ -74,6 +74,47 @@ body {
     cursor: pointer;
 }
 
+.location-inputs {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.input-fields {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 5px;
+}
+
+.input-fields label {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.input-fields input {
+    padding: 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#submitLocation {
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+#submitLocation:hover {
+    background-color: #1d4ed8;
+}
+
 #earthquake-table {
     height: 650px;
 }
