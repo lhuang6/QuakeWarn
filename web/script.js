@@ -264,6 +264,8 @@ sortSelect.addEventListener("change", async () => {
     // If the user wants to sort any table by closest distance
     if (sortSelect.value === "Distance") {
 
+        console.log("Sorting by distance");
+
         // Latitude and Longitude specified by the user
         const latitude = Number(
             document.getElementById("submitLatitude").value
@@ -275,7 +277,7 @@ sortSelect.addEventListener("change", async () => {
         // If the user is on a shelter table and wants to sort by distance
         if (tableSelect.value === "shelters") {
 
-            // Response from C backend
+            // Request and Response from C backend
             const shelterResponse = await submitCoordinates("/api/sort-shelter-location", latitude, longitude);
             const shelterData = await shelterResponse.json();
 
@@ -285,7 +287,7 @@ sortSelect.addEventListener("change", async () => {
         // If the user is on an earthquake table and wants to sort by distance
         if (tableSelect.value === "earthquakes") {
 
-            // Response from C backend
+            // Request and Response from C backend
             const quakeResponse = await submitCoordinates("/api/sort-earthquake-location", latitude, longitude);
             const quakeData = await quakeResponse.json();
 
@@ -293,7 +295,19 @@ sortSelect.addEventListener("change", async () => {
         }
     }
 
-    if (sortSelect.value === "Distance")
+    // If the user wants to sort earthquakes by most impactful
+    if (sortSelect.value === "Impact") {
+        // Request and Response from C backend
+        const quakeResponse = await submitCoordinates("/api/sort-earthquake-impact", latitude, longitude);
+        const quakeData = await quakeResponse.json();
+
+        quakeTable.setData(quakeData);
+    }
+
+    // If the user wants to sort earthquakes by magnitude
+    if (sortSelect.value === "Magnitude") {
+        quakeTable.setData("/api/sort-earthquake-magnitude");
+    }
 });
 
 const refreshButton = document.getElementById("refreshButton");
