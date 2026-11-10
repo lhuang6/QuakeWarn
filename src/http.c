@@ -45,7 +45,10 @@ void sendJson(struct mg_connection *c, int status, cJSON *json) {
  *
  * Parameters:
  *      c: Connection associated with the event
- *      hm: M
+ *      hm: HTTP request
+ *
+ * Returns:
+ *      request: Parsed cJSON object to be used
  */
 cJSON *parseRequest(struct mg_connection *c, struct mg_http_message *hm) {
     // Checking if the URL recieved is of type "POST"
@@ -139,6 +142,13 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
         // Sending a sorted JSON table based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-shelter-location"), NULL)) {
+
+            // Parsing the request for latitude and longitude to be used
+            cJSON *request = parseRequest(c, hm);
+            if (request == NULL) {
+                // Not continuing if the parse failed
+                return;
+            }
 
             // Shelter data as a cJSON object
             cJSON *closeShelters = loadOpenShelters();
