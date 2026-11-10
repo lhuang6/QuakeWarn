@@ -129,6 +129,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Getting latitude and longitude
             const latlng = layer.getLatLng();
 
+            const distance = null;
+            if (feature.geometry.distance != null)
+
             const popupContent = `
                 <div class="earthquake-popup">
                     <h2>${feature.properties.place}</h2>
@@ -136,8 +139,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <hr>
 
                     <p style="font-size: 14px;"><strong>Magnitude:</strong> ${feature.properties.mag}</p>
-                    <p style="font-size: 14px;"><strong>Latitude:</strong> ${latlng.lat}</p>
-                    <p style="font-size: 14px;"><strong>Longitude:</strong> ${latlng.lng}</p>
+                    <p style="font-size: 14px;"><strong>Latitude:</strong> ${latlng.lat.toFixed(2)}</p>
+                    <p style="font-size: 14px;"><strong>Longitude:</strong> ${latlng.lng.toFixed(2)}</p>
 
                     <hr>
 
@@ -238,7 +241,7 @@ submitLocation.addEventListener("click", async (event) => {
         // Updating layers with distances
         shelterLayer.clearLayers();
         shelterLayer.addData(shelterData);
-        
+
         quakeLayer.clearLayers();
         quakeLayer.addData(quakeData);
 
