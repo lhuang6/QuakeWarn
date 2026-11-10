@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <p style="font-size: 14px;"><strong>Address:</strong> ${fullAddress}</p>
                     <p style="font-size: 14px;"><strong>Latitude:</strong> ${latlng.lat.toFixed(2)}</p>
                     <p style="font-size: 14px;"><strong>Longitude:</strong> ${latlng.lng.toFixed(2)}</p>
-                    <p style="font-size: 14px;"><strong>Longitude:</strong> ${feature.properties.shelter_status_code}</p>
+                    <p style="font-size: 14px;"><strong>Status:</strong> ${feature.properties.shelter_status_code}</p>
 
                     <hr>
 
