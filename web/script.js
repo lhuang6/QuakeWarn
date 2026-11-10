@@ -36,9 +36,7 @@ tableSelect.addEventListener("change", function() {
         earthquakeContainer.style.display = "none";
 
         sortSelect.innerHTML = `
-            <option value="magnitude">Magnitude</option>
             <option value="distance">Distance</option>
-            <option value="impact">Impact</option>
         `;
 
         shelterTable.redraw(true);
@@ -49,7 +47,9 @@ tableSelect.addEventListener("change", function() {
         earthquakeContainer.style.display = "block";
 
         sortSelect.innerHTML = `
+            <option value="magnitude">Magnitude</option>
             <option value="distance">Distance</option>
+            <option value="impact">Impact</option>
         `;
 
         earthquakeTable.redraw(true);
