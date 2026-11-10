@@ -1,3 +1,7 @@
+let shelterLayer;
+let quakeLayer;
+let quakeTable;
+
 // Custom color table for earthquake markers
 function getMagnitudeColor(magnitude) {
     return magnitude >= 7 ? "#8000ff" :
@@ -80,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // Adding all shelter icons
-    const shelterLayer = L.geoJSON(shelterData, {
+    shelterLayer = L.geoJSON(shelterData, {
         // Pointing to the latitude and longitude from GeoJSON
         pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
@@ -105,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const earthquakeData = await earthquakes.json();
 
     // Adding each earthquake to the map
-    const quakeLayer = L.geoJSON(earthquakeData, {
+    quakeLayer = L.geoJSON(earthquakeData, {
         pointToLayer: function(feature, latlng) {
             let markerRadius = feature.properties.mag * 3 + 2;
 
@@ -208,12 +212,6 @@ submitLocation.addEventListener("click", async (event) => {
 
         // Receive sorted shelter data
         const data = await response.json();
-
-        // Update Tabulator table
-        shelterTable.setData(data);
-
-        shelterLayer.clearLayers();
-        shelterLayer.addData(data);
 
         L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
 

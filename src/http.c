@@ -150,6 +150,9 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(closeShelters);
             cJSON_Delete(sortedShelters);
 
+        } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-location"), NULL)) {
+            
+
         } else  {
 
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
