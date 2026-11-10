@@ -233,6 +233,10 @@ submitLocation.addEventListener("click", async (event) => {
         // Update Tabulator table
         shelterTable.setData(data);
 
+        shelterLayer.clearLayers();
+        shelterLayer.addData(data);
+
+
         L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
 
     } catch (error) {
