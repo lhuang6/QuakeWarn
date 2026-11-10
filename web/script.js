@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Adding the fields from the geojson into the table
         columns: [
             { title: "Place", field: "properties.place", widthGrow: 3 },
-            { title: "Mag", field: "properties.mag", width: 150, hozAlign: "center" },
+            { title: "Mag", field: "properties.mag", width: 150},
         ]
     });
 
@@ -233,8 +233,10 @@ tableSelect.addEventListener("change", function() {
 
 sortSelect.addEventListener("change", async () => {
 
-    if (sortSelect.value === "Magnitude") {
-        await table.setData("/api/)
+    if (sortSelect.value === "Distance") {
+        if (tableSelect.value === "shelters") {
+            await table.setData("/api/sort-shelter-distance");
+        }
     }
 });
 
