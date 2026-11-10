@@ -195,8 +195,8 @@ submitLocation.addEventListener("click", async (event) => {
             longitude: longitude
         };
 
-        // Send POST request to C backend
-        const response = await fetch("/api/sort-shelter-location", {
+        // Send coordinates to sort out shelters
+        const shelterResponse = await fetch("/api/sort-shelter-location", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -206,12 +206,27 @@ submitLocation.addEventListener("click", async (event) => {
         });
 
         // Check HTTP response
-        if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
+        if (!shelterResponse.ok) {
+            throw new Error(`HTTP error: ${shelterResponse.status}`);
         }
 
         // Receive sorted shelter data
-        const data = await response.json();
+        const shelterData = await shelterResponse.json();
+
+        // Send coordinates to sort earthquakes
+        const quakeResponse = await fetch("/api/sort-earthquake-location", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        // Check HTTP response
+        if (!quakeResponse.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
 
         // Update Tabulator table
         shelterTable.setData(data);
