@@ -297,7 +297,7 @@ sortSelect.addEventListener("change", async () => {
 
     // If the user wants to sort earthquakes by most impactful
     if (sortSelect.value === "impact") {
-        
+
         // Latitude and Longitude specified by the user
         const latitude = Number(
             document.getElementById("submitLatitude").value
@@ -319,11 +319,18 @@ sortSelect.addEventListener("change", async () => {
     }
 });
 
+
 const refreshButton = document.getElementById("refreshButton");
 
+// Downloading data again to refresh
 refreshButton.addEventListener("click", async () => {
 
-    await table.setData("/api/refresh-shelters");
+    if (tableSelect.value === "earthquakes") {
+        await shelterTable.setData("/api/refresh-earthquakes");
+    }
+    if (tableSelect.value === "shelters") {
+        await shelterTable.setData("/api/refresh-shelters");
+    }
 });
 
 const submitLocation = document.getElementById("submitLocation");

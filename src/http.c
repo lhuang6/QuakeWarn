@@ -129,6 +129,19 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
 
+        // URL reply for the "Refresh Data" Button
+        } else if (mg_match(hm->uri, mg_str("/api/refresh-earthquakes"), NULL)) {
+            downloadEarthquakes(ALL_DAY, ALL);
+
+            // Loads the open shelters file
+            cJSON *earthquakes = loadEarthquakes(ALL_DAY, ALL);
+
+            // Sends JSON data to JavaScript
+            sendJson(c, 200, earthquakes);
+
+            // Freeing up memory taken by cJSON object
+            cJSON_Delete(earthquakes);
+
 
         // URL reply for the "Refresh Data" Button
         } else if (mg_match(hm->uri, mg_str("/api/refresh-shelters"), NULL)) {
@@ -172,6 +185,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(closeShelters);
             cJSON_Delete(sortedShelters);
 
+
         // Sending a sorted JSON table based on earthquake magnitude
         } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-magnitude"), NULL)) {
 
@@ -184,6 +198,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             cJSON_Delete(earthquakes);
             cJSON_Delete(sortedEarthquakes);
+
 
         // Sending a sorted JSON table based on location
         } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-location"), NULL)) {
@@ -209,6 +224,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(request);
             cJSON_Delete(earthquakes);
             cJSON_Delete(sortedEarthquakes);
+
 
         // Sending a sorted JSON table based on location and magnitude
         } else if (mg_match(hm->uri, mg_str("/api/sort-earthquake-impact"), NULL)) {
@@ -236,8 +252,8 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             cJSON_Delete(earthquakes);
             cJSON_Delete(sortedEarthquakes);
 
-        } else  {
 
+        } else  {
             struct mg_http_serve_opts opts = {.root_dir = "./web", .fs = &mg_fs_posix};
             mg_http_serve_dir(c, hm, &opts);  // For all other URLs, Serve static files
         }
