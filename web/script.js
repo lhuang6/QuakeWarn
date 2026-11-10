@@ -261,12 +261,39 @@ tableSelect.addEventListener("change", function() {
 // Sorting the table based on different dropdowns
 sortSelect.addEventListener("change", async () => {
 
-    // 
+    // If the user wants to sort any table by closest distance
     if (sortSelect.value === "Distance") {
+
+        // Latitude and Longitude specified by the user
+        const latitude = Number(
+            document.getElementById("submitLatitude").value
+        );
+        const longitude = Number(
+            document.getElementById("submitLongitude").value
+        );
+
+        // If the user is on a shelter table and wants to sort by distance
         if (tableSelect.value === "shelters") {
-            await table.setData("/api/sort-shelter-distance");
+
+            // Response from C backend
+            const shelterResponse = await submitCoordinates("/api/sort-shelter-location", latitude, longitude);
+            const shelterData = await shelterResponse.json();
+
+            shelterTable.setData(shelterData);
+        }
+
+        // If the user is on an earthquake table and wants to sort by distance
+        if (tableSelect.value === "earthquakes") {
+
+            // Response from C backend
+            const quakeResponse = await submitCoordinates("/api/sort-earthquake-location", latitude, longitude);
+            const quakeData = await quakeResponse.json();
+
+            quakeTable.setData(quakeData);
         }
     }
+
+    if (sortSelect.value === "Distance")
 });
 
 const refreshButton = document.getElementById("refreshButton");
