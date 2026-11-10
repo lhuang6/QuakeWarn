@@ -129,11 +129,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             // Getting latitude and longitude
             const latlng = layer.getLatLng();
 
+            // Checking if distance is null then rounding the number
+            // Can't round a null number
             let distance = null;
             if (feature.geometry.distance != null) {
                 distance = feature.geometry.distance.toFixed(2);
             }
 
+            // Earthquake information when the marker is clicked
             const popupContent = `
                 <div class="earthquake-popup">
                     <h2>${feature.properties.place}</h2>
