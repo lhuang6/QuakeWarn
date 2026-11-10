@@ -30,16 +30,18 @@
 
             <div class="sidebar-section">
                 <div class="select-fields">
-                    <label for="table-select">Select Data</label>
+                    <label for="table-select">Select Data:</label>
                     <select id="table-select">
                         <option value="shelters">Shelters</option>
                         <option value="earthquakes">Earthquakes</option>
                     </select>
 
-                    <label for="sort-select">Sort By</label>
+                    <label for="sort-select">Sort By:</label>
                     <select id="sort-select">
                         <option value="distance">Distance</option>
                     </select>
+
+                    <button id="refreshButton">Refresh Data</button>
                 </div>
             </div>
 
@@ -52,10 +54,6 @@
             </div>
         </div>
     </div>
-
-    <button id="refreshButton">
-        Refresh Data
-    </button>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
