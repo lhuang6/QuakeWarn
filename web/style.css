@@ -74,26 +74,6 @@ body {
     box-sizing: border-box;
 }
 
-#submitLocation {
-    font-size: 15px;
-    font-weight: 700;
-    height: 30px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: none;
-    border-radius: 6px;
-    background-color: #2563eb;
-    color: white;
-    cursor: pointer;
-}
-
-#submitLocation:hover {
-    background-color: #1d4ed8;
-}
-
 .select-fields {
     display: flex;
     flex: 1;
@@ -115,7 +95,8 @@ body {
     box-sizing: border-box;
 }
 
-#refreshButton {
+#refreshButton,
+#submitLocation {
     font-size: 15px;
     font-weight: 700;
     height: 30px;
@@ -129,6 +110,11 @@ body {
     background-color: #2563eb;
     color: white;
     cursor: pointer;
+}
+
+#submitLocation:hover,
+#refreshButton:hover {
+    background-color: #1d4ed8;
 }
 
 #earthquake-table {
