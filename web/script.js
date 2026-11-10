@@ -23,6 +23,25 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
+const tableSelect = document.getElementById("table-select");
+
+const shelterContainer = document.getElementById("shelter-table-container");
+const earthquakeContainer = document.getElementById("earthquake-table-container");
+
+tableSelect.addEventListener("change", function() {
+
+    if (tableSelect.value === "shelters") {
+        shelterContainer.style.display = "block";
+        earthquakeContainer.style.display = "none";
+    }
+
+    else if (tableSelect.value === "earthquakes") {
+        shelterContainer.style.display = "none";
+        earthquakeContainer.style.display = "block";
+    }
+
+});
+
 // Listens for when the HTML page is opened up
 document.addEventListener("DOMContentLoaded", async () => {
 
