@@ -186,8 +186,17 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
             double latitude = cJSON_GetObjectItem(request, "latitude")->valuedouble;
             double longitude = cJSON_GetObjectItem(request, "longitude")->valuedouble;
 
+            // Sorting the earthquake data
             cJSON *earthquakes = loadEarthquakes(ALL_DAY, ALL);
-            cJSON *sortedShelters = sortClosestShelters(closeShelters, latitude, longitude)
+            cJSON *sortedEarthquakes = sortClosestShelters(earthquakes, latitude, longitude);
+
+            // Send a response back to JavaScript
+            sendJson(c, 200, sortedEarthquakes);
+
+            // Deleting all JSON objects to free up memory
+            cJSON_Delete(request);
+            cJSON_Delete(earthquakes);
+            cJSON_Delete(sortedEarthquakes);
 
         } else  {
 

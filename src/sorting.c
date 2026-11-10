@@ -92,8 +92,10 @@ void addDistances(cJSON *json, double lat, double lon) {
  */
 cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
 
+    // Creating a duplicate of the shelter data
     cJSON *duplicate = cJSON_Duplicate(json, true);
 
+    // Adding the distance to the JSON
     addDistances(duplicate, lat, lon);
 
     // Fetches earthquake features list
@@ -147,8 +149,11 @@ cJSON *sortClosestShelters(cJSON *json, double lat, double lon) {
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
 cJSON *sortEarthquakeImpact(cJSON *json, double latitude, double longitude){
-    // Sorting a duplicate of the actual json file
+    // Creating a duplicate of the shelter data
     cJSON *duplicate = cJSON_Duplicate(json, true);
+
+    // Adding the distance to the JSON
+    addDistances(duplicate, latitude, longitude);
 
     // Array of earthquakes
     cJSON *features = cJSON_GetObjectItem(duplicate, "features");
@@ -246,8 +251,11 @@ cJSON *sortEarthquakeImpact(cJSON *json, double latitude, double longitude){
  *      duplicate: A new pointer to a cJSON object that has all of the earthquakes sorted
  */
 cJSON *sortEarthquakeDistance(cJSON *json, double latitude, double longitude){
-    // Duplicating JSON to edit
+    // Creating a duplicate of the shelter data
     cJSON *duplicate = cJSON_Duplicate(json, true);
+
+    // Adding the distance to the JSON
+    addDistances(duplicate, latitude, longitude);
 
     // List of earthquakes
     cJSON *features = cJSON_GetObjectItem(duplicate, "features");
@@ -359,10 +367,10 @@ void PrintDistance(cJSON *json){
         cJSON *features = cJSON_GetObjectItem(json, "features");
         //For the method i did for choice, D is fro distance and I is for Impact
         if (type == 'D'){//srting from least to most distance
-            sortingDistance(json, Userlat, Userlon);
+            sortEarthquakeDistance(json, Userlat, Userlon);
         }
         if(type == 'I'){//sorting from highest to lowest impact
-            sortingImpact(json, Userlat, Userlon);
+            sortEarthquakeImpact(json, Userlat, Userlon);
         }
 
         for (int i = 0; i < cJSON_GetArraySize(features); i++){
