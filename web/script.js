@@ -251,6 +251,10 @@ submitLocation.addEventListener("click", async (event) => {
         quakeLayer.clearLayers();
         quakeLayer.addData(quakeData);
 
+        // Removing the old marker if already set prior
+        if (locationMarker) {
+            locationMarker.remove();
+        }
         locationMarker = L.marker([latitude, longitude]).addTo(map).bindPopup("Your Location").openPopup();
 
     } catch (error) {
