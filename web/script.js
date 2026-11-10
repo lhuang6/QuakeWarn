@@ -23,6 +23,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
+// Submit coordinates to C backend
 async function submitCoordinates(url, latitude, longitude) {
 
     // Create JSON payload
@@ -272,16 +273,6 @@ const refreshButton = document.getElementById("refreshButton");
 refreshButton.addEventListener("click", async () => {
 
     await table.setData("/api/refresh-shelters");
-
-    // Requesting a new URL request for the C backend
-    // const response = await fetch("/api/refresh-shelters");
-
-    // Response from the backend
-    // const data = await response.json();
-
-    // Update HTML
-    //document.getElementById("magnitude").textContent = `Magnitude: ${data.magnitude}`;
-    // document.getElementById("location").textContent = `Location: ${data.location}`;
 });
 
 const submitLocation = document.getElementById("submitLocation");
