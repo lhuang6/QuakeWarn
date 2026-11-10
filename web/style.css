@@ -40,7 +40,7 @@ body {
 
 .sidebar {
     width: 300px;
-    padding: 20px;
+    padding: 30px;
     margin-top: 20px;
     background: white;
     border-right: 1px solid #ddd;
@@ -53,46 +53,32 @@ body {
     gap: 12px;
 }
 
-.input-fields {
-    display: flex;
-    flex: 1;
-    gap: 0px;
-}
-
-.input-fields label {
-    margin-top: 15px;
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.input-fields input {
-    margin: 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 5px;
-    height: 30px;
-    width: 100px;
-    box-sizing: border-box;
-}
-
+.input-fields,
 .select-fields {
     display: flex;
-    flex: 1;
-    gap: 0px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    margin-top: 10px;
 }
 
+.input-fields label,
 .select-fields label {
-    margin-top: 15px;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
+    margin: 0;
+    min-width: 85px;
 }
 
+.input-fields input,
 .select-fields select {
-    margin: 10px;
+    height: 34px;
+    padding: 5px 8px;
     border: 1px solid #cbd5e1;
     border-radius: 5px;
-    height: 30px;
-    width: 100px;
     box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
 }
 
 #refreshButton,
