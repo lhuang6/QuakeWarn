@@ -115,6 +115,22 @@ body {
     box-sizing: border-box;
 }
 
+#refreshButton {
+    font-size: 15px;
+    font-weight: 700;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 6px;
+    background-color: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
 #earthquake-table {
     height: 650px;
 }
