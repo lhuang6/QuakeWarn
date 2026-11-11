@@ -1,3 +1,8 @@
+/**
+ * All the methods for downloading earthquake or shelter GeoJSON into the project. All of the
+ * GeoJSON is downloaded in /data/
+ */
+
 #include <stdio.h>
 #include <curl/curl.h>
 #include "download.h"
