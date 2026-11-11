@@ -39,9 +39,11 @@ cJSON *parseRequest(struct mg_connection *c, struct mg_http_message *hm);
  *      - "/api/earthquakes": Downloads earthquake data and sends the JSON
  *      - "/api/shelters": Downloads shelter data and sends the JSON
  *      - "/api/refresh-earthquakes": Re-downloads shelter data and sends an updated JSON
- *      - "/api/sort-shelter-location": Recieves a JSON with latitude and longitude and sorts shelters
- *                                      from least to farthest distance
- *      - "/api/sort-earthquake-magnitude":
+ *      - "/api/sort-shelter-location": Returns a sorted shelter JSON from closest to farthest distance.
+ *                                      Must recieve a JSON that only contains "latitude" and "longitude"
+ *      - "/api/sort-earthquake-magnitude": Returns a sorted earthquake JSON from closest to farthest.
+ *                                           Must recieve a JSON that only contains "latitude" and "longitude"
+ *      - "/api/sort-earthquake-impact": 
  *
  * Parameters:
  *      c: Connection associated with the event
