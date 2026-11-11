@@ -1,5 +1,7 @@
-// Main file
-// djgsahhfujgfdjghdsjfhj
+/**
+ * Main method run for the compiled binary. Runs a mongoose web server on http://localhost:8000 to recieve and send data to the
+ * JavaScript and HTML interface.
+ */
 
 #include <stdio.h>
 #include "cJSON.h"
