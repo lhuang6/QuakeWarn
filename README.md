@@ -4,8 +4,12 @@ parsing logic is written and C, and a web server is created with the help of Mon
 
 ![Main Interface](images/interface.png)
 
-## Getting Started
-## First, Download libcurl
+## Installation
+
+### Prerequisites
+    C
+
+
 To download libcurl (a third party library), run
 ```bash
 sudo update
