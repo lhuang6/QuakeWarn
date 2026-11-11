@@ -7,7 +7,10 @@ parsing logic is written and C, and a web server is created with the help of Mon
 ## Installation
 
 ### Prerequisites
-    C
+    - Clang
+    - Make
+    - Git
+    - 
 
 
 To download libcurl (a third party library), run
