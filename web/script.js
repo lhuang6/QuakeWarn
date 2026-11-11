@@ -1,9 +1,13 @@
-// Defining layers and tables
-let shelterLayer;   // Layer on leaflet map with all 
-let quakeLayer;
-let quakeTable;
-let shelterTable;
-let locationMarker;
+/**
+ * JavaScript code for handling between backend and the interface. This uses two external libaries: Tabulator - for JSON tables,
+ * and Leaflet for the map.
+ */
+
+let shelterLayer;   // Layer on leaflet map with all shelter markers
+let quakeLayer;     // Layer on leaflet map with all earthquake markers
+let quakeTable;     // Tabulator table containing all earthquakes
+let shelterTable;   // Tabulator table containing all shelters
+let locationMarker; // Marker for current location
 
 // Custom color table for earthquake markers
 function getMagnitudeColor(magnitude) {
@@ -16,6 +20,7 @@ function getMagnitudeColor(magnitude) {
                            "#0000ff";
 }
 
+// Leaflet map
 const map = L.map('map').setView([37.8, -96], 4);
 
 // Add OpenStreetMap base tiles
@@ -23,6 +28,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
+
 
 // Submit coordinates to C backend
 async function submitCoordinates(url, latitude, longitude) {
