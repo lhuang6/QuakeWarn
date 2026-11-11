@@ -1,9 +1,10 @@
 # QuakeWarn
-C Program that sorts strongest earthquakes from USGS and looks for nearby shelters.
+QuakeWarn is a C program that downloads and parses shelter and earthquake data into an HTML interface for visualizing. The main sorting and
+parsing logic is written and C, and a web server is created with the help of Mongoose to send data to the frontend.
 
+![Main Interface](images/interface.png)
 
-
-# How to Run
+## Getting Started
 ## First, Download libcurl
 To download libcurl (a third party library), run
 ```bash
