@@ -5,29 +5,6 @@
 #include <unistd.h>
 #include "cJSON.h"
 
-/**
- * Converts the time-range enum and the minimum magnitude into the JsonData struct that
- * stores the links and the paths to a JSON file.
- *
- * Parameters:
- *     time: Time period of the earthquakes, of datatype enum DataTime
- *          - ALL_HOUR = One hour
- *          - ALL_DAY = One day
- *          - ALL_WEEK = Seven days
- *          - ALL_MONTH = Thirty days
- *     magnitude: Minimum magnitude included in the data
- *          - SIGNIFICANT = Significant earthquakes or 7.5+
- *          - M4_5 = Magnitude 4.5+
- *          - M2_5 = Magnitude 2.5+
- *          - M1_0 = Magnitude 1.0+
- *          - ALL = All earthquakes
- *
- * Returns:
- *      data: JsonData struct
- *          - jsonFileName = Name of the JSON file on the disk and web
-            - jsonDiskName = Full path to the JSON file on the disk
-            - jsonLink = Link to the JSON file to download
- */
 JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude) {
     // Characters used in the GeoJSON link based on time-period and minimum magnitude
     char const *timeLink;   // Characters used for the time-period
@@ -92,32 +69,11 @@ JsonData enumToLink(enum DataTime time, enum DataMagnitude magnitude) {
     return data;
 }
 
-/**
- * Used by libcurl to write data onto the disk.
- *
- * Parameters:
- *      data: A pointer for all of the data to download
- *      size: How much memory each item to download is
- *      nmemb: How many items there are to download
- *      userdata: Pointer of additional user specified data; in this case, it's the saved file.
- * Returns:
- *      written: Total size of everything written with fwrite()
- */
 size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata) {
     size_t written = fwrite(data, size, nmemb, (FILE *)userdata);
     return written;
 }
 
-/**
- * Method for downloading and updating the json file on the disk. Run it again to update it to the
- * most recent time.
- *
- * Parameters:
- *      jsonPaths: JsonData struct
- *          - jsonFileName = Name of the JSON file on the disk and web
-            - jsonDiskName = Full path to the JSON file on the disk
-            - jsonLink = Link to the JSON file to download
- */
 void downloadJson(JsonData jsonPaths) {
     // Creating or replacing file
     // Able to replace the file for updating it to a more recent time
@@ -162,22 +118,6 @@ void downloadJson(JsonData jsonPaths) {
     curl_global_cleanup();
 }
 
-/**
- * Method for downloading the earthquake GeoJSON data onto the disk.
- *
- * Parameters:
- *      time: Time period of the earthquakes, of datatype enum DataTime
- *          - ALL_HOUR = One hour
- *          - ALL_DAY = One day
- *          - ALL_WEEK = Seven days
- *          - ALL_MONTH = Thirty days
- *      magnitude: Minimum magnitude included in the data
- *          - SIGNIFICANT = Significant earthquakes or 7.5+
- *          - M4_5 = Magnitude 4.5+
- *          - M2_5 = Magnitude 2.5+
- *          - M1_0 = Magnitude 1.0+
- *          - ALL = All earthquakes
- */
 void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     // JsonData struct that stores the download link and path to JSON file
     JsonData jsonPaths = enumToLink(time, magnitude);
@@ -185,23 +125,6 @@ void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude) {
     downloadJson(jsonPaths);
 }
 
-/**
- * Method for downloading the shelter GeoJSON from FEMA onto the disk.
- *
- * This uses the super long http link from FEMA's query. The data included in the query is:
- *      - shelter_name: Name of the shelter
- *      - address_1: Street of the shelter
- *      - city: City of the shelter
- *      - zip: Zip code to the shelter
- *      - org_organization_name: Name of the shelter's organization
- *      - org_address: Address to the organization
- *      - org_city: City to the organization
- *      - org_state: State to the organization
- *      - org_hours_of_operation: Organization's hours of operation
- *      - shelter_status_code: Status of the shelter
- *      - shelter_open_date: When the shelter opened
- *      - shelter_closed_date: When the shelter closed
- */
 void downloadShelters() {
 
     // Downloading shelter data queries 0-4 from FEMA
@@ -244,15 +167,6 @@ void downloadShelters() {
     }
 }
 
-/**
- * Loads any earthquake GeoJSON file.
- *
- * Parameters:
- *     filePath: A pointer to the path of the file on the disk
- *
- * Returns:
- *     json: A pointer to the cJSON object for the USGS GeoJSON data
-*/
 cJSON *loadJson(char *filePath) {
     // Opens the file downloaded from USGS
     FILE *file = fopen(filePath, "r");
@@ -316,22 +230,6 @@ cJSON *loadJson(char *filePath) {
     return json;
 }
 
-/**
- * Updates the JSON data every one minute for new earthquakes
- *
- * Parameters:
- *     time: Time period of the earthquakes, of datatype enum DataTime
- *          - ALL_HOUR = One hour
- *          - ALL_DAY = One day
- *          - ALL_WEEK = Seven days
- *          - ALL_MONTH = Thirty days
- *     magnitude: Minimum magnitude included in the data
- *          - SIGNIFICANT = Significant earthquakes or 7.5+
- *          - M4_5 = Magnitude 4.5+
- *          - M2_5 = Magnitude 2.5+
- *          - M1_0 = Magnitude 1.0+
- *          - ALL = All earthquakes
-*/
 void pollData(enum DataTime time, enum DataMagnitude magnitude){
 
     // Fix later to stop once program is turned off
