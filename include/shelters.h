@@ -1,4 +1,6 @@
-// Header for the shelter.c source code
+/**
+ * Parsing shelter GeoJSON data from FEMA
+ */
 
 #ifndef SHELTERS
 #define SHELTERS
@@ -14,9 +16,18 @@ typedef struct {
     cJSON *openShelters;    // All open shelters
     cJSON *closedShelters;  // Closed shelters
     cJSON *fullShelters;    // Shelters at full capacity
-    cJSON *alertShelters;   // Ones that are alert
+    cJSON *alertShelters;   // Alert Shelters
 } allShelters;
 
+/**
+ * Checks the shelter GeoJSON for any errors with the formatting or data.
+ *
+ * Parameters:
+ *      json: A pointer to the cJSON object for the FEMA GeoJSON Data.
+ *
+ * Returns:
+ *      bool: A boolean on whether the GeoJSON file has any errors or not
+ */
 bool checkShelters(cJSON *json);
 
 allShelters loadShelters();

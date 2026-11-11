@@ -1,4 +1,6 @@
-// Calculating distance between shelters and earthquakes
+/**
+ * Parsing shelter GeoJSON data from FEMA
+ */
 
 #include "shelters.h"
 #include "download.h"
@@ -9,15 +11,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-/**
- * Checks the shelter GeoJSON for any errors with the formatting or data.
- *
- * Parameters:
- *      json: A pointer to the cJSON object for the FEMA GeoJSON Data.
- *
- * Returns:
- *      bool: A boolean on whether the GeoJSON file has any errors or not
- */
 bool checkShelters(cJSON *json) {
 
     // Checking if earthquake data has an object named "features"
