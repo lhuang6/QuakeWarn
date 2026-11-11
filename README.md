@@ -3,6 +3,7 @@ QuakeWarn is a C program that downloads and parses shelter and earthquake data i
 parsing logic is written and C, and a web server is created with the help of Mongoose to send data to the frontend.
 
 ![Main Interface](images/interface.png)
+![Side Tables](images/Tables.png)
 
 ## Installation
 
@@ -12,6 +13,7 @@ parsing logic is written and C, and a web server is created with the help of Mon
     - Clang
     - Make
     - Git
+    - npm
 
 ### Libraries
 
@@ -22,19 +24,21 @@ sudo update
 sudo apt install libcurl4-openssl-dev pkg-config
 ```
 
-
-
-
-
-
-## Compiling
-Make the project using
+Then clone the repository into a directory and install all JavaScript libararies:
 
 ```bash
-make
+git clone https://github.com/lhuang6/QuakeWarn.git
+npm install
 ```
-And run
+
+### Compiling and running
+
+Compile the final binary for the web server and run:
 
 ```bash
+make clean
+make
 ./quakewarn
 ```
+
+Open up http://localhost:8000 to see the final interface!
