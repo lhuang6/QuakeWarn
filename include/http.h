@@ -7,6 +7,7 @@
 #define HTTP
 
 #include "mongoose.h"
+#include "cJSON.h"
 
 /**
  * Sends shelter JSON data to JavaScript for the interface to use.
