@@ -35,8 +35,13 @@ cJSON *parseRequest(struct mg_connection *c, struct mg_http_message *hm);
  * the mongoose listening and polling loop.
  *
  * API endpoints used for the frontend:
- *       - "/api/hello": Test endpoint that sends a JSON that stores the status
- *
+ *      - "/api/hello": Test endpoint that sends a JSON that stores the status
+ *      - "/api/earthquakes": Downloads earthquake data and sends the JSON
+ *      - "/api/shelters": Downloads shelter data and sends the JSON
+ *      - "/api/refresh-earthquakes": Re-downloads shelter data and sends an updated JSON
+ *      - "/api/sort-shelter-location": Recieves a JSON with latitude and longitude and sorts shelters
+ *                                      from least to farthest distance
+ *      - "/api/sort-earthquake-magnitude":
  *
  * Parameters:
  *      c: Connection associated with the event

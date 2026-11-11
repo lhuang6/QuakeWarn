@@ -95,6 +95,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
         } else if (mg_match(hm->uri, mg_str("/api/shelters"), NULL)) {
 
             // Loads the open shelters file
+            downloadShelters();
             cJSON *closeShelters = loadOpenShelters();
 
             // Sends JSON data to JavaScript
@@ -102,6 +103,7 @@ void ev_handler(struct mg_connection *c, int ev, void *ev_data) {
 
             // Freeing up memory taken by cJSON object
             cJSON_Delete(closeShelters);
+
 
         // URL reply for the "Refresh Data" Button
         } else if (mg_match(hm->uri, mg_str("/api/refresh-earthquakes"), NULL)) {
