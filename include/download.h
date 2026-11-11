@@ -109,7 +109,10 @@ void downloadJson(JsonData jsonPaths);
 void downloadEarthquakes(enum DataTime time, enum DataMagnitude magnitude);
 
 /**
- * Method for downloading the shelter GeoJSON from FEMA onto the disk.
+ * Method for downloading the shelter GeoJSON from FEMA onto the disk. Four GeoJSON files
+ * are downloaded under "/data/" with each storing shelters based on their current status.
+ * "shelters_0.geojson" contains all open shelters, "shelters_1.geojson" closed shelters,
+ * "shelters_2.geojson" full shelters, and "shelters_3.geojson" all alert shelters.
  *
  * This uses the super long http link from FEMA's query. The data included in the query is:
  *      - shelter_name: Name of the shelter

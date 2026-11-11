@@ -1,4 +1,5 @@
-let shelterLayer;
+// Defining layers and tables
+let shelterLayer;   // Layer on leaflet map with all 
 let quakeLayer;
 let quakeTable;
 let shelterTable;

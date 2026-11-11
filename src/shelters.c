@@ -28,16 +28,6 @@ bool checkShelters(cJSON *json) {
     return true;
 }
 
-/**
- * Loads the shelter data from the disk and returns a pointer to the cJSON object.
- *
- * Returns:
- *     allShelters shelters: Open, Closed, Full, and Alert shelters in one struct:
- *          cJSON *openShelters - All open shelters
- *          cJSON *closedShelters - Closed shelters
- *          cJSON *fullShelters - Shelters at full capacity
- *          cJSON *alertShelters - Ones that are alert
-*/
 allShelters loadShelters() {
 
     // Setting all shelters to null
@@ -91,12 +81,6 @@ allShelters loadShelters() {
     return shelters;
 }
 
-/**
- * Loads the shelter data that only contains OPEN shelters
- *
- * Returns:
- *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
-*/
 cJSON *loadOpenShelters() {
 
     char filename[100];
@@ -118,12 +102,6 @@ cJSON *loadOpenShelters() {
     return json;
 }
 
-/**
- * Loads the shelter data that only contains CLOSED shelters
- *
- * Returns:
- *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
-*/
 cJSON *loadClosedShelters() {
 
     char filename[100];
@@ -145,12 +123,6 @@ cJSON *loadClosedShelters() {
     return json;
 }
 
-/**
- * Loads the shelter data that only contains FULL shelters
- *
- * Returns:
- *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
-*/
 cJSON *loadFullShelters() {
     char filename[100];
     snprintf(filename, sizeof(filename),
@@ -171,12 +143,6 @@ cJSON *loadFullShelters() {
     return json;
 }
 
-/**
- * Loads the shelter data that only contains ALERT shelters
- *
- * Returns:
- *     json: A pointer to the cJSON object for the FEMA GeoJSON object.
-*/
 cJSON *loadAlertShelters() {
     char filename[100];
     snprintf(filename, sizeof(filename),
@@ -197,16 +163,6 @@ cJSON *loadAlertShelters() {
     return json;
 }
 
-/**
- * Frees up the memory of all the cJSON objects inside the allShelters struct.
- *
- * Parameters:
- *      allShelters shelters: Open, Closed, Full, and Alert shelters in one struct:
- *          cJSON *openShelters - All open shelters
- *          cJSON *closedShelters - Closed shelters
- *          cJSON *fullShelters - Shelters at full capacity
- *          cJSON *alertShelters - Ones that are alert
- */
 void freeShelters(allShelters shelters) {
     // Using cJSON_Delete to delete all fields
     cJSON_Delete(shelters.openShelters);
@@ -215,13 +171,6 @@ void freeShelters(allShelters shelters) {
     cJSON_Delete(shelters.alertShelters);
 }
 
-/**
- * Prints out shelter names and their addresses.
- *
- * Parameters:
- *      json: A pointer to the cJSON object created for the GeoJSON data. Preferrably returned from loadShelters
- *      percent: double from 0 - 1 that states the percentage of the data to print out
-*/
 void printShelters(cJSON *json, double percent) {
 
     // Checks if the percentage to print is valid
