@@ -1,7 +1,6 @@
 /**
- * All the methods for downloading earthquake or shelter GeoJSON
- * into the project. All of the GeoJSON is downloaded in /data/
- *
+ * All the methods for downloading earthquake or shelter GeoJSON into the project. All of the
+ * GeoJSON is downloaded in /data/
  */
 
 #ifndef DOWNLOAD
@@ -92,7 +91,7 @@ size_t writeJson(char *data, size_t size, size_t nmemb, void *userdata);
 void downloadJson(JsonData jsonPaths);
 
 /**
- * Method for downloading the earthquake GeoJSON data onto the disk. 
+ * Method for downloading the earthquake GeoJSON data onto the disk.
  *
  * Parameters:
  *      time: Time period of the earthquakes, of datatype enum DataTime
