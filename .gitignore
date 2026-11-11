@@ -8,3 +8,5 @@ data/
 build/
 quakewarn
 test_json
+
+node_modules/
