@@ -7,17 +7,25 @@ parsing logic is written and C, and a web server is created with the help of Mon
 ## Installation
 
 ### Prerequisites
+
+    - Linux/GNU
     - Clang
     - Make
     - Git
-    - 
 
+### Libraries
 
-To download libcurl (a third party library), run
+Download libcurl for downloading data by running:
+
 ```bash
 sudo update
 sudo apt install libcurl4-openssl-dev pkg-config
 ```
+
+
+
+
+
 
 ## Compiling
 Make the project using
