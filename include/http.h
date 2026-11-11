@@ -31,7 +31,12 @@ void sendJson(struct mg_connection *c, int status, cJSON *json);
 cJSON *parseRequest(struct mg_connection *c, struct mg_http_message *hm);
 
 /**
- * Method for recieving new events for the webserver with mongoose
+ * Method for recieving new events for the webserver with mongoose. Use this method when running
+ * the mongoose listening and polling loop.
+ *
+ * API endpoints used for the frontend:
+ *       - "/api/hello": Test endpoint that sends a JSON that stores the status
+ *
  *
  * Parameters:
  *      c: Connection associated with the event
